@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">StudentAvater</string>
     <string name="dateText">hehe</string>
+
+    <string name="loginTextID">ID</string>
+    <string name="loginTextPass">Password</string>
+    <string name="loginText">Login</string>
+
+    <string name="tempLogo">tempLogo</string>
 </resources>
