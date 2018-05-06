@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActiviy {
+public class MainActivity extends AppCompatActivity {
 
     EditText username, password;
     Button login;
