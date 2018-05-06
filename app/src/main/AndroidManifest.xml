@@ -11,11 +11,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:configChanges="orientation|screenSize">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
+        <activity android:name=".GuideActivity" />
         <activity android:name=".NewPostActivity" />
         <activity android:name=".SignInActivity">
             <intent-filter>
@@ -24,34 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostDetailActivity"></activity>
-        <activity
-            android:name=".CustomAuthActivity"
-            android:label="@string/label_custom_auth" />
-        <activity
-            android:name=".PasswordlessActivity"
-            android:label="@string/label_passwordless"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <data
-                    android:scheme="https"
-                    android:host="auth.example.com"
-                    android:pathPrefix="/emailSignInLink" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".PhoneAuthActivity"
-            android:label="@string/label_phone_auth"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".AnonymousAuthActivity"
-            android:label="@string/label_anonymous_auth" />
-        <activity
-            android:name=".TwitterLoginActivity"
-            android:label="@string/label_twitter_login" />
+        <activity android:name=".PostDetailActivity" />
+        <activity android:name=".GeneralDetailActivity"
+            android:label="@string/guide_details"
+            android:theme="@style/AppTheme" />
 
         <!-- Facebook Configuration -->
         <meta-data

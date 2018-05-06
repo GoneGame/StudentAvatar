@@ -1,19 +1,3 @@
-/*
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package atk.studentavatar;
 
 import android.content.Intent;
@@ -25,18 +9,14 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import atk.studentavatar.fragment.GeneralFragment;
-import atk.studentavatar.fragment.MyPostsFragment;
-import atk.studentavatar.fragment.MyTopPostsFragment;
-import atk.studentavatar.fragment.RecentPostsFragment;
 
-public class  MainActivity extends BaseActivity {
+public class  GuideActivity extends BaseActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "GuideActivity";
 
     private FragmentPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
@@ -44,25 +24,18 @@ public class  MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_guide);
 
-        // Executes Toolbar code from BaseActivity.java
-//        activateMainToolbar();
+//        // Executes Toolbar code from BaseActivity.java
+//        activateToolbar();
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
                     new GeneralFragment(),
-                    new RecentPostsFragment(),
-//                    new MyPostsFragment(),
-//                    new MyTopPostsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_discover),
-                    getString(R.string.heading_recent),
-//                    getString(R.string.heading_my_posts),
-//                    getString(R.string.heading_my_top_posts),
-
+                    getString(R.string.heading_discover)
             };
             @Override
             public Fragment getItem(int position) {
@@ -83,13 +56,39 @@ public class  MainActivity extends BaseActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        // Button launches NewPostActivity
-        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
-            }
-        });
+//        // Button launches NewPostActivity
+//        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
+//            }
+//        });
+
+        //        You need to edit your activity's xml file.
+//                - go to activity.xml and search for NavigationView tag (check how it looks like in my code shown below)
+//        - inside the tag add this line: (android:id="@+id/nv1") and it should work afterwards (check how my code looks like below)
+//
+//                <android.support.design.widget.NavigationView
+//        android:id="@+id/nv1"
+//        android:layout_width="wrap_content"
+//        android:layout_height="match_parent"
+//        app:menu="@menu/navigation_menu"
+//        android:layout_gravity="start">
+//
+//</android.support.design.widget.NavigationView>
+//
+//                Of course make sure you don't forget to edit the java code in the above reply to match the id
+// of the menu item "case(R.id.ITEM_ID)" as well as the activity name you're trying to call "ACTIVITY_NAME.class"
+// (check my code below) and don't forget to add "break;" after every case (if you have more than one case) (check my code below)
+//
+//        switch (menuItem.getItemId()) {
+//            case(R.id.ITEM_ID):
+//                in = new Intent(getApplicationContext(),ACTIVITY_NAME.class);
+//                startActivity(in);
+//                break;
+//            case(R.id.ITEM2_ID):
+//                in = new Intent(getApplicationContext(),ACTIVITY2_NAME.class);
+//                startActivity(in);
     }
 
     @Override

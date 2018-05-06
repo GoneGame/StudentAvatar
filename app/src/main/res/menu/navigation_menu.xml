@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/nav_first_fragment"
+        android:title="Welcome to Swinburne!"
+        android:icon="@mipmap/swinburne"
+        android:checked="true"/>
+
+    <item android:id="@+id/nav_second_fragment"
+        android:title="New Student Checklist"
+        android:icon="@drawable/ic_schedule_black_24dp"/>
+
+    <item android:id="@+id/nav_third_fragment"
+        android:title="First-Year Orientation FAQ"
+        android:icon="@drawable/ic_question_answer_black_24dp"/>
+    </group>
+
+    <!--<item android:title="Sub items">-->
+        <!--<menu>-->
+            <!--<group android:checkableBehavior="single">-->
+                <!--<item-->
+                    <!--android:icon=""-->
+                    <!--android:title="Sub item 1" />-->
+                <!--<item-->
+                    <!--android:icon=""-->
+                    <!--android:title="Sub item 2" />-->
+            <!--</group>-->
+        <!--</menu>-->
+    <!--</item>-->
+</menu>

@@ -303,6 +303,5 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 mDatabaseReference.removeEventListener(mChildEventListener);
             }
         }
-
     }
 }
