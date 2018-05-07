@@ -3,6 +3,7 @@ package student.studentavater;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Log.d("1", "in on click");
                 stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -56,8 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             {
                                 //add the action to open new activity and toast or log message
                                 Toast.makeText(MainActivity.this, "Successfully login", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, MainMenu.class));
-
+                                startActivity(new Intent(getApplicationContext(), MainMenu.class));
                             }
                             else
                             {
