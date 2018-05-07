@@ -1,10 +1,12 @@
 package student.studentavater;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -53,10 +55,14 @@ public class MainActivity extends AppCompatActivity {
                             if(jsonObject.names().get(0).equals("success"))
                             {
                                 //add the action to open new activity and toast or log message
+                                Toast.makeText(MainActivity.this, "Successfully login", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this, MainMenu.class));
+
                             }
                             else
                             {
                                 //show error
+                                Toast.makeText(MainActivity.this, "Error" + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
