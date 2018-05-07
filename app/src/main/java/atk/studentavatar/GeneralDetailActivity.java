@@ -71,9 +71,6 @@ public class GeneralDetailActivity extends BaseActivity {
         mLocationView = findViewById(R.id.general_location);
         mDescriptionView = findViewById(R.id.general_description);
 
-//        // Executes Toolbar code from BaseActivity.java
-//        activateToolbar();
-
         // Set a Toolbar to replace the ActionBar.
         toolbar = findViewById(R.id.nav_actionbar);
         setSupportActionBar(toolbar);
@@ -234,37 +231,4 @@ public class GeneralDetailActivity extends BaseActivity {
         }
 
     }
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-
-//        if (id == R.id.nav_welcome) {
-                    // Set the fragment initially
-//            Intent intent = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//            intent.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, mGeneralKey);
-//            startActivity(intent);
-
-//        } else if (id == R.id.nav_checklist) {
-//            Intent intent = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//            intent.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, mGeneralKey);
-//            startActivity(intent);
-//
-//        } else if (id == R.id.nav_faq) {
-//
-//        }
-
-//                switch (item.getItemId()) {
-//                    case (R.id.nav_welcome):
-//                        Intent intent = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//                        startActivity(intent);
-//                        break;
-//                    case (R.id.nav_checklist):
-//                        Intent intent2 = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//                        startActivity(intent2);
-//                }
-
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 }

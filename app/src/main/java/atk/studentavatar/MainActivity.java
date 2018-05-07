@@ -47,7 +47,7 @@ public class  MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         // Executes Toolbar code from BaseActivity.java
-//        activateMainToolbar();
+        activateMainToolbar();
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {

@@ -59,6 +59,9 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:4.32.0'
     implementation 'com.android.support:customtabs:27.1.1'
 
+    // Firebase Dynamic Links
+    implementation 'com.google.firebase:firebase-invites:15.0.1'
+
     // Firebase Remote Config
     implementation 'com.google.firebase:firebase-config:15.0.0'
 
