@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        MySingletonVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 }
