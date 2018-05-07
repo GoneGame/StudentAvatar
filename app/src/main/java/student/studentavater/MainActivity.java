@@ -1,6 +1,7 @@
 package student.studentavater;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,75 +21,67 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText username, password;
-    private Button login;
-    private RequestQueue requestQueue;
-    private static final String URL = "http://172.17.8.47/websiteapp/php/login_app.php";
-    private StringRequest stringRequest;
+    private EditText edit_username, edit_password;
+    private Button btn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = (EditText)findViewById(R.id.editLogin);
-        password = (EditText)findViewById(R.id.editPass);
-        login = (Button)findViewById(R.id.buttonLogin);
+        edit_username = (EditText)findViewById(R.id.editLogin);
+        edit_password = (EditText)findViewById(R.id.editPass);
+        btn_login = (Button)findViewById(R.id.buttonLogin);
 
-        requestQueue = Volley.newRequestQueue(this);
-
-
-        login.setOnClickListener(new View.OnClickListener() {
+        btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Log.d("1", "in on click");
-                stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            if(jsonObject.names().get(0).equals("success"))
-                            {
-                                //add the action to open new activity and toast or log message
-                                Toast.makeText(MainActivity.this, "Successfully login", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainMenu.class));
-                            }
-                            else
-                            {
-                                //show error
-                                Toast.makeText(MainActivity.this, "Error" + jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String, String> hashMap = new HashMap<String, String>();
-                        hashMap.put("user_name", username.getText().toString());
-                        hashMap.put("user_pass", password.getText().toString());
-                        return hashMap;
-                    }
-                };
-
-                requestQueue.add(stringRequest);
-
+                loginUser();
             }
         });
 
+    }
+
+    private void loginUser()
+    {
+        final String username = edit_username.getText().toString().trim();
+        final String password = edit_password.getText().toString().trim();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ConstantURL.URL_LOGIN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("user_name", username);
+                map.put("user_pass", password);
+                return map;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
