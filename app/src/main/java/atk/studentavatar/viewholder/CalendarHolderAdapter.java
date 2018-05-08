@@ -32,6 +32,8 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
         return null;
     }
 
+
+    //set values of card view here
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         int poss = position;
@@ -43,6 +45,8 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
         return 0;
     }
 
+
+    //link the view here, find view stuff
     public class CalendarViewHolder extends RecyclerView.ViewHolder
     {
 

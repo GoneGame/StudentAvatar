@@ -3,6 +3,8 @@ package atk.studentavatar.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import atk.studentavatar.R;
@@ -18,6 +22,10 @@ import atk.studentavatar.R;
 public class CalendarFragment extends Fragment {
     private LinearLayoutManager mManager;
     private CalendarView calendarView;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private Query query;
 
     public CalendarFragment() {}
 
@@ -36,23 +44,40 @@ public class CalendarFragment extends Fragment {
                 //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
 
 
-                Bundle bundle = new Bundle();
-                bundle.putInt("Year", i);
-                bundle.putInt("Month", i1 + 1);
-                bundle.putInt("Day", i2);
-
                 //find way to get current user from firebase
                 //continue to watch video to open new fragment
+
+
+                //use it like this: goToListFragment(keepData(i, i1, i2));
             }
         });
         return rootView;
     }
 
     //pass values and open new fragment to view card view of events
-    private void goToListFragment()
+
+    private Bundle keepData(int year, int month, int day)
     {
+        Bundle bundle = new Bundle();
+        bundle.putInt("Year", year);
+        bundle.putInt("Month", month + 1);
+        bundle.putInt("Day", day);
+
+        //get current user parse to string, put in bundle
+
+
+        return bundle;
+    }
+
+    private void goToListFragment(Bundle bundle)
+    {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         CalendarListFragment calendarListFragment = new CalendarListFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.calenLinear, calendarListFragment).commit();
+        calendarListFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.calenLinear, calendarListFragment);
+        fragmentTransaction.commit();
     }
 
     @Override

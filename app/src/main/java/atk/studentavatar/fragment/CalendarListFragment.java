@@ -15,6 +15,7 @@ import atk.studentavatar.R;
 public class CalendarListFragment extends Fragment {
     private LinearLayoutManager mManager;
     private CalendarView calendarView;
+    private int year, month, date;
 
     public CalendarListFragment() {}
 
@@ -22,6 +23,15 @@ public class CalendarListFragment extends Fragment {
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_calendar_list, container, false);
+
+        //get date and username information from calendarfragment
+        Bundle bundle = getArguments();
+        year = bundle.getInt("Year");
+        month = bundle.getInt("Month");
+        date = bundle.getInt("Day");
+        //and finally the username
+
+        bundle.clear();
 
         //recycler view stuff
 
