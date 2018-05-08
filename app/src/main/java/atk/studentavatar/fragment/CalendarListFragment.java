@@ -12,11 +12,11 @@ import android.widget.Toast;
 
 import atk.studentavatar.R;
 
-public class CalendarFragment extends Fragment {
+public class CalendarListFragment extends Fragment {
     private LinearLayoutManager mManager;
     private CalendarView calendarView;
 
-    public CalendarFragment() {}
+    public CalendarListFragment() {}
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
@@ -31,18 +31,9 @@ public class CalendarFragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 //i = year, i1 = month - 1, i = year
                 Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
-
-
-
             }
         });
         return rootView;
-    }
-
-    private void goToListFragment()
-    {
-        CalendarListFragment calendarListFragment = new CalendarListFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.calenLinear, calendarListFragment).commit();
     }
 
 
