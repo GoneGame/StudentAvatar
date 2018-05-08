@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "125302731440-tl7d6ahst6ivmkfp3qdg6c501sjrg3i1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "atk.studentavatar",
+            "certificate_hash": "0caff5c6a301e3451488988dc1df9349228d4730"
+          }
+        },
+        {
           "client_id": "125302731440-1t3kjmt5e60qpd6qn944q53rlqq8d27f.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125302731440-1t3kjmt5e60qpd6qn944q53rlqq8d27f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
