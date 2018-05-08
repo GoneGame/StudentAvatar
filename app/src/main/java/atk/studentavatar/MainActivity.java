@@ -35,7 +35,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import atk.studentavatar.fragment.AnnouncementsFragment;
+//import atk.studentavatar.fragment.AnnouncementsFragment;
 import atk.studentavatar.fragment.GeneralFragment;
 import atk.studentavatar.fragment.MyPostsFragment;
 import atk.studentavatar.fragment.MyTopPostsFragment;
