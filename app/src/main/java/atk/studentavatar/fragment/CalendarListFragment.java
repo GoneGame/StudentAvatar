@@ -19,21 +19,13 @@ public class CalendarListFragment extends Fragment {
     public CalendarListFragment() {}
 
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState) {
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar_list, container, false);
 
-        calendarView = rootView.findViewById(R.id.calendarView);
+        //recycler view stuff
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                //i = year, i1 = month - 1, i = year
-                Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
-            }
-        });
-        return rootView;
+        return view;
     }
 
 
@@ -41,6 +33,11 @@ public class CalendarListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+    }
+
+    private void queryToMySQLserver()
+    {
+        //volley script here
     }
 
     @Override

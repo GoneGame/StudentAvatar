@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+
 import atk.studentavatar.R;
 
 public class CalendarFragment extends Fragment {
@@ -29,22 +32,28 @@ public class CalendarFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                //i = year, i1 = month - 1, i = year
-                Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
+                //i2 = day, i1 = month - 1, i = year
+                //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
 
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("Year", i);
+                bundle.putInt("Month", i1 + 1);
+                bundle.putInt("Day", i2);
 
+                //find way to get current user from firebase
+                //continue to watch video to open new fragment
             }
         });
         return rootView;
     }
 
+    //pass values and open new fragment to view card view of events
     private void goToListFragment()
     {
         CalendarListFragment calendarListFragment = new CalendarListFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.calenLinear, calendarListFragment).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.calenLinear, calendarListFragment).commit();
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
