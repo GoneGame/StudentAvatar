@@ -21,6 +21,7 @@
     <string name="heading_my_posts">My Posts</string>
     <string name="heading_my_top_posts">My Top Posts</string>
     <string name="heading_discover">Discover</string>
+    <string name="heading_announcements">Announcements</string>
 
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>

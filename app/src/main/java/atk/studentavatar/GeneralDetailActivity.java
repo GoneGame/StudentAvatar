@@ -2,41 +2,66 @@ package atk.studentavatar;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.support.annotation.NonNull;
 
+import com.google.android.gms.appinvite.AppInvite;
+import com.google.android.gms.appinvite.AppInviteInvitationResult;
+import com.google.android.gms.appinvite.AppInviteReferral;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+
+import com.google.android.gms.appinvite.AppInvite;
+import com.google.android.gms.appinvite.AppInviteInvitationResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import atk.studentavatar.fragment.GeneralFragment;
-import atk.studentavatar.fragment.GuideListFragment;
 import atk.studentavatar.models.General;
 
-
-public class GeneralDetailActivity extends BaseActivity {
+public class GeneralDetailActivity extends BaseActivity implements
+        GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "GeneralDetailActivity";
 
     public static final String EXTRA_GENERAL_KEY = "general_key";
+
+    private GoogleApiClient googleApiClient;
+    private Uri dynamicLink = null;
 
     private DatabaseReference mGeneralReference;
     private ValueEventListener mGeneralListener;
@@ -71,9 +96,6 @@ public class GeneralDetailActivity extends BaseActivity {
         mLocationView = findViewById(R.id.general_location);
         mDescriptionView = findViewById(R.id.general_description);
 
-//        // Executes Toolbar code from BaseActivity.java
-//        activateToolbar();
-
         // Set a Toolbar to replace the ActionBar.
         toolbar = findViewById(R.id.nav_actionbar);
         setSupportActionBar(toolbar);
@@ -89,6 +111,58 @@ public class GeneralDetailActivity extends BaseActivity {
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
 
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(AppInvite.API)
+                .build();
+
+        boolean launchDeepLink = false;
+
+        AppInvite.AppInviteApi.getInvitation(googleApiClient, this,
+                launchDeepLink).setResultCallback(
+
+                new ResultCallback<AppInviteInvitationResult>() {
+                    @Override
+                    public void onResult(
+                            @NonNull AppInviteInvitationResult result) {
+
+                        if (result.getStatus().isSuccess()) {
+
+                            Intent intent = result.getInvitationIntent();
+                            String deepLink =
+                                    AppInviteReferral.getDeepLink(intent);
+
+                            handleDeeplink(deepLink);
+                        } else {
+                            Log.i(TAG, "Deeplink not found");
+                        }
+                    }
+                });
+
+//        FirebaseDynamicLinks.getInstance()
+//                .getDynamicLink(getIntent())
+//                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+//                    @Override
+//                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+//                        // Get deep link from result (may be null if no link is found)
+//                        Uri deepLink = null;
+//                        if (pendingDynamicLinkData != null) {
+//                            deepLink = pendingDynamicLinkData.getLink();
+//                        }
+////                        Intent intent3 = new Intent(getApplicationContext(), GeneralDetailActivity.class);
+////                        intent3.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, mGeneralKey);
+////                        startActivity(intent3);
+//                    }
+//                })
+//                .addOnFailureListener(this, new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "getDynamicLink:onFailure", e);
+//                    }
+//                });
+    }
+
+
 //        // Lookup navigation view
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_draw);
 //// Inflate the header view at runtime
@@ -102,7 +176,7 @@ public class GeneralDetailActivity extends BaseActivity {
 // Multiple header views can technically be added at runtime.
 // We can use navigationView.getHeaderCount() to determine the total number.
 //        View headerLayout = navigationView.getHeaderView(0);
-    }
+//    }
 
     // `onPostCreate` called when activity start-up is complete after `onStart()`
     // NOTE 1: Make sure to override the method with only a single `Bundle` argument
@@ -234,37 +308,39 @@ public class GeneralDetailActivity extends BaseActivity {
         }
 
     }
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        int id = item.getItemId();
 
-//        if (id == R.id.nav_welcome) {
-                    // Set the fragment initially
-//            Intent intent = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//            intent.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, mGeneralKey);
-//            startActivity(intent);
+    public void getLink(View view){
+        String appCode = "<jsb5k>";
+        final Uri deepLink = Uri.parse("http://studentavatar.com/orientation-2018");
 
-//        } else if (id == R.id.nav_checklist) {
-//            Intent intent = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//            intent.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, mGeneralKey);
-//            startActivity(intent);
-//
-//        } else if (id == R.id.nav_faq) {
-//
-//        }
+        String packageName = getApplicationContext().getPackageName();
 
-//                switch (item.getItemId()) {
-//                    case (R.id.nav_welcome):
-//                        Intent intent = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//                        startActivity(intent);
-//                        break;
-//                    case (R.id.nav_checklist):
-//                        Intent intent2 = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//                        startActivity(intent2);
-//                }
+        // Build the link with all required parameters
+        Uri.Builder builder = new Uri.Builder()
+                .scheme("https")
+                .authority(appCode + ".app.goo.gl")
+                .path("/")
+                .appendQueryParameter("link", deepLink.toString())
+                .appendQueryParameter("apn", packageName);
 
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
+        dynamicLink = builder.build();
+//        shareButton.setEnabled(true);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.w(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services Error: "
+                        + connectionResult.getErrorCode(),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    public void handleDeeplink(String deepLink) {
+
+        Uri deepUri = Uri.parse(deepLink);
+
+//        if (deepUri.getPath().equals("/credit")) {
+//            statusText.setText(deepUri.getQuery() +
+//                    " points have been applied to your account");
+    }
 }

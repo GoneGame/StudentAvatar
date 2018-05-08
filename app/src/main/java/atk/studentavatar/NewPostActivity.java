@@ -37,6 +37,9 @@ public class NewPostActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
+        // Executes Toolbar code from BaseActivity.java
+        activateMainToolbar();
+
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]

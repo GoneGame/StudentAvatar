@@ -27,9 +27,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".PostDetailActivity" />
+        <activity android:name=".AnnouncementDetailActivity" />
+        <activity android:name=".NewAnnouncementActivity" />
         <activity android:name=".GeneralDetailActivity"
             android:label="@string/guide_details"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme">
+            <!-- [START link_intent_filter] -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="studentavatar.com"
+                    android:scheme="https"/>
+            </intent-filter>
+            <!-- [END link_intent_filter] -->
+        </activity>
+
 
         <!-- Facebook Configuration -->
         <meta-data
