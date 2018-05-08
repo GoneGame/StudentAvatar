@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import atk.studentavatar.ConstantURL;
+import atk.studentavatar.MySingletonVolley;
 import atk.studentavatar.R;
 
 public class CalendarListFragment extends Fragment {
@@ -77,8 +78,12 @@ public class CalendarListFragment extends Fragment {
                 Map<String, String> map = new HashMap<>();
                 map.put("username", username);
                 map.put("date", date);
+                return map;
             }
         };
+
+        //hopefully getContext() works..
+        MySingletonVolley.getInstance(getContext()).addToRequestQueue(stringRequest);
 
     }
 
