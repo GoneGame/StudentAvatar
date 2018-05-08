@@ -17,12 +17,10 @@
 package atk.studentavatar;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -31,14 +29,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 //import atk.studentavatar.fragment.AnnouncementsFragment;
+import atk.studentavatar.fragment.CalendarFragment;
 import atk.studentavatar.fragment.GeneralFragment;
-import atk.studentavatar.fragment.MyPostsFragment;
-import atk.studentavatar.fragment.MyTopPostsFragment;
 import atk.studentavatar.fragment.RecentPostsFragment;
 
 public class  MainActivity extends BaseActivity {
@@ -79,12 +75,14 @@ public class  MainActivity extends BaseActivity {
                     new GeneralFragment(),
 //                    new AnnouncementsFragment(),
                     new RecentPostsFragment(),
+                    new CalendarFragment(),
 //                    new MyTopPostsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
                     getString(R.string.heading_discover),
 //                    getString(R.string.heading_announcements),
                     getString(R.string.heading_recent),
+                    getString(R.string.heading_calendar),
 //                    getString(R.string.heading_my_top_posts),
 
             };
