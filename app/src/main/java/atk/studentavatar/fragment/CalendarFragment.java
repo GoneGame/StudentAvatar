@@ -2,13 +2,16 @@ package atk.studentavatar.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -42,6 +45,15 @@ public class CalendarFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_all_calendar, container, false);
 
+        calendarView = rootView.findViewById(R.id.calendarView);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                Toast.makeText(getContext(), i2 + "/" + i1 + "/" + i, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // [START create_database_reference]
         //mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
@@ -51,6 +63,8 @@ public class CalendarFragment extends Fragment {
 
         return rootView;
     }
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
