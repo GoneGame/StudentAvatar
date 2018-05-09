@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,17 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 import atk.studentavatar.R;
+import atk.studentavatar.models.User;
 
 public class CalendarFragment extends Fragment{
     private LinearLayoutManager mManager;
@@ -43,10 +49,10 @@ public class CalendarFragment extends Fragment{
                 //i2 = day, i1 = month - 1, i = year
                 //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
 
+                //Toast.makeText(getContext(), getUserName(), Toast.LENGTH_SHORT).show();
+                getUserName();
 
-                query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).child("username");
-
-
+                //Log.d("TAG BEFORE RETURN", a);
                 //find way to get current user from firebase
                 //continue to watch video to open new fragment
 
@@ -82,6 +88,27 @@ public class CalendarFragment extends Fragment{
         calendarListFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.calenLinear, calendarListFragment);
         fragmentTransaction.commit();
+    }
+
+    private void getUserName()
+    {
+        query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                String s = user.username;
+
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
