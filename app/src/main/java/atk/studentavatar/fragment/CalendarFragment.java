@@ -14,17 +14,17 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+
 import atk.studentavatar.R;
 
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends Fragment{
     private LinearLayoutManager mManager;
     private CalendarView calendarView;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
     private Query query;
 
     public CalendarFragment() {}
@@ -42,6 +42,9 @@ public class CalendarFragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 //i2 = day, i1 = month - 1, i = year
                 //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
+
+
+                query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).child("username");
 
 
                 //find way to get current user from firebase
@@ -64,6 +67,7 @@ public class CalendarFragment extends Fragment {
         bundle.putInt("Day", day);
 
         //get current user parse to string, put in bundle
+
 
 
         return bundle;
