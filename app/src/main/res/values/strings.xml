@@ -23,6 +23,9 @@
     <string name="heading_discover">Discover</string>
     <string name="heading_announcements">Announcements</string>
     <string name="heading_calendar">Calendar</string>
+    <string name="heading_map">Map</string>
+    <string name="heading_handbook">Handbook</string>
+
 
     <string name="dateText">hi</string>
 

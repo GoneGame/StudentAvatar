@@ -35,6 +35,8 @@ import com.google.firebase.auth.FirebaseAuth;
 //import atk.studentavatar.fragment.AnnouncementsFragment;
 import atk.studentavatar.fragment.CalendarFragment;
 import atk.studentavatar.fragment.GeneralFragment;
+import atk.studentavatar.fragment.HandbookFragment;
+import atk.studentavatar.fragment.MapFragment;
 import atk.studentavatar.fragment.RecentPostsFragment;
 
 public class  MainActivity extends BaseActivity {
@@ -76,14 +78,16 @@ public class  MainActivity extends BaseActivity {
 //                    new AnnouncementsFragment(),
                     new RecentPostsFragment(),
                     new CalendarFragment(),
-//                    new MyTopPostsFragment(),
+                    new MapFragment(),
+                    new HandbookFragment(),
             };
             private final String[] mFragmentNames = new String[] {
                     getString(R.string.heading_discover),
 //                    getString(R.string.heading_announcements),
                     getString(R.string.heading_recent),
                     getString(R.string.heading_calendar),
-//                    getString(R.string.heading_my_top_posts),
+                    getString(R.string.heading_map),
+                    getString(R.string.heading_handbook),
 
             };
             @Override
