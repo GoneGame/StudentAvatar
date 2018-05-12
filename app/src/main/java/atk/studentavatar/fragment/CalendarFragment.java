@@ -58,7 +58,7 @@ public class CalendarFragment extends Fragment{
                 //find way to get current user from firebase
                 //continue to watch video to open new fragment
 
-                goToListFragment(keepData(i, i1, i2));
+                //goToListFragment(keepData(i, i1, i2));
             }
         });
         return rootView;
@@ -79,14 +79,17 @@ public class CalendarFragment extends Fragment{
 
     private void goToListFragment(Bundle bundle)
     {
+
+        /*
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        CalendarListFragment calendarListFragment = new CalendarListFragment();
-        calendarListFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.calenLinear, calendarListFragment);
         Log.d("1??", "BEFORE COMMIE");
         fragmentTransaction.commit();
+*/
+        CalendarListFragment calendarListFragment = new CalendarListFragment();
+        calendarListFragment.setArguments(bundle);
+        getChildFragmentManager().beginTransaction().add(R.id.calenLinear, calendarListFragment).commit();
     }
 
     private void getUserName()

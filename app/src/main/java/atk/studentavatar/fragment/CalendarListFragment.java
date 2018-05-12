@@ -2,6 +2,7 @@ package atk.studentavatar.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,28 +18,31 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import atk.studentavatar.ConstantURL;
 import atk.studentavatar.MySingletonVolley;
 import atk.studentavatar.R;
+import atk.studentavatar.models.Event;
 import atk.studentavatar.viewholder.CalendarHolderAdapter;
 
 public class CalendarListFragment extends Fragment {
     private RecyclerView recyclerView;
     private CalendarHolderAdapter calendarHolderAdapter;
+    private List<Event> events;
+
     private int year, month, day;
     private String username;
 
     public CalendarListFragment() {}
 
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_calendar_list, container, false);
-
-        //get date and username information from calendarfragment
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         year = bundle.getInt("Year");
         month = bundle.getInt("Month");
@@ -46,9 +50,28 @@ public class CalendarListFragment extends Fragment {
         username = bundle.getString("Username");
 
         bundle.clear();
+    }
 
-        //recycler view stuff
+    private void testevent()
+    {
+        events.add(new Event("hi"));
+        events.add(new Event("bye"));
+        events.add(new Event("die"));
+    }
 
+    @Override
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_calendar_list, container, false);
+
+        recyclerView = view.findViewById(R.id.calenListRec);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //test the events, replace it with events later
+        calendarHolderAdapter = new CalendarHolderAdapter(getActivity(), events);
+
+        recyclerView.setAdapter(calendarHolderAdapter);
+        
         return view;
     }
 
