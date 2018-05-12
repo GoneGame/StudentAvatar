@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,13 @@ import java.util.Map;
 import atk.studentavatar.ConstantURL;
 import atk.studentavatar.MySingletonVolley;
 import atk.studentavatar.R;
+import atk.studentavatar.viewholder.CalendarHolderAdapter;
 
 public class CalendarListFragment extends Fragment {
-    private LinearLayoutManager mManager;
-    private CalendarView calendarView;
+    private RecyclerView recyclerView;
+    private CalendarHolderAdapter calendarHolderAdapter;
     private int year, month, day;
+    private String username;
 
     public CalendarListFragment() {}
 
@@ -40,7 +43,7 @@ public class CalendarListFragment extends Fragment {
         year = bundle.getInt("Year");
         month = bundle.getInt("Month");
         day = bundle.getInt("Day");
-        //and finally the username
+        username = bundle.getString("Username");
 
         bundle.clear();
 
@@ -58,8 +61,6 @@ public class CalendarListFragment extends Fragment {
 
     private void queryToMySQLserver()
     {
-        //write the php script
-        final String username = "put from current user";
         final String date = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ConstantURL.URL_GET_EVENTS, new Response.Listener<String>() {
@@ -86,6 +87,7 @@ public class CalendarListFragment extends Fragment {
         MySingletonVolley.getInstance(getContext()).addToRequestQueue(stringRequest);
 
     }
+
 
     @Override
     public void onStart() {
