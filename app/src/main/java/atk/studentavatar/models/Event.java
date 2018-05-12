@@ -39,7 +39,7 @@ public class Event {
 
     //to test recycler view
     public Event(String title) {
-        this.title = "";
+        this.title = title;
         this.location = "";
         this.date = "";
         this.time = "";

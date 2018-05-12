@@ -13,9 +13,8 @@ import java.util.List;
 
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
-import atk.studentavatar.models.General;
 
-//this adapter is for calendarListFragment, after a date is selected
+//this adapter is for calendarCardViewActivity, after a date is selected
 
 public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAdapter.CalendarViewHolder> {
 
@@ -32,7 +31,7 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
     @NonNull
     @Override
     public CalendarHolderAdapter.CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_list_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_card_item, parent, false);
         return new CalendarViewHolder(view);
     }
 
@@ -41,7 +40,6 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         holder.txt_test.setText(events.get(position).getTitle());
-
     }
 
     @Override

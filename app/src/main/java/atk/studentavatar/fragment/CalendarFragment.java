@@ -1,5 +1,6 @@
 package atk.studentavatar.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import atk.studentavatar.CalendarCardViewActivity;
+import atk.studentavatar.GeneralDetailActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.User;
 
@@ -50,15 +53,8 @@ public class CalendarFragment extends Fragment{
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 //i2 = day, i1 = month - 1, i = year
                 //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
-
-                //Toast.makeText(getContext(), getUserName(), Toast.LENGTH_SHORT).show();
                 getUserName();
-
-                //Log.d("TAG BEFORE RETURN", a);
-                //find way to get current user from firebase
-                //continue to watch video to open new fragment
-
-                //goToListFragment(keepData(i, i1, i2));
+                goToCardView(keepData(i, i1, i2));
             }
         });
         return rootView;
@@ -77,19 +73,12 @@ public class CalendarFragment extends Fragment{
         return bundle;
     }
 
-    private void goToListFragment(Bundle bundle)
+    private void goToCardView(Bundle bundle)
     {
-
-        /*
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.calenLinear, calendarListFragment);
-        Log.d("1??", "BEFORE COMMIE");
-        fragmentTransaction.commit();
-*/
-        CalendarListFragment calendarListFragment = new CalendarListFragment();
-        calendarListFragment.setArguments(bundle);
-        getChildFragmentManager().beginTransaction().add(R.id.calenLinear, calendarListFragment).commit();
+        Intent intent = new Intent(getActivity(), CalendarCardViewActivity.class);
+        intent.putExtras(bundle);
+        Log.d("LONGATTAT", "bundle put in");
+        startActivity(intent);
     }
 
     private void getUserName()

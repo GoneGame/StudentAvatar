@@ -46,54 +46,6 @@ public class HandbookFragment extends Fragment{
         return rootView;
     }
 
-    //pass values and open new fragment to view card view of events
-
-    private Bundle keepData(int year, int month, int day)
-    {
-        Bundle bundle = new Bundle();
-        bundle.putInt("Year", year);
-        bundle.putInt("Month", month + 1);
-        bundle.putInt("Day", day);
-
-        //get current user parse to string, put in bundle
-
-
-
-        return bundle;
-    }
-
-    private void goToListFragment(Bundle bundle)
-    {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        CalendarListFragment calendarListFragment = new CalendarListFragment();
-        calendarListFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.calenLinear, calendarListFragment);
-        fragmentTransaction.commit();
-    }
-
-    private void getUserName()
-    {
-        query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                String s = user.username;
-
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
