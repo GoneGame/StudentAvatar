@@ -33,6 +33,8 @@ public class CalendarFragment extends Fragment{
     private DatabaseReference databaseReference;
     private Query query;
 
+    private String username;
+
     public CalendarFragment() {}
 
     @Override
@@ -56,8 +58,7 @@ public class CalendarFragment extends Fragment{
                 //find way to get current user from firebase
                 //continue to watch video to open new fragment
 
-
-                //use it like this: goToListFragment(keepData(i, i1, i2));
+                goToListFragment(keepData(i, i1, i2));
             }
         });
         return rootView;
@@ -71,10 +72,7 @@ public class CalendarFragment extends Fragment{
         bundle.putInt("Year", year);
         bundle.putInt("Month", month + 1);
         bundle.putInt("Day", day);
-
-        //get current user parse to string, put in bundle
-
-
+        bundle.putString("Username", username);
 
         return bundle;
     }
@@ -87,6 +85,7 @@ public class CalendarFragment extends Fragment{
         CalendarListFragment calendarListFragment = new CalendarListFragment();
         calendarListFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.calenLinear, calendarListFragment);
+        Log.d("1??", "BEFORE COMMIE");
         fragmentTransaction.commit();
     }
 
@@ -100,6 +99,7 @@ public class CalendarFragment extends Fragment{
                 User user = dataSnapshot.getValue(User.class);
                 String s = user.username;
 
+                username = s;
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
             }
 
