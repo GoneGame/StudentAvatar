@@ -5,12 +5,22 @@
     android:id="@+id/relLayCalenItem"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     >
 
     <TextView
         android:id="@+id/TextView_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/dateText"/>
+
+    <TextView
+        android:id="@+id/TextView_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_below="@+id/TextView_title"
         android:text="@string/dateText"/>
 
 
