@@ -17,7 +17,6 @@ public class Event {
     public Event() {
     }
 
-    //for event type 1, 2, 3
     public Event(String title, String location, String date, String time, String description, String type) {
         this.title = title;
         this.location = location;
@@ -45,6 +44,16 @@ public class Event {
         this.time = "";
         this.description = "";
         this.type = "event";
+    }
+
+    public void clearValues()
+    {
+        this.title = "";
+        this.location = "";
+        this.date = "";
+        this.time = "";
+        this.description = "";
+        this.type = "";
     }
 
     public String getTitle() {

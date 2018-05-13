@@ -5,12 +5,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,12 +115,19 @@ public class CalendarCardViewActivity extends BaseActivity{
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ConstantURL.URL_GET_EVENTS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
 
+                    formatEvents(jsonObject);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(CalendarCardViewActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -128,6 +140,44 @@ public class CalendarCardViewActivity extends BaseActivity{
         };
 
         MySingletonVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void formatEvents(JSONObject jsonObject)
+    {
+
+        try {
+            events = new ArrayList<Event>();
+            Event tempEvent;
+
+            String[] eventType = {"event", "notifi", "club", "unit"};
+
+            JSONArray jsonArray = jsonObject.getJSONArray(eventType[0]);
+
+            //for general event...title, date, location, time, description
+            tempEvent = new Event();
+            for(int j = 0; j < jsonArray.length(); j++)
+            {
+                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent.setTitle(object.getString("title"));
+                tempEvent.setDate(object.getString("date"));
+                tempEvent.setLocation(object.getString("location"));
+                tempEvent.setTime(object.getString("time"));
+                tempEvent.setDescription(object.getString("description"));
+                tempEvent.setType(eventType[0]);
+                events.add(tempEvent);
+                tempEvent.clearValues();
+            }
+
+            tempEvent = new Event();
+            //for notifications...title, date, time, description
+
+            //for club and unit...name, title, date, location, time, description
+
+            //should I make another event abstract and extend it to better fit all event types?
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }
