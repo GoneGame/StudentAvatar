@@ -392,7 +392,17 @@ button:focus {
 .levels--selected-5 .level--3,
 .levels--selected-6 .level--3,
 .levels--selected-7 .level--3,
-.levels--selected-8 .level--3 {
+.levels--selected-8 .level--3,
+.levels--selected-5 .level--4,
+.levels--selected-6 .level--4,
+.levels--selected-7 .level--4,
+.levels--selected-8 .level--4,
+.levels--selected-6 .level--5,
+.levels--selected-7 .level--5,
+.levels--selected-8 .level--5,
+.levels--selected-7 .level--6,
+.levels--selected-8 .level--6
+ {
 	-webkit-transform: translateZ(-60vmin);
 	transform: translateZ(-60vmin);
 }
