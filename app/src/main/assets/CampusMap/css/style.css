@@ -281,7 +281,7 @@ button:focus {
 }
 
 .level--1::after {
-	content: 'L1';
+	content: 'Ground Floor';
 }
 
 .level--2::after {
@@ -294,6 +294,18 @@ button:focus {
 
 .level--4::after {
 	content: 'L4';
+}
+
+.level--5::after {
+	content: 'L5';
+}
+
+.level--6::after {
+	content: 'L6';
+}
+
+.level--7::after {
+	content: 'L7';
 }
 
 .level:not(:first-child) {
