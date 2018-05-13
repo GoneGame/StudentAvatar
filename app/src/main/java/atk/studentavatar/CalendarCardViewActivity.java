@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,6 +30,8 @@ public class CalendarCardViewActivity extends BaseActivity{
     private CalendarHolderAdapter calendarHolderAdapter;
     private List<Event> events;
 
+    private TextView date_on_view;
+
     private int year, month, day;
     private String username;
 
@@ -37,6 +40,23 @@ public class CalendarCardViewActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_card_view_holder);
 
+        checkBundle();
+
+        Log.d("lolo", "before test event");
+        testevent();
+
+        Log.d("lolo11111111111", events.get(0).getTitle());
+        Log.d("lolo11111111111", events.get(1).getTitle());
+        Log.d("lolo111111111111", events.get(2).getTitle());
+
+        setAdapter();
+
+        dateSet();
+
+    }
+
+    private void checkBundle()
+    {
         Log.d("lolo", "IN new activity");
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -51,14 +71,10 @@ public class CalendarCardViewActivity extends BaseActivity{
 
             //bundle.clear();
         }
+    }
 
-        Log.d("lolo", "before test event");
-        testevent();
-
-        Log.d("lolo11111111111", events.get(0).getTitle());
-        Log.d("lolo11111111111", events.get(1).getTitle());
-        Log.d("lolo111111111111", events.get(2).getTitle());
-
+    private void setAdapter()
+    {
         recyclerView = findViewById(R.id.calenListRec);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -77,6 +93,14 @@ public class CalendarCardViewActivity extends BaseActivity{
         events.add(new Event("hi"));
         events.add(new Event("bye"));
         events.add(new Event("die"));
+    }
+
+
+    private void dateSet()
+    {
+        String date = getString(R.string.dateText, Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day));
+        date_on_view = findViewById(R.id.TextView_date);
+        date_on_view.setText(date);
     }
 
     private void queryToMySQLserver()

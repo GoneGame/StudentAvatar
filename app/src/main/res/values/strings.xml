@@ -27,7 +27,16 @@
     <string name="heading_handbook">Handbook</string>
 
 
-    <string name="dateText">hi</string>
+    <!--Calendar strings start-->
+
+    <string name="helloText">Hello!</string>
+    <string name="titleText">Title: %1$s</string>
+    <string name="dateText">Date: %1$s</string>
+    <string name="timeText">Time: %1$s</string>
+    <string name="locationText">Location: %1$s</string>
+    <string name="descText">Description: %1$s</string>
+
+    <!--Calendar strings end-->
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
