@@ -37,6 +37,16 @@ public class Event {
         this.type = type;
     }
 
+    //to test recycler view
+    public Event(String title) {
+        this.title = title;
+        this.location = "";
+        this.date = "";
+        this.time = "";
+        this.description = "";
+        this.type = 1;
+    }
+
     public String getTitle() {
         return title;
     }
