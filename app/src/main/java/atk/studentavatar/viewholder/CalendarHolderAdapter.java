@@ -3,6 +3,7 @@ package atk.studentavatar.viewholder;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,14 +77,14 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
     public class CalendarViewHolder extends RecyclerView.ViewHolder
     {
         public TextView txt_title, txt_location, txt_time;
-        public RelativeLayout relativeLayout;
+        public CardView cardView;
 
         public CalendarViewHolder(View itemView) {
             super(itemView);
             txt_title = itemView.findViewById(R.id.TextView_title);
             txt_location = itemView.findViewById(R.id.TextView_location);
             txt_time = itemView.findViewById(R.id.TextView_time);
-            relativeLayout = itemView.findViewById(R.id.relLayCalenItem);
+            cardView = itemView.findViewById(R.id.card_item);
         }
     }
 }

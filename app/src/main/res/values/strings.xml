@@ -27,9 +27,11 @@
     <string name="heading_handbook">Handbook</string>
 
 
-    <!--Calendar strings start-->
+    <!--Calendar strings start I need to find a way to use these properly or they'll just be placeholders-->
     <string name="helloText">Hello!</string>
+    <string name="NoEventText">No Activity Detected</string>
     <string name="titleText">Title: %1$s</string>
+    <string name="subTitleText">Sub Title: %1$s</string>
     <string name="dateText">Date: %1$s</string>
     <string name="timeText">Time: %1$s</string>
     <string name="locationText">Location: %1$s</string>
