@@ -37,6 +37,7 @@ import atk.studentavatar.fragment.CalendarFragment;
 import atk.studentavatar.fragment.GeneralFragment;
 import atk.studentavatar.fragment.HandbookFragment;
 import atk.studentavatar.fragment.MapFragment;
+import atk.studentavatar.fragment.OtherServicesFragment;
 import atk.studentavatar.fragment.RecentPostsFragment;
 
 public class  MainActivity extends BaseActivity {
@@ -80,6 +81,7 @@ public class  MainActivity extends BaseActivity {
                     new CalendarFragment(),
                     new MapFragment(),
                     new HandbookFragment(),
+                    new OtherServicesFragment()
             };
             private final String[] mFragmentNames = new String[] {
                     getString(R.string.heading_discover),
@@ -88,6 +90,7 @@ public class  MainActivity extends BaseActivity {
                     getString(R.string.heading_calendar),
                     getString(R.string.heading_map),
                     getString(R.string.heading_handbook),
+                    getString(R.string.otherServicesText)
 
             };
             @Override

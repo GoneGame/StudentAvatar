@@ -31,9 +31,7 @@ import atk.studentavatar.R;
 import atk.studentavatar.models.User;
 
 public class CalendarFragment extends Fragment{
-    private LinearLayoutManager mManager;
     private CalendarView calendarView;
-    private DatabaseReference databaseReference;
     private Query query;
 
     private String username;
