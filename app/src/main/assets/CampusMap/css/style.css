@@ -936,7 +936,7 @@ button:focus {
 
 .pin--active .icon--pin {
 	stroke: #515158;
-	stroke-width: 15px;
+	stroke-width: 4px;
 }
 
 .icon--pin {
@@ -973,7 +973,7 @@ button:focus {
 .pin--1-9 { top: 19.5vmin; left: 29vmin; }
 
 /* Pins for floor 2 */
-.pin--2-1 { top: 7vmin; left: 22vmin; }
+.pin--2-1 { top: 17vmin; left: 22vmin; }
 .pin--2-2 { top: 39vmin; left: 5vmin; }
 .pin--2-3 { top: 21vmin; left: 84vmin; }
 .pin--2-4 { top: 39vmin; left: 53vmin; }
