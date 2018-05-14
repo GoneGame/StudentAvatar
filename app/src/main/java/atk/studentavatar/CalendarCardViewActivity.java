@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class CalendarCardViewActivity extends BaseActivity{
     private CalendarHolderAdapter calendarHolderAdapter;
     private List<Event> events;
 
-    private TextView date_on_view;
+    private TextView date_on_view, status;
 
     private int year, month, day;
     private String username;
@@ -109,6 +110,13 @@ public class CalendarCardViewActivity extends BaseActivity{
         String date = getString(R.string.dateText, Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day));
         date_on_view = findViewById(R.id.TextView_date);
         date_on_view.setText(date);
+
+
+        if(events.isEmpty())
+        {
+            status = findViewById(R.id.TextView_eventStatus);
+            status.setVisibility(View.VISIBLE);
+        }
     }
 
     private void queryToMySQLserver()
