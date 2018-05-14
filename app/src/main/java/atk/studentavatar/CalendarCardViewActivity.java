@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import atk.studentavatar.models.Event;
+import atk.studentavatar.models.EventClub;
+import atk.studentavatar.models.EventGeneral;
+import atk.studentavatar.models.EventNotifi;
 import atk.studentavatar.viewholder.CalendarHolderAdapter;
 
 
@@ -95,9 +98,9 @@ public class CalendarCardViewActivity extends BaseActivity{
         Log.d("lolo", "in test event");
         events = new ArrayList<Event>();
 
-        events.add(new Event("hi"));
-        events.add(new Event("bye"));
-        events.add(new Event("die"));
+        events.add(new EventGeneral("hi"));
+        events.add(new EventGeneral("bye"));
+        events.add(new EventGeneral("die"));
     }
 
 
@@ -154,7 +157,7 @@ public class CalendarCardViewActivity extends BaseActivity{
             JSONArray jsonArray = jsonObject.getJSONArray(eventType[0]);
 
             //for general event...title, date, location, time, description
-            tempEvent = new Event();
+            tempEvent = new EventGeneral();
             for(int j = 0; j < jsonArray.length(); j++)
             {
                 JSONObject object = jsonArray.getJSONObject(j);
@@ -163,17 +166,51 @@ public class CalendarCardViewActivity extends BaseActivity{
                 tempEvent.setLocation(object.getString("location"));
                 tempEvent.setTime(object.getString("time"));
                 tempEvent.setDescription(object.getString("description"));
-                tempEvent.setType(eventType[0]);
                 events.add(tempEvent);
                 tempEvent.clearValues();
             }
 
-            tempEvent = new Event();
             //for notifications...title, date, time, description
+            tempEvent = new EventNotifi();
+            for(int j = 0; j < jsonArray.length(); j++)
+            {
+                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent.setTitle(object.getString("title"));
+                tempEvent.setDate(object.getString("date"));
+                tempEvent.setTime(object.getString("time"));
+                tempEvent.setDescription(object.getString("description"));
+                events.add(tempEvent);
+                tempEvent.clearValues();
+            }
 
             //for club and unit...name, title, date, location, time, description
+            tempEvent = new EventClub();
+            for(int j = 0; j < jsonArray.length(); j++)
+            {
+                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent.setTitle(object.getString("title"));
+                tempEvent.setDate(object.getString("date"));
+                tempEvent.setTime(object.getString("time"));
+                tempEvent.setDescription(object.getString("description"));
+                tempEvent.setLocation(object.getString("location"));
+                tempEvent.setName(object.getString("name"));
+                events.add(tempEvent);
+                tempEvent.clearValues();
+            }
 
-            //should I make another event abstract and extend it to better fit all event types?
+            tempEvent = new EventClub();
+            for(int j = 0; j < jsonArray.length(); j++)
+            {
+                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent.setTitle(object.getString("title"));
+                tempEvent.setDate(object.getString("date"));
+                tempEvent.setTime(object.getString("time"));
+                tempEvent.setDescription(object.getString("description"));
+                tempEvent.setLocation(object.getString("location"));
+                tempEvent.setName(object.getString("name"));
+                events.add(tempEvent);
+                tempEvent.clearValues();
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

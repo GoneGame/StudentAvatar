@@ -1,19 +1,36 @@
 package atk.studentavatar.models;
 
-public abstract class Event {
-
+public class EventGeneral extends Event{
     private String title;
     private String date;
     private String time;
     private String description;
 
     private String location;
-    private String name;
 
-    public Event() {
+    public EventGeneral() {
     }
 
-    public void clearValues() {
+    public EventGeneral(String title, String date, String time, String description, String location) {
+        this.title = title;
+        this.date = date;
+        this.time = time;
+        this.description = description;
+        this.location = location;
+    }
+
+    public EventGeneral(String title)
+    {
+        this.title = title;
+    }
+
+    public void clearValues()
+    {
+        this.title = "";
+        this.date = "";
+        this.time = "";
+        this.description = "";
+        this.location = "";
     }
 
     public String getTitle() {
@@ -55,13 +72,4 @@ public abstract class Event {
     public void setLocation(String location) {
         this.location = location;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
-
