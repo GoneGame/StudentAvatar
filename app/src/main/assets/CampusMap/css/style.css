@@ -485,7 +485,7 @@ button:focus {
 .mallnav {
 	position: absolute;
 	top: 0;
-	right: 0;
+	/* right: 0; */
 	text-align: center;
 	-webkit-transition: opacity 0.8s;
 	transition: opacity 0.8s;
@@ -506,11 +506,11 @@ button:focus {
 	padding: 0;
 	color: #fff;
 	border: 0;
-	background: #d7d7dc26;
+	background: rgba(0, 0, 0, 0.1);
 }
 
 .boxbutton--dark {
-	background: #c4c4c747;
+	background: rgba(0, 0, 0, 0.1);
 }
 
 .boxbutton--darker {
@@ -936,7 +936,7 @@ button:focus {
 
 .pin--active .icon--pin {
 	stroke: #515158;
-	stroke-width: 114px;
+	stroke-width: 4px;
 }
 
 .icon--pin {
@@ -1029,7 +1029,7 @@ button:focus {
 		z-index: 1000;
 	}
 	.mallnav {
-		top: 4em;
+		top: 1em;
 	}
 	.container {
 		overflow: hidden;
