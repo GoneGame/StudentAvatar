@@ -506,11 +506,11 @@ button:focus {
 	padding: 0;
 	color: #fff;
 	border: 0;
-	background: #d7d7dc;
+	background: #d7d7dc26;
 }
 
 .boxbutton--dark {
-	background: #c4c4c7;
+	background: #c4c4c747;
 }
 
 .boxbutton--darker {
