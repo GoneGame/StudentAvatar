@@ -34,7 +34,8 @@ public class CalendarFragment extends Fragment{
     private CalendarView calendarView;
     private Query query;
 
-    private String username;
+    private String usernameE;
+    private int y, m, d;
 
     public CalendarFragment() {}
 
@@ -51,8 +52,11 @@ public class CalendarFragment extends Fragment{
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 //i2 = day, i1 = month - 1, i = year
                 //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
+                y = i;
+                m = i1;
+                d = i2;
                 getUserName();
-                goToCardView(keepData(i, i1, i2));
+                //goToCardView(keepData(i, i1, i2, getUserName()));
             }
         });
         return rootView;
@@ -66,8 +70,9 @@ public class CalendarFragment extends Fragment{
         bundle.putInt("Year", year);
         bundle.putInt("Month", month + 1);
         bundle.putInt("Day", day);
-        bundle.putString("Username", username);
+        bundle.putString("Username", usernameE);
 
+        Log.d("calenFrag", "2 from keep data Username: " + usernameE);
         return bundle;
     }
 
@@ -75,7 +80,7 @@ public class CalendarFragment extends Fragment{
     {
         Intent intent = new Intent(getActivity(), CalendarCardViewActivity.class);
         intent.putExtras(bundle);
-        Log.d("LONGATTAT", "bundle put in");
+        Log.d("calenFrag", "3 bundle put in");
         startActivity(intent);
     }
 
@@ -89,8 +94,10 @@ public class CalendarFragment extends Fragment{
                 User user = dataSnapshot.getValue(User.class);
                 String s = user.username;
 
-                username = s;
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                usernameE = s;
+                Toast.makeText(getContext(), usernameE, Toast.LENGTH_SHORT).show();
+                Log.d("calenFrag", "1 get Username: " + usernameE);
+                goToCardView(keepData(y, m ,d));
             }
 
             @Override
@@ -99,6 +106,7 @@ public class CalendarFragment extends Fragment{
             }
         });
 
+        Log.d("calenFrag", "2 return Username: " + usernameE);
     }
 
     @Override
