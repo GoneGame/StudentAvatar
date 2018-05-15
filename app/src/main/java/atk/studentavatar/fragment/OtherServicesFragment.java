@@ -13,7 +13,7 @@ import atk.studentavatar.R;
 
 public class OtherServicesFragment extends Fragment{
 
-    private TextView canteen, library, gym;
+    private TextView canteen, library, gym, calc;
 
     public OtherServicesFragment() {}
 
@@ -51,6 +51,13 @@ public class OtherServicesFragment extends Fragment{
                 Uri uri = Uri.parse("http://google.com");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+            }
+        });
+
+        calc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 

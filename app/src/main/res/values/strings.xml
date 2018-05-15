@@ -44,6 +44,8 @@
     <string name="canteenLinkText"><u>Student Canteen</u></string>
     <string name="libraryLinkText"><u>Student Library</u></string>
     <string name="gymLinkText"><u>Student Gym</u></string>
+
+    <string name="intallmentCalculatorText"><u>Installment Calculator</u></string>
     <!--Link strings start-->
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>

@@ -58,6 +58,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             tools:replace="android:theme" />
         <activity android:name=".CalendarCardViewActivity" />
+        <activity android:name=".CalculatorActivity" />
     </application>
 
 </manifest>
