@@ -105,6 +105,13 @@ public class CalendarCardViewActivity extends BaseActivity{
         events.add(new EventGeneral("title 2 test", "2018-5-15", "16:00", "Hello, put more text here", "GG33"));
         events.add(new EventUnit("testing title", "2018-5-15", "15:00", "Hello, put more text here", "GG33", "the linked unit"));
         events.add(new EventClub("title 1 test"));
+        //scroll testing
+        events.add(new EventClub("title 1 test"));
+        events.add(new EventClub("title 1 test"));
+        events.add(new EventClub("title 1 test"));
+        events.add(new EventClub("title 1 test"));
+        events.add(new EventClub("title 1 test"));
+
 
         setAdapter();
         dateSet();
