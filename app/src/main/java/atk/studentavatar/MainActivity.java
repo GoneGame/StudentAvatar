@@ -113,12 +113,12 @@ public class  MainActivity extends BaseActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         // Button launches NewPostActivity
-        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
-            }
-        });
+//        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
+//            }
+//        });
 
 //        // Button launches NewPostActivity
 //        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {

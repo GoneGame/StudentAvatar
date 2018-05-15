@@ -42,8 +42,11 @@ public class MapFragment extends Fragment{
 
         String url = "file:///android_asset/CampusMap/index.html";
         WebView view = (WebView)rootView.findViewById(R.id.webView);
+
+
         view.getSettings().setBuiltInZoomControls(true);
         view.getSettings().setJavaScriptEnabled(true);
+        view.getSettings().setDisplayZoomControls(false);
         view.loadUrl(url);
         return rootView;
     }
