@@ -10,6 +10,8 @@ public class EventUnit extends Event {
     private String name;
 
     public EventUnit() {
+        this.title = "";
+        this.name = "";
     }
 
     public EventUnit(String title, String date, String time, String description, String location, String name) {

@@ -8,6 +8,7 @@ public class EventNotifi extends Event {
     private String description;
 
     public EventNotifi() {
+        this.title = "";
     }
 
     public EventNotifi(String title, String date, String time, String description) {

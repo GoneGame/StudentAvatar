@@ -5,9 +5,11 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,28 +45,54 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
 
-        holder.txt_title.setText(events.get(position).getTitle());
+        String title, subtitle, location, time, locationCheck;
+
+        title = events.get(position).getTitle();
+        subtitle = events.get(position).getName();
+        locationCheck = events.get(position).getLocation();
+        location = "Location: " + locationCheck;
+        time = "Time: " + events.get(position).getTime();
+
+        holder.txt_title.setText(title);
         /*
-        String s;
-
-        //s = Resources.getSystem().getString(R.string.titleText, )
-
-        if(events.get(position).getName().isEmpty() || events.get(position).getName().contentEquals(""))
+        if(subtitle != null)
         {
-            s = Resources.getSystem().getString(R.string.titleText, events.get(position).getTitle());
-            holder.txt_title.setText(s);
+            Log.d("Within Holder adapter", subtitle);
+            Log.d("Within Holder adapter", location);
+            Log.d("Within Holder adapter", time);
+        }*/
+
+        if(title != null && !title.equals(""))
+        {
+            holder.txt_title.setText(title);
+
+            if(locationCheck != null)
+            {
+                holder.txt_location.setText(location);
+            }
+            else
+            {
+                holder.txt_location.setVisibility(View.GONE);
+            }
+
+            holder.txt_time.setText(time);
+
+            if(subtitle != null && !subtitle.equals(""))
+            {
+                holder.txt_sub.setText(subtitle);
+            }
+            else
+            {
+                holder.txt_sub.setText("");
+                holder.txt_sub.setVisibility(View.INVISIBLE);
+            }
         }
         else
         {
-            s = Resources.getSystem().getString(R.string.titleText, events.get(position).getTitle().concat("\nunder(" + events.get(position).getName() + ")"));
-            holder.txt_title.setText(s);
+            holder.cardView.setVisibility(View.GONE);
         }
 
-        s = Resources.getSystem().getString(R.string.locationText, events.get(position).getLocation());
-        holder.txt_location.setText(s);
-
-        s = Resources.getSystem().getString(R.string.timeText, events.get(position).getTime());
-        holder.txt_time.setText(s);*/
+        //String s = Resources.getSystem().getString(R.string.titleText, ...)
     }
 
     @Override
@@ -76,12 +104,14 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
     //link the view here, find view stuff
     public class CalendarViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView txt_title, txt_location, txt_time;
+        public TextView txt_title, txt_location, txt_time, txt_sub;
         public CardView cardView;
 
         public CalendarViewHolder(View itemView) {
             super(itemView);
+
             txt_title = itemView.findViewById(R.id.TextView_title);
+            txt_sub = itemView.findViewById(R.id.TextView_subtitle);
             txt_location = itemView.findViewById(R.id.TextView_location);
             txt_time = itemView.findViewById(R.id.TextView_time);
             cardView = itemView.findViewById(R.id.card_item);
