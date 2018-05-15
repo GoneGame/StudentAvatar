@@ -48,6 +48,22 @@
     <string name="intallmentCalculatorText"><u>Installment Calculator</u></string>
     <!--Link strings start-->
 
+    <!--Calculator strings start-->
+    <string name="installTitleText">Installment Payment Calculator (per semester)</string>
+    <string name="totalAmountText">Total Amount needed for semester</string>
+    <string name="initialText">Initial payment percentage</string>
+    <string name="thirtyText">30%</string>
+    <string name="fiftyText">50%</string>
+    <string name="nextAmountText">Enter Next percentage of installment</string>
+    <string name="addTexttt">Add</string>
+    <string name="valPerText">temp + temp....</string>
+    <string name="clearTexttt">Clear</string>
+
+    <string name="percentageTexttt">Percentage</string>
+    <string name="amountTexttt">Amount</string>
+
+    <!--Calculator strings end-->
+
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
 

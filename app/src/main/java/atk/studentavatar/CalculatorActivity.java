@@ -10,6 +10,8 @@ public class CalculatorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator);
 
+        //create array for percentage
+        //every add goes to array, update view with value in array
     }
 
 }

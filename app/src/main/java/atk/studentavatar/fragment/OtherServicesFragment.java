@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import atk.studentavatar.CalculatorActivity;
 import atk.studentavatar.R;
 
 public class OtherServicesFragment extends Fragment{
@@ -57,7 +58,8 @@ public class OtherServicesFragment extends Fragment{
         calc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), CalculatorActivity.class);
+                startActivity(intent);
             }
         });
 
