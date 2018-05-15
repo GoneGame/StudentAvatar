@@ -53,16 +53,9 @@ public class CalendarCardViewActivity extends BaseActivity{
         checkBundle();
 
         Log.d("lolo", "before test event");
-        testevent();
+        //testevent();
 
-        //queryToMySQLserver();
-        Log.d("lolo11111111111", events.get(0).getTitle());
-        Log.d("lolo11111111111", events.get(1).getTitle());
-        Log.d("lolo111111111111", events.get(2).getTitle());
-
-        setAdapter();
-
-        dateSet();
+        queryToMySQLserver();
 
     }
 
@@ -80,12 +73,16 @@ public class CalendarCardViewActivity extends BaseActivity{
             day = bundle.getInt("Day");
             username = bundle.getString("Username");
 
+            Log.d("lolo", "year: " + Integer.toString(year));
+            Log.d("lolo", "month: " + Integer.toString(month));
+            Log.d("lolo", "day: " + Integer.toString(day));
             //bundle.clear();
         }
     }
 
     private void setAdapter()
     {
+        Log.d("lolo", "2 set adapter");
         recyclerView = findViewById(R.id.calenListRec);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,6 +108,7 @@ public class CalendarCardViewActivity extends BaseActivity{
 
     private void dateSet()
     {
+        Log.d("lolo", "3 set date");
         String date = getString(R.string.dateText, Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day));
         date_on_view = findViewById(R.id.TextView_date);
         date_on_view.setText(date);
@@ -118,8 +116,9 @@ public class CalendarCardViewActivity extends BaseActivity{
 
         if(events.isEmpty())
         {
-            status = findViewById(R.id.TextView_eventStatus);
+            status = findViewById(R.id.TextView_eeeeS);
             status.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -133,7 +132,9 @@ public class CalendarCardViewActivity extends BaseActivity{
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
+                    Log.d("lolo", response);
                     formatEvents(jsonObject);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -148,45 +149,51 @@ public class CalendarCardViewActivity extends BaseActivity{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("username", username);
+                Log.d("lolo", "Username: " + username);
+                Log.d("lolo", "Date: " + date);
+                map.put("user_name", username);
                 map.put("date", date);
                 return map;
             }
         };
 
         MySingletonVolley.getInstance(this).addToRequestQueue(stringRequest);
+
     }
 
     private void formatEvents(JSONObject jsonObject)
     {
 
         try {
+            Log.d("lolo", "1 in format events try");
             events = new ArrayList<Event>();
             Event tempEvent;
 
             String[] eventType = {"event", "notifi", "club", "unit"};
 
-            JSONArray jsonArray = jsonObject.getJSONArray(eventType[0]);
+            JSONArray jsonArray1 = jsonObject.getJSONArray("event");
 
             //for general event...title, date, location, time, description
-            tempEvent = new EventGeneral();
-            for(int j = 0; j < jsonArray.length(); j++)
+
+            for(int i = 0; i < jsonArray1.length(); i++)
             {
-                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent = new EventGeneral();
+                JSONObject object = jsonArray1.getJSONObject(i);
                 tempEvent.setTitle(object.getString("title"));
                 tempEvent.setDate(object.getString("date"));
                 tempEvent.setLocation(object.getString("location"));
                 tempEvent.setTime(object.getString("time"));
                 tempEvent.setDescription(object.getString("description"));
                 events.add(tempEvent);
-                tempEvent.clearValues();
             }
 
+            JSONArray jsonArray2 = jsonObject.getJSONArray(eventType[1]);
             //for notifications...title, date, time, description
-            tempEvent = new EventNotifi();
-            for(int j = 0; j < jsonArray.length(); j++)
+
+            for(int j = 0; j < jsonArray2.length(); j++)
             {
-                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent = new EventNotifi();
+                JSONObject object = jsonArray2.getJSONObject(j);
                 tempEvent.setTitle(object.getString("title"));
                 tempEvent.setDate(object.getString("date"));
                 tempEvent.setTime(object.getString("time"));
@@ -195,11 +202,13 @@ public class CalendarCardViewActivity extends BaseActivity{
                 tempEvent.clearValues();
             }
 
+            JSONArray jsonArray3 = jsonObject.getJSONArray(eventType[2]);
             //for club and unit...name, title, date, location, time, description
-            tempEvent = new EventClub();
-            for(int j = 0; j < jsonArray.length(); j++)
+
+            for(int j = 0; j < jsonArray3.length(); j++)
             {
-                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent = new EventClub();
+                JSONObject object = jsonArray3.getJSONObject(j);
                 tempEvent.setTitle(object.getString("title"));
                 tempEvent.setDate(object.getString("date"));
                 tempEvent.setTime(object.getString("time"));
@@ -207,13 +216,14 @@ public class CalendarCardViewActivity extends BaseActivity{
                 tempEvent.setLocation(object.getString("location"));
                 tempEvent.setName(object.getString("name"));
                 events.add(tempEvent);
-                tempEvent.clearValues();
             }
 
-            tempEvent = new EventClub();
-            for(int j = 0; j < jsonArray.length(); j++)
+            JSONArray jsonArray4 = jsonObject.getJSONArray(eventType[3]);
+
+            for(int j = 0; j < jsonArray4.length(); j++)
             {
-                JSONObject object = jsonArray.getJSONObject(j);
+                tempEvent = new EventClub();
+                JSONObject object = jsonArray4.getJSONObject(j);
                 tempEvent.setTitle(object.getString("title"));
                 tempEvent.setDate(object.getString("date"));
                 tempEvent.setTime(object.getString("time"));
@@ -221,8 +231,11 @@ public class CalendarCardViewActivity extends BaseActivity{
                 tempEvent.setLocation(object.getString("location"));
                 tempEvent.setName(object.getString("name"));
                 events.add(tempEvent);
-                tempEvent.clearValues();
             }
+
+            Log.d("lolo", "1.5 in format events try");
+            setAdapter();
+            dateSet();
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -19,7 +19,7 @@
         android:text="@string/dateText"/>
 
     <TextView
-        android:id="@+id/TextView_eventStatus"
+        android:id="@+id/TextView_eeeeS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -29,13 +29,13 @@
         android:layout_marginBottom="10dp"
         android:visibility="gone"
         android:layout_below="@id/TextView_date"
-        android:text="@string/dateText"/>
+        android:text="@string/NoEventText"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/calenListRec"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/TextView_eventStatus">
+        android:layout_below="@+id/TextView_eeeeS">
 
     </android.support.v7.widget.RecyclerView>
 
