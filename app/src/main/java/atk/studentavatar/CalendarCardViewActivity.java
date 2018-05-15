@@ -53,9 +53,11 @@ public class CalendarCardViewActivity extends BaseActivity{
         checkBundle();
 
         Log.d("lolo", "before test event");
-        //testevent();
+        testevent();
 
-        queryToMySQLserver();
+        //if u want to try to pull from mysql uncomment function below
+        //provided that ip address is correct, database exists, user exists in database
+        //queryToMySQLserver();
 
     }
 
@@ -103,6 +105,9 @@ public class CalendarCardViewActivity extends BaseActivity{
         events.add(new EventGeneral("title 2 test", "2018-5-15", "16:00", "Hello, put more text here", "GG33"));
         events.add(new EventUnit("testing title", "2018-5-15", "15:00", "Hello, put more text here", "GG33", "the linked unit"));
         events.add(new EventClub("title 1 test"));
+
+        setAdapter();
+        dateSet();
     }
 
 
