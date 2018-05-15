@@ -11,6 +11,8 @@ public abstract class Event {
     private String name;
 
     public Event() {
+        this.title = "";
+        this.name = "";
     }
 
     public void clearValues() {

@@ -27,6 +27,7 @@ import atk.studentavatar.models.Event;
 import atk.studentavatar.models.EventClub;
 import atk.studentavatar.models.EventGeneral;
 import atk.studentavatar.models.EventNotifi;
+import atk.studentavatar.models.EventUnit;
 import atk.studentavatar.viewholder.CalendarHolderAdapter;
 
 
@@ -54,6 +55,7 @@ public class CalendarCardViewActivity extends BaseActivity{
         Log.d("lolo", "before test event");
         testevent();
 
+        //queryToMySQLserver();
         Log.d("lolo11111111111", events.get(0).getTitle());
         Log.d("lolo11111111111", events.get(1).getTitle());
         Log.d("lolo111111111111", events.get(2).getTitle());
@@ -99,9 +101,11 @@ public class CalendarCardViewActivity extends BaseActivity{
         Log.d("lolo", "in test event");
         events = new ArrayList<Event>();
 
-        events.add(new EventGeneral("hi"));
-        events.add(new EventGeneral("bye"));
-        events.add(new EventGeneral("die"));
+        events.add(new EventGeneral("title 1 test", "2018-5-15", "15:00", "Hello, put more text here", "GG33"));
+        events.add(new EventClub());
+        events.add(new EventGeneral("title 2 test", "2018-5-15", "16:00", "Hello, put more text here", "GG33"));
+        events.add(new EventUnit("testing title", "2018-5-15", "15:00", "Hello, put more text here", "GG33", "the linked unit"));
+        events.add(new EventClub("title 1 test"));
     }
 
 

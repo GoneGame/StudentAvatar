@@ -9,6 +9,7 @@ public class EventGeneral extends Event{
     private String location;
 
     public EventGeneral() {
+        this.title = "";
     }
 
     public EventGeneral(String title, String date, String time, String description, String location) {

@@ -10,6 +10,8 @@ public class EventClub extends Event {
     private String name;
 
     public EventClub() {
+        this.title = "";
+        this.name = "";
     }
 
     public EventClub(String title, String date, String time, String description, String location, String name) {
