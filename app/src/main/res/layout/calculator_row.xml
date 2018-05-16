@@ -7,11 +7,13 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/intallrow_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/installNum"/>
 
     <EditText
+        android:id="@+id/duerow_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
@@ -19,11 +21,13 @@
         android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/amountrow_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/amountNum"/>
 
     <TextView
+        android:id="@+id/paidrow_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/paidNum"/>

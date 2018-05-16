@@ -8,7 +8,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp">
 
         <TextView
@@ -18,11 +18,12 @@
             android:text="@string/installTitleText"/>
 
         <EditText
+            android:id="@+id/total_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/totalAmountText"
-            android:textSize="15sp"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,13 +32,14 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/percent_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/nowAmountText"
-                android:textSize="15sp"
-                android:maxEms="2"
                 android:ems="16"
-                android:inputType="numberDecimal" />
+                android:hint="@string/nowAmountText"
+                android:inputType="numberDecimal"
+                android:maxEms="2"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/add_btn"
@@ -48,12 +50,13 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/sum_per_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="15sp"
+            android:text="@string/valPerText"
             android:textColor="#1b782c"
-            android:text="@string/valPerText"/>
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/clear_btn"
@@ -63,40 +66,52 @@
             android:enabled="true"
             android:text="@string/clearTexttt"/>
 
-        <TableLayout
-            android:id="@+id/tableTrack"
-            android:layout_marginTop="10dp"
-            android:stretchColumns="*"
+        <LinearLayout
+            android:id="@+id/secondSegmentCalc"
+            android:visibility="gone"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <TableRow
+            <TableLayout
+                android:id="@+id/tableTrack"
+                android:layout_marginTop="10dp"
+
+                android:stretchColumns="*"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <TextView
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/installTexttt"/>
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dueTexttt"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/installTexttt"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/amountTexttt"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dueTexttt"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/paidTexttt"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/amountTexttt"/>
 
-            </TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/paidTexttt"/>
 
-        </TableLayout>
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
