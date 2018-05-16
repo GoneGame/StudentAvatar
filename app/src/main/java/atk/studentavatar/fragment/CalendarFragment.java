@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,12 +26,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.util.Random;
+
 import atk.studentavatar.CalendarCardViewActivity;
 import atk.studentavatar.GeneralDetailActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.User;
 
 public class CalendarFragment extends Fragment{
+    private TextView hello;
     private CalendarView calendarView;
     private Query query;
 
@@ -46,6 +50,19 @@ public class CalendarFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
 
         calendarView = rootView.findViewById(R.id.calendarView);
+        hello = rootView.findViewById(R.id.helloTextView);
+
+        Random random = new Random();
+
+        //number 0 - 3
+        int g = random.nextInt(4);
+        String[] strings = {getString(R.string.helloText1),
+                            getString(R.string.helloText2),
+                            getString(R.string.helloText3),
+                            getString(R.string.helloText4)};
+
+        hello.setText(strings[g]);
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

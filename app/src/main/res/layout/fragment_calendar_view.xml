@@ -9,10 +9,10 @@
     >
 
     <TextView
-        android:id="@+id/dateTextView"
+        android:id="@+id/helloTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/helloText"
+        android:text="@string/helloText2"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:textSize="22sp" />

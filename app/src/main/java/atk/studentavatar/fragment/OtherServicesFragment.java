@@ -27,6 +27,7 @@ public class OtherServicesFragment extends Fragment{
         canteen = rootView.findViewById(R.id.TextView_LinkCanteen);
         library = rootView.findViewById(R.id.TextView_LinkLibrary);
         gym = rootView.findViewById(R.id.TextView_LinkGym);
+        calc = rootView.findViewById(R.id.TextView_Calculator);
 
         canteen.setOnClickListener(new View.OnClickListener() {
             @Override
