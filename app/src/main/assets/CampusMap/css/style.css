@@ -863,7 +863,7 @@ button:focus {
 	height: 13.25vmin;
 	margin: -8.25vmin 0 0 -2.25vmin; /* let the bottom tip be the reference point for individual coordinates */
 	-webkit-transform: rotateZ(-20deg) rotateZ(45deg) rotateX(-70deg);
-	transform: rotateZ(-43deg) rotateZ(45deg) rotateX(0deg);
+	transform: rotateZ(-45deg) rotateZ(45deg) rotateX(0deg);
 	-webkit-transform-origin: 50% 100%;
 	transform-origin: 50% 100%;
 	-webkit-transform-style: preserve-3d;
@@ -975,11 +975,11 @@ button:focus {
 .pin--1-9 { top: 19.5vmin; left: 29vmin; }
 
 /* Pins for floor 2 */
-.pin--2-1 { top: 17vmin; left: 22vmin; }
+.pin--2-1 { top: 21.5vmin; left: 10vmin; }
 .pin--2-2 { top: 39vmin; left: 5vmin; }
 .pin--2-3 { top: 21vmin; left: 84vmin; }
-.pin--2-4 { top: 39vmin; left: 53vmin; }
-.pin--2-5 { top: 10vmin; left: 50vmin; }
+.pin--2-4 { top: 9vmin; left: 53vmin; }
+.pin--2-5 { top: 2vmin; left: 33vmin; }
 .pin--2-6 { top: 60vmin; left: 15vmin; }
 .pin--2-7 { top: 34vmin; left: 37vmin; }
 .pin--2-8 { top: 52vmin; left: 74vmin; }
