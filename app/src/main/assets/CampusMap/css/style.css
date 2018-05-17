@@ -976,10 +976,10 @@ button:focus {
 
 /* Pins for floor 2 */
 .pin--2-1 { top: 21.5vmin; left: 10vmin; }
-.pin--2-2 { top: 39vmin; left: 5vmin; }
+.pin--2-2 { top: 0vmin; left: 66vmin; }
 .pin--2-3 { top: 21vmin; left: 84vmin; }
-.pin--2-4 { top: 9vmin; left: 53vmin; }
-.pin--2-5 { top: 2vmin; left: 33vmin; }
+.pin--2-4 { top: 13vmin; left: 53vmin; }
+.pin--2-5 { top: 10vmin; left: 33vmin; }
 .pin--2-6 { top: 60vmin; left: 15vmin; }
 .pin--2-7 { top: 34vmin; left: 37vmin; }
 .pin--2-8 { top: 52vmin; left: 74vmin; }
