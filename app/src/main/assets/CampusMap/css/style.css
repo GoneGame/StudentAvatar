@@ -196,7 +196,7 @@ button:focus {
 
 .mall.mall--content-open {
 	-webkit-transform: translate3d(0,-25%,0) scale3d(0.8,0.8,1);
-	transform: translate3d(0,-25%,0) scale3d(1.2,1.2,1.5);
+	transform: translate3d(0,-14%,0) scale(1,0.8);
 }
 
 .surroundings,
@@ -454,7 +454,7 @@ button:focus {
 .level.level--current {
 	-webkit-transform: translateZ(15vmin) rotate3d(0,0,1,20deg);
 	/* go to center */
-	transform: translateZ(14vmin) rotate3d(-0.75,-0.5,0.5,95deg) scale(0.9, 1.4);
+	transform: translateZ(30vmin) rotate3d(-0.75,-0.5,0.5,95deg) scale(0.9, 1.8);
 	
 
 }
