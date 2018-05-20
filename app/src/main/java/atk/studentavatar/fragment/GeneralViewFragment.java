@@ -18,8 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
-import atk.studentavatar.BusStation;
-import atk.studentavatar.Message;
+//import atk.studentavatar.BusStation;
+//import atk.studentavatar.Message;
 import atk.studentavatar.R;
 import atk.studentavatar.models.General;
 
