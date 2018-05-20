@@ -64,6 +64,7 @@
     <string name="nextAmountText">Consecutive Percentage</string>
     <string name="addTexttt">Add</string>
     <string name="valPerText">Enter the percentage....</string>
+    <string name="valPerTotalText">=</string>
     <string name="clearTexttt">Clear</string>
 
 
@@ -78,6 +79,17 @@
 
     <string name="paidTexttt">Paid</string>
     <string name="paidNum">no....erer</string>
+
+
+    <string name="waitTitleText">Amount list</string>
+    <string name="waitText">Awaiting input....</string>
+
+    <string name="totalPaidTitleText">Total paid</string>
+    <string name="remainPaidTitleText">Total remaining fee</string>
+    <string name="remainCurrentPaidTitleText">Current installment remaining fee</string>
+
+    <string name="pay_edit_text">Input amount Paid</string>
+    <string name="pay_btn_text">Paid</string>
 
     <!--Calculator strings end-->
 

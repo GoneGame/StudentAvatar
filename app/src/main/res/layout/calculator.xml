@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/totalAmountText"
             android:inputType="numberDecimal"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,12 +39,13 @@
                 android:hint="@string/nowAmountText"
                 android:inputType="numberDecimal"
                 android:maxEms="2"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <Button
                 android:id="@+id/add_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="@string/addTexttt"/>
 
         </LinearLayout>
@@ -56,14 +57,23 @@
             android:layout_marginTop="5dp"
             android:text="@string/valPerText"
             android:textColor="#1b782c"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/total_per_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/valPerTotalText"
+            android:textColor="#ef7517"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/clear_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:enabled="true"
+            android:enabled="false"
             android:text="@string/clearTexttt"/>
 
         <LinearLayout
@@ -108,6 +118,118 @@
                 </TableRow>
 
             </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tempSegment"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/paid_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="16"
+                    android:hint="@string/pay_edit_text"
+                    android:inputType="numberDecimal"
+                    android:maxEms="2"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/paid_btn"
+                    android:layout_gravity="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/pay_btn_text"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/title_sum_conv_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/waitTitleText"/>
+
+            <TextView
+                android:id="@+id/sum_conv_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#1b782c"
+                android:text="@string/waitText"/>
+
+
+            <TextView
+                android:id="@+id/title_sum_paid_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/totalPaidTitleText"/>
+
+            <TextView
+                android:id="@+id/sum_paid_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#1b782c"
+                android:text="@string/waitText"/>
+
+            <TextView
+                android:id="@+id/total_paid_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/valPerTotalText"
+                android:textColor="#ef7517" />
+
+            <Button
+                android:id="@+id/clear_paid_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:enabled="false"
+                android:text="@string/clearTexttt"/>
+
+            <TextView
+                android:id="@+id/title_remain_paid_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/remainPaidTitleText"/>
+
+            <TextView
+                android:id="@+id/remain_paid_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#1b782c"
+                android:text="@string/waitText"/>
+
+            <TextView
+                android:id="@+id/title_remain_current_paid_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/remainCurrentPaidTitleText"/>
+
+            <TextView
+                android:id="@+id/remain_current_paid_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#1b782c"
+                android:text="@string/waitText"/>
+
+
 
         </LinearLayout>
 
