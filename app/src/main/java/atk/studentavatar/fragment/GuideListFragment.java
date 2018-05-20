@@ -3,25 +3,19 @@ package atk.studentavatar.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.Transaction;
-import atk.studentavatar.GeneralDetailActivity;
+
+import atk.studentavatar.GuideActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.General;
 import atk.studentavatar.viewholder.GeneralViewHolder;
@@ -50,7 +44,7 @@ public abstract class GuideListFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
 
-        mRecycler = rootView.findViewById(R.id.general_list);
+        mRecycler = rootView.findViewById(R.id.guides_list);
         mRecycler.setHasFixedSize(true);
 
         return rootView;
@@ -85,14 +79,14 @@ public abstract class GuideListFragment extends Fragment {
             protected void onBindViewHolder(GeneralViewHolder viewHolder, int position, final General model) {
                 final DatabaseReference generalRef = getRef(position);
 
-                // Set click listener for the whole general view
-                final String generalKey = generalRef.getKey();
+                // Set click listener for the whole guide view
+                final String guideKey = generalRef.getKey();
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Launch GeneralDetailActivity
-                        Intent intent = new Intent(getActivity(), GeneralDetailActivity.class);
-                        intent.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, generalKey);
+                        // Launch GuideActivity
+                        Intent intent = new Intent(getActivity(), GuideActivity.class);
+                        intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, guideKey);
                         startActivity(intent);
                     }
                 });
@@ -121,5 +115,4 @@ public abstract class GuideListFragment extends Fragment {
     }
 
     public abstract Query getQuery(DatabaseReference databaseReference);
-
 }

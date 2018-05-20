@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Random;
 
 import atk.studentavatar.CalendarCardViewActivity;
-import atk.studentavatar.GeneralDetailActivity;
+import atk.studentavatar.GuideActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.User;
 

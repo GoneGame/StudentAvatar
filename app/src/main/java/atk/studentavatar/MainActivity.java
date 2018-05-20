@@ -17,11 +17,16 @@
 package atk.studentavatar;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -34,7 +39,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 //import atk.studentavatar.fragment.AnnouncementsFragment;
 import atk.studentavatar.fragment.CalendarFragment;
-import atk.studentavatar.fragment.GeneralFragment;
+import atk.studentavatar.fragment.GuideFragment;
 import atk.studentavatar.fragment.HandbookFragment;
 import atk.studentavatar.fragment.MapFragment;
 import atk.studentavatar.fragment.OtherServicesFragment;
@@ -47,40 +52,30 @@ public class  MainActivity extends BaseActivity {
     private FragmentPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
 
-    private DrawerLayout mDrawer;
-    private Toolbar toolbar;
-    private NavigationView nvDrawer;
-    private ActionBarDrawerToggle drawerToggle;
+    // configure icons
+    private int[] imageResId = {
+            R.drawable.book_open_page_variant,
+            R.drawable.forum,
+            R.drawable.calendar_text,
+            R.drawable.map_search_outline,
+            R.drawable.apps
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        // Set a Toolbar to replace the ActionBar.
-//        toolbar = findViewById(R.id.nav_actionbar);
-//        setSupportActionBar(toolbar);
-//
-//        // Find our drawer view
-//        mDrawer = findViewById(R.id.drawer_layout);
-//        drawerToggle = setupDrawerToggle();
-//
-//        nvDrawer = findViewById(R.id.nav_view);
-//        // Setup drawer view
-//        setupDrawerContent(nvDrawer);
-//
-//        // Tie DrawerLayout events to the ActionBarToggle
-//        mDrawer.addDrawerListener(drawerToggle);
+        activateMainToolbar();
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
-                    new GeneralFragment(),
+                    new GuideFragment(),
 //                    new AnnouncementsFragment(),
                     new RecentPostsFragment(),
                     new CalendarFragment(),
                     new MapFragment(),
-                    new HandbookFragment(),
                     new OtherServicesFragment()
             };
             private final String[] mFragmentNames = new String[] {
@@ -89,7 +84,6 @@ public class  MainActivity extends BaseActivity {
                     getString(R.string.heading_recent),
                     getString(R.string.heading_calendar),
                     getString(R.string.heading_map),
-                    getString(R.string.heading_handbook),
                     getString(R.string.otherServicesText)
 
             };
@@ -103,7 +97,8 @@ public class  MainActivity extends BaseActivity {
             }
             @Override
             public CharSequence getPageTitle(int position) {
-                return mFragmentNames[position];
+//                return mFragmentNames[position];
+                return null;
             }
         };
         // Set up the ViewPager with the sections adapter.
@@ -112,122 +107,76 @@ public class  MainActivity extends BaseActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        for (int i = 0; i < imageResId.length; i++) {
+            tabLayout.getTabAt(i).setIcon(imageResId[i]);
+        }
+
         // Button launches NewPostActivity
-//        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
-//            }
-//        });
+        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
+            }
+        });
 
-//        // Button launches NewPostActivity
-//        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, NewAnnouncementActivity.class));
-//            }
-//        });
+        ColorStateList colors;
+        if (Build.VERSION.SDK_INT >= 23) {
+            colors = getResources().getColorStateList(R.color.tab_selector, getTheme());
+        }
+        else {
+            colors = getResources().getColorStateList(R.color.tab_selector);
+        }
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            Drawable icon = tab.getIcon();
+
+            if (icon != null) {
+                icon = DrawableCompat.wrap(icon);
+                DrawableCompat.setTintList(icon, colors);
+            }
+        }
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            FloatingActionButton fab = findViewById(R.id.fab_new_post);
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        fab.hide();
+                        break;
+                    case 1:
+                        fab.show();
+                        break;
+                    case 2:
+                        fab.hide();
+                        break;
+                    case 3:
+                        fab.hide();
+                        break;
+                    case 4:
+                        fab.hide();
+                        break;
+                    default:
+                        fab.hide();
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
-
-    //        // Lookup navigation view
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_draw);
-//// Inflate the header view at runtime
-//        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header);
-//// We can now look up items within the header if needed
-//        ImageView ivHeaderPhoto = headerLayout.findViewById(R.id.imageView);
-
-
-    // Getting reference to header
-    // There is usually only 1 header view.
-// Multiple header views can technically be added at runtime.
-// We can use navigationView.getHeaderCount() to determine the total number.
-//        View headerLayout = navigationView.getHeaderView(0);
-//    }
-
-    // `onPostCreate` called when activity start-up is complete after `onStart()`
-    // NOTE 1: Make sure to override the method with only a single `Bundle` argument
-    // Note 2: Make sure you implement the correct `onPostCreate(Bundle savedInstanceState)` method.
-    // There are 2 signatures and only `onPostCreate(Bundle state)` shows the hamburger icon.
-//    @Override
-//    protected void onPostCreate(Bundle savedInstanceState) {
-//        super.onPostCreate(savedInstanceState);
-//        // Sync the toggle state after onRestoreInstanceState has occurred.
-//        drawerToggle.syncState();
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        // Pass any configuration change to the drawer toggles
-//        drawerToggle.onConfigurationChanged(newConfig);
-//    }
-//
-//    private ActionBarDrawerToggle setupDrawerToggle() {
-//        // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
-//        // and will not render the hamburger icon without it.
-//        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
-//    }
-//
-//    private void setupDrawerContent(NavigationView navigationView) {
-//        navigationView.setNavigationItemSelectedListener(
-//                new NavigationView.OnNavigationItemSelectedListener() {
-//                    @Override
-//                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-//                        selectDrawerItem(menuItem);
-//                        return true;
-//                    }
-//                });
-//    }
-
-//    public void selectDrawerItem(MenuItem menuItem) {
-//        // Create a new fragment and specify the fragment to show based on nav item clicked
-//        Fragment fragment = null;
-//        Class fragmentClass;
-//        switch(menuItem.getItemId()) {
-//            case R.id.nav_first_fragment:
-////                fragmentClass = GeneralFragment.class;
-////                Intent intent2 = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-////                intent2.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, mGeneralKey);
-////                startActivity(intent2);
-//                break;
-//            case R.id.nav_second_fragment:
-////                fragmentClass = GeneralFragment.class;  // placeholder
-//                break;
-//            case R.id.nav_third_fragment:
-////                fragmentClass = GeneralFragment.class;  // placeholder
-//                break;
-//            default:
-//                fragmentClass = GeneralFragment.class;
-//                Intent intent = new Intent(getApplicationContext(), GeneralDetailActivity.class);
-//                intent.putExtra(GeneralDetailActivity.EXTRA_GENERAL_KEY, mGeneralKey);
-//                startActivity(intent);
-//        }
-//
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Insert the fragment by replacing any existing fragment
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-//        // Highlight the selected item has been done by NavigationView
-//        menuItem.setChecked(true);
-//        // Set action bar title
-//        setTitle(menuItem.getTitle());
-//        // Close the navigation drawer
-//        mDrawer.closeDrawers();
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (drawerToggle.onOptionsItemSelected(item)) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -242,9 +191,6 @@ public class  MainActivity extends BaseActivity {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, SignInActivity.class));
             finish();
-            return true;
-        }
-        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         else {

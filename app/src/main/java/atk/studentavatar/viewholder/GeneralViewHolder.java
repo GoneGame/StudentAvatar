@@ -10,20 +10,14 @@ import atk.studentavatar.models.General;
 public class GeneralViewHolder extends RecyclerView.ViewHolder {
 
     public TextView titleView;
-    public TextView locationView;
-    public TextView descriptionView;
 
     public GeneralViewHolder(View itemView) {
         super(itemView);
 
-        titleView = itemView.findViewById(R.id.general_title);
-        locationView = itemView.findViewById(R.id.general_location);
-        descriptionView = itemView.findViewById(R.id.general_description);
+        titleView = itemView.findViewById(R.id.guide_title);
     }
 
     public void bindToGeneral(General general) {
-        titleView.setText(general.title);
-//        titleView.setText(general.location);
-//        titleView.setText(general.description);
+        titleView.setText(general.name);
     }
 }

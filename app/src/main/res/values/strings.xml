@@ -25,6 +25,8 @@
     <string name="heading_calendar">Calendar</string>
     <string name="heading_map">Map</string>
     <string name="heading_handbook">Handbook</string>
+    <string name="guide_name">My First Guide</string>
+    <string name="faq_name">My First FAQ</string>
 
 
     <!--Calendar strings start I need to find a way to use these properly or they'll just be placeholders-->
