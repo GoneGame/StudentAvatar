@@ -801,25 +801,25 @@ button:focus {
 
 .grouped-by-category [data-category='1']:first-child::before,
 .grouped-by-category :not([data-category='1']) + [data-category='1']::before {
-	content: 'Nourish & Refresh';
+	content: 'Nourish';
 	color: #7cbf7f;
 }
 
 .grouped-by-category [data-category='2']:first-child::before,
 .grouped-by-category :not([data-category='2']) + [data-category='2']::before {
-	content: 'Learn & Create';
+	content: 'Learn';
 	color: #6584c7;
 }
 
 .grouped-by-category [data-category='3']:first-child::before,
 .grouped-by-category :not([data-category='3']) + [data-category='3']::before {
-	content: 'Swap & Give';
+	content: 'Swap';
 	color: #dc4b7c;
 }
 
 .grouped-by-category [data-category='4']:first-child::before,
 .grouped-by-category :not([data-category='4']) + [data-category='4']::before {
-	content: 'Relax & Recharge';
+	content: 'Relax';
 	color: #8d65e0;
 }
 
@@ -976,22 +976,22 @@ button:focus {
 /* Pins for floor 1 */
 /* .pin--1-1 { top: 36vmin; left: 31vmin; }
 .pin--1-2 { top: 31vmin; left: 7.5vmin; }
-
-.pin--1-4 { top: 14vmin; left: 77vmin; }
-.pin--1-5 { top: 35.5vmin; left: 59.5vmin; }
-.pin--1-6 { top: 33vmin; left: 15.7vmin; }
-.pin--1-7 { top: 44vmin; left: 46vmin; }
-.pin--1-8 { top: 14vmin; left: 46.9vmin; }*/
-.pin--1-3 { top: 32vmin; left: -2.5vmin; }
+*/
+.pin--1-8 { top: 13vmin; left: 24.9vmin; }
+.pin--1-4 { top: 21.5vmin; left: 20.5vmin; }
+.pin--1-5 { top: 28vmin; left: 49.5vmin; }
+.pin--1-6 { top: 22vmin; left: 77.7vmin; }
+.pin--1-7 { top: 67vmin; left: 5vmin; }
+.pin--1-3 { top: 45vmin; left: 4.5vmin; }
 .pin--1-9 { top: 8.5vmin; left: 45.5vmin; } 
-.pin--1-10 { top: 14.5vmin; left: 6vmin; }
-.pin--1-11 { top: 3.5vmin; left: 32.5vmin; }
-.pin--1-12 { top: 36.5vmin; left: 14vmin; }
-.pin--1-13 { top: 58.5vmin; left: 5vmin; }
-.pin--1-14 { top: 58.5vmin; left: 54.5vmin; }
-.pin--1-15 { top: 38.5vmin; left: 61vmin; }
-.pin--1-16 { top: 14.5vmin; left: 62vmin; }
-.pin--1-17 { top: 3.5vmin; left: 89.5vmin; }
+.pin--1-10 { top: 18.5vmin; left: 9vmin; }
+.pin--1-11 { top: 8.5vmin; left: 33.5vmin; }
+.pin--1-12 { top: 39.5vmin; left: 16vmin; }
+.pin--1-13 { top: 64.5vmin; left: 5vmin; }
+.pin--1-14 { top: 64.5vmin; left: 54.5vmin; }
+.pin--1-15 { top: 42.5vmin; left: 61vmin; }
+.pin--1-16 { top: 20.5vmin; left: 62vmin; }
+.pin--1-17 { top: 7.5vmin; left: 89.5vmin; }
 
 /* Pins for floor 2 */
 .pin--2-1 { top: 21.5vmin; left: 10vmin; }
