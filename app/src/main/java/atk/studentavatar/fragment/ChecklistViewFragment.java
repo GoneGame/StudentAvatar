@@ -1,6 +1,7 @@
 package atk.studentavatar.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -75,6 +76,11 @@ public class ChecklistViewFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -107,6 +113,13 @@ public class ChecklistViewFragment extends Fragment {
                         Log.w(TAG, "loadChecklist:onCancelled", databaseError.toException());
                     }
                 });
+
+        mLinkView.setOnClickListener(view1 -> {
+            String link = mLinkView.getText().toString();
+            Uri uri = Uri.parse(link);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        });
     }
 
     @Override
