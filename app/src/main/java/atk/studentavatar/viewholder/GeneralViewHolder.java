@@ -10,14 +10,17 @@ import atk.studentavatar.models.General;
 public class GeneralViewHolder extends RecyclerView.ViewHolder {
 
     public TextView titleView;
+    public TextView dateView;
 
     public GeneralViewHolder(View itemView) {
         super(itemView);
 
         titleView = itemView.findViewById(R.id.guide_title);
+        dateView = itemView.findViewById(R.id.guide_date);
     }
 
     public void bindToGeneral(General general) {
         titleView.setText(general.name);
+        dateView.setText(general.date);
     }
 }

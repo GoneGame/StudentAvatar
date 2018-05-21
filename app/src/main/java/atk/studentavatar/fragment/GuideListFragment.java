@@ -61,10 +61,10 @@ public abstract class GuideListFragment extends Fragment {
         mRecycler.setLayoutManager(mManager);
 
         // Set up FirebaseRecyclerAdapter with the Query
-        Query guidesQuery = getQuery(mDatabase);
+        Query recentGuidesQuery = getQuery(mDatabase);
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<General>()
-                .setQuery(guidesQuery, General.class)
+                .setQuery(recentGuidesQuery, General.class)
                 .build();
 
         mAdapter = new FirebaseRecyclerAdapter<General, GeneralViewHolder>(options) {
