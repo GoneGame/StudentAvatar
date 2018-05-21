@@ -17,6 +17,9 @@ import android.support.design.widget.NavigationView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import atk.studentavatar.fragment.ChecklistFragment;
+import atk.studentavatar.fragment.ChecklistListFragment;
+import atk.studentavatar.fragment.ChecklistViewFragment;
 import atk.studentavatar.fragment.FaqFragment;
 import atk.studentavatar.fragment.FaqListFragment;
 import atk.studentavatar.fragment.FaqViewFragment;
@@ -26,16 +29,21 @@ public class GuideActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         GeneralViewFragment.OnFragmentInteractionListener,
         FaqListFragment.OnFragmentInteractionListener,
-        FaqViewFragment.OnFragmentInteractionListener {
+        FaqViewFragment.OnFragmentInteractionListener,
+        ChecklistListFragment.OnFragmentInteractionListener,
+        ChecklistViewFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "GuideActivity";
 
     public static final String EXTRA_GUIDE_KEY = "guide_key";
     public static final String EXTRA_FAQL_KEY = "faql_key";
     public static final String EXTRA_FAQ_KEY = "faq_key";
+    public static final String EXTRA_CL_KEY = "cl_key";
+    public static final String EXTRA_CLL_KEY = "cll_key";
 
     private String mGuideKey;
     private String mFaqKey;
+    private String mChecklistKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +62,8 @@ public class GuideActivity extends BaseActivity implements
                 Bundle mBundle = new Bundle();
                 mBundle.putString("key", mGuideKey);
                 fragment.setArguments(mBundle);
-            } else if (getIntent().getStringExtra(EXTRA_FAQ_KEY) != null) {
+            }
+            else if (getIntent().getStringExtra(EXTRA_FAQ_KEY) != null) {
                 mGuideKey = getIntent().getStringExtra(EXTRA_FAQL_KEY);
                 mFaqKey = getIntent().getStringExtra(EXTRA_FAQ_KEY);
                 fragment = new FaqViewFragment();
@@ -63,6 +72,15 @@ public class GuideActivity extends BaseActivity implements
                 mBundle.putString("fkey", mFaqKey);
                 fragment.setArguments(mBundle);
             }
+            else if (getIntent().getStringExtra(EXTRA_CL_KEY) != null) {
+            mGuideKey = getIntent().getStringExtra(EXTRA_CLL_KEY);
+            mChecklistKey = getIntent().getStringExtra(EXTRA_CL_KEY);
+            fragment = new ChecklistViewFragment();
+            Bundle mBundle = new Bundle();
+            mBundle.putString("gkey", mGuideKey);
+            mBundle.putString("ckey", mChecklistKey);
+            fragment.setArguments(mBundle);
+        }
             // Add the fragment to the 'content_frame' FrameLayout
             if (fragment != null) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -128,7 +146,10 @@ public class GuideActivity extends BaseActivity implements
             mBundle.putString("key", mGuideKey);
             fragment.setArguments(mBundle);
         } else if (id == R.id.nav_third_fragment) {
-//            fragment = new Fragment();
+            fragment = new ChecklistFragment();
+            Bundle mBundle = new Bundle();
+            mBundle.putString("key", mGuideKey);
+            fragment.setArguments(mBundle);
         }
 
         if(fragment != null) {
