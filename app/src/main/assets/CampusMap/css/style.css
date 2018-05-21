@@ -1036,11 +1036,15 @@ button:focus {
 .pin--3-17 { top: 8vmin; left: 81vmin; } /* A216 */
 .pin--3-18 { top: 8vmin; left: 81vmin; } /* A216 */
 .pin--3-19 { top: 8vmin; left: 81vmin; } /* A216 */
-.pin--3-20 { top: 8vmin; left: 81vmin; } /* A216 */
-.pin--3-21 { top: 8vmin; left: 81vmin; } /* A216 */
-.pin--3-22 { top: 8vmin; left: 81vmin; } /* A216 */
-.pin--3-23 { top: 8vmin; left: 81vmin; } /* A216 */
-.pin--3-24 { top: 8vmin; left: 81vmin; } /* A216 */
+.pin--3-20 { top: 7vmin;
+    left: 25vmin; } /* A216 */
+.pin--3-21 { top: 7vmin; left: 27.5vmin; } /* A216 */
+.pin--3-22 { top: 21vmin;
+    left: -8vmin; } /* A216 */
+.pin--3-23 { top: 26vmin;
+    left: -2vmin; } /* A216 */
+.pin--3-24 { top: 31vmin;
+    left: -8vmin; } /* A216 */
 .pin--3-25 { top: 59.5vmin;
     left: 59vmin; } /* A216 */
 .pin--3-26 {     top: 52vmin;
