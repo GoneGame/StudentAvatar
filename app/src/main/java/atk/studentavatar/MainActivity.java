@@ -1,19 +1,3 @@
-/*
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package atk.studentavatar;
 
 import android.content.Intent;
@@ -22,25 +6,18 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-//import atk.studentavatar.fragment.AnnouncementsFragment;
 import atk.studentavatar.fragment.CalendarFragment;
 import atk.studentavatar.fragment.GuideFragment;
-import atk.studentavatar.fragment.HandbookFragment;
 import atk.studentavatar.fragment.MapFragment;
 import atk.studentavatar.fragment.OtherServicesFragment;
 import atk.studentavatar.fragment.RecentPostsFragment;
@@ -52,7 +29,7 @@ public class  MainActivity extends BaseActivity {
     private FragmentPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
 
-    // configure icons
+    // Configure icons
     private int[] imageResId = {
             R.drawable.book_open_page_variant,
             R.drawable.forum,
@@ -65,28 +42,26 @@ public class  MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // Execute Toolbar from BaseActivity
         activateMainToolbar();
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
                     new GuideFragment(),
-//                    new AnnouncementsFragment(),
                     new RecentPostsFragment(),
                     new CalendarFragment(),
                     new MapFragment(),
                     new OtherServicesFragment()
             };
-            private final String[] mFragmentNames = new String[] {
+            /*private final String[] mFragmentNames = new String[] {
                     getString(R.string.heading_discover),
-//                    getString(R.string.heading_announcements),
                     getString(R.string.heading_recent),
                     getString(R.string.heading_calendar),
                     getString(R.string.heading_map),
                     getString(R.string.otherServicesText)
 
-            };
+            };*/
             @Override
             public Fragment getItem(int position) {
                 return mFragments[position];
@@ -97,7 +72,6 @@ public class  MainActivity extends BaseActivity {
             }
             @Override
             public CharSequence getPageTitle(int position) {
-//                return mFragmentNames[position];
                 return null;
             }
         };
@@ -106,19 +80,11 @@ public class  MainActivity extends BaseActivity {
         mViewPager.setAdapter(mPagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
+        // Set up icons for Tablayout
         for (int i = 0; i < imageResId.length; i++) {
             tabLayout.getTabAt(i).setIcon(imageResId[i]);
         }
-
-        // Button launches NewPostActivity
-        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
-            }
-        });
-
+        // Set tint for active fragment
         ColorStateList colors;
         if (Build.VERSION.SDK_INT >= 23) {
             colors = getResources().getColorStateList(R.color.tab_selector, getTheme());
@@ -166,7 +132,6 @@ public class  MainActivity extends BaseActivity {
                         break;
                     default:
                         fab.hide();
-
                         break;
                 }
             }
@@ -176,6 +141,10 @@ public class  MainActivity extends BaseActivity {
 
             }
         });
+
+        // Floating button launches NewPostActivity
+        findViewById(R.id.fab_new_post).setOnClickListener(
+                v -> startActivity(new Intent(MainActivity.this, NewPostActivity.class)));
     }
 
     @Override

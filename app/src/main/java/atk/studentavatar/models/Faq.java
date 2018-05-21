@@ -2,7 +2,6 @@ package atk.studentavatar.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-// [START faq_class]
 @IgnoreExtraProperties
 public class Faq {
 
@@ -20,4 +19,3 @@ public class Faq {
         this.answer = answer;
     }
 }
-// [END faq_class]

@@ -9,12 +9,10 @@ public class GuideFragment extends GuideListFragment {
 
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
-        // [START recent_posts_query]
         // Last 100 posts, these are automatically the 100 most recent
         // due to sorting by push() keys
-        Query recentGuidesQuery = databaseReference.child("tguides")
+        Query recentGuidesQuery = databaseReference.child("guides")
                 .limitToFirst(100);
-        // [END recent_guides_query]
 
         return recentGuidesQuery;
     }

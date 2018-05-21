@@ -12,7 +12,7 @@
 
     <TextView
     android:id="@+id/faq_title"
-    style="@style/TextAppearance.AppCompat.Button"
+    style="@style/TextAppearance.AppCompat.Menu"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"

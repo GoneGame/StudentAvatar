@@ -2,11 +2,10 @@ package atk.studentavatar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.VisibleForTesting;
-import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -17,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class BaseActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private Toolbar toolbar2;
+    private DrawerLayout mDrawerLayout;
 
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
@@ -27,7 +28,6 @@ public class BaseActivity extends AppCompatActivity {
             mProgressDialog.setMessage(getString(R.string.loading));
             mProgressDialog.setIndeterminate(true);
         }
-
         mProgressDialog.show();
     }
 
@@ -53,6 +53,18 @@ public class BaseActivity extends AppCompatActivity {
         return toolbar;
     }
 
+    protected Toolbar activateToolbar() {
+        if(toolbar2 == null) {
+            // Set a Toolbar to replace the ActionBar.
+            toolbar2 = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar2);
+            ActionBar actionbar = getSupportActionBar();
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
+        return toolbar2;
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -65,10 +77,11 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        ActionBarDrawerToggle mToggle = null;
-        if(mToggle.onOptionsItemSelected(item))
-        {
-            return true;
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -2,7 +2,6 @@ package atk.studentavatar.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-// [START comment_class]
 @IgnoreExtraProperties
 public class Comment {
 
@@ -19,6 +18,4 @@ public class Comment {
         this.author = author;
         this.text = text;
     }
-
 }
-// [END comment_class]

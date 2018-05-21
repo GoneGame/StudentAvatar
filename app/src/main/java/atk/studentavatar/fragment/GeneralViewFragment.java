@@ -1,7 +1,8 @@
 package atk.studentavatar.fragment;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,17 +16,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
-//import atk.studentavatar.BusStation;
-//import atk.studentavatar.Message;
 import atk.studentavatar.R;
 import atk.studentavatar.models.General;
 
 public class GeneralViewFragment extends Fragment {
 
     private static final String TAG = "GVFragment";
+
+    private OnFragmentInteractionListener mListener;
 
     private ImageView mImageView;
     private TextView mTitleView;
@@ -34,36 +34,31 @@ public class GeneralViewFragment extends Fragment {
     private DatabaseReference mGuideReference;
     private ValueEventListener mGuideListener;
 
-    String mGuideKey = "";
+    private String mGuideKey;
 
+    public GeneralViewFragment() {}
 
-//    public GeneralViewFragment() {}
+    public static GeneralViewFragment newInstance(String mGuideKey) {
+        GeneralViewFragment fragment = new GeneralViewFragment();
+        Bundle args = new Bundle();
+        args.putString("key", mGuideKey);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        // Initialize Database
-////        if(mGuideKey != null) {
-////            Bundle mBundle = this.getArguments();
-////            mGuideKey = mBundle.getString("mGuideKey");
-////            mGuideKey = getArguments().getString("mGuideKey");
-////            mGuideKey = String.valueOf((Message)getArguments().getParcelable("key"));
-////            mGuideKey = String.valueOf((Message)getIntent().getExtras().getParcelable("key"));
-////            mGuideReference = FirebaseDatabase.getInstance().getReference("testguides").child(mGuideKey);
-////        }
-//    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mGuideKey = getArguments().getString("key");
+        }
+        mGuideReference = FirebaseDatabase.getInstance().getReference("guides").child(mGuideKey);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.include_general_text, container, false);
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            mGuideKey = bundle.getString("key");
-        }
-
-        mGuideReference = FirebaseDatabase.getInstance().getReference("tguides").child(mGuideKey);
 
         mImageView = view.findViewById(R.id.general_header);
         mTitleView = view.findViewById(R.id.general_title);
@@ -73,67 +68,64 @@ public class GeneralViewFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onViewCreated(View view, Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-        // Initialize Views
-//        mImageView = getActivity().findViewById(R.id.general_header);
-//        mTitleView = getActivity().findViewById(R.id.general_title);
-//        mLocationView = getActivity().findViewById(R.id.general_location);
-//        mDescriptionView = getActivity().findViewById(R.id.general_description);
-//    }
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
 
     @Override
     public void onStart() {
         super.onStart();
-
         // Add value event listener to the general view
-        // [START general_value_event_listener]
         ValueEventListener guideListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get General object and use the values to update the UI
                 General general = dataSnapshot.child("general").getValue(General.class);
-                // [START_EXCLUDE]
                 Picasso.get().load(general.header).into(mImageView);
                 mTitleView.setText(general.title);
                 mLocationView.setText(general.location);
                 mDescriptionView.setText(general.description);
-                // [END_EXCLUDE]
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-//                Toast.makeText(GuideActivity.this, "Failed to load details.",
-//                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
+                // Getting General failed, log a message
+                Log.w(TAG, "loadGeneral:onCancelled", databaseError.toException());
             }
         };
         if(mGuideReference != null) {
             mGuideReference.addValueEventListener(guideListener);
-            // [END general_value_event_listener]
         }
-
         // Keep copy of guide listener so we can remove it when app stops
         mGuideListener = guideListener;
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-
-//        BusStation.getBus().register(this);
-//        getActivity().getSupportActionBar().setTitle(R.string.station_info_access_mobility_title);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
-//        BusStation.getBus().unregister(this);
     }
 
     @Override
@@ -144,5 +136,9 @@ public class GeneralViewFragment extends Fragment {
         if (mGuideListener != null) {
             mGuideReference.removeEventListener(mGuideListener);
         }
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
     }
 }

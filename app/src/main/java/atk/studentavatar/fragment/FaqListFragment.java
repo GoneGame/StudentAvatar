@@ -1,6 +1,8 @@
 package atk.studentavatar.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +26,8 @@ public abstract class FaqListFragment extends Fragment {
 
     private static final String TAG = "FaqListFragment";
 
+    private OnFragmentInteractionListener mListener;
+
     // [START define_database_reference]
     private DatabaseReference mDatabase;
     // [END define_database_reference]
@@ -31,16 +35,24 @@ public abstract class FaqListFragment extends Fragment {
     private FirebaseRecyclerAdapter<Faq, FaqViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
-    protected String mGuideKey;
+
+    private String mGuideKey;
 
     public FaqListFragment() {}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mGuideKey = getArguments().getString("key");
+        }
+    }
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_all_faqs, container, false);
-        mGuideKey = getActivity().getIntent().getExtras().getString("mGuideKey");
 
         // [START create_database_reference]
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -83,14 +95,12 @@ public abstract class FaqListFragment extends Fragment {
 
                 // Set click listener for the whole faq view
                 final String faqKey = faqRef.getKey();
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Launch GuideActivity
-                        Intent intent = new Intent(getActivity(), GuideActivity.class);
-                        intent.putExtra(GuideActivity.EXTRA_FAQ_KEY, faqKey);
-                        startActivity(intent);
-                    }
+                viewHolder.itemView.setOnClickListener(v -> {
+                    // Launch GuideActivity
+                    Intent intent = new Intent(getActivity(), GuideActivity.class);
+                    intent.putExtra(GuideActivity.EXTRA_FAQL_KEY, mGuideKey);
+                    intent.putExtra(GuideActivity.EXTRA_FAQ_KEY, faqKey);
+                    startActivity(intent);
                 });
 
                 // Bind Faq to ViewHolder
@@ -98,6 +108,29 @@ public abstract class FaqListFragment extends Fragment {
             }
         };
         mRecycler.setAdapter(mAdapter);
+    }
+
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof GeneralViewFragment.OnFragmentInteractionListener) {
+            mListener = (FaqListFragment.OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Override
@@ -118,4 +151,7 @@ public abstract class FaqListFragment extends Fragment {
 
     public abstract Query getQuery(DatabaseReference databaseReference);
 
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+    }
 }
