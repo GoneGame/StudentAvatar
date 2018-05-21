@@ -1,12 +1,7 @@
 package atk.studentavatar.models;
 
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.HashMap;
-import java.util.Map;
-
-// [START general_class]
 @IgnoreExtraProperties
 public class General {
 
@@ -30,4 +25,3 @@ public class General {
         this.name = name;
     }
 }
-// [END general_class]

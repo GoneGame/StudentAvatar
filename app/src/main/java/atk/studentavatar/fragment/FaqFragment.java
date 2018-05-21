@@ -5,14 +5,17 @@ import com.google.firebase.database.Query;
 
 public class FaqFragment extends FaqListFragment {
 
+    private String mGuideKey;
+
     public FaqFragment() {}
 
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
-//        mGuideKey = getActivity().getIntent().getExtras().getString("mGuideKey");
-//        mGuideKey = getArguments().getString("mGuideKey"); //String text
+        if (getArguments() != null) {
+            mGuideKey = getArguments().getString("key");
+        }
         // [START faqs_query]
-        Query FaqsQuery = databaseReference.child("testguides").child("mGuideKey");
+        Query FaqsQuery = databaseReference.child("guides").child(mGuideKey).child("faq");
         // [END faqs_query]
 
         return FaqsQuery;

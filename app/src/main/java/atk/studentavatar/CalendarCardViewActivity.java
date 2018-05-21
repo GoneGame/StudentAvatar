@@ -31,7 +31,7 @@ import atk.studentavatar.models.EventUnit;
 import atk.studentavatar.viewholder.CalendarHolderAdapter;
 
 
-public class CalendarCardViewActivity extends BaseActivity{
+public class CalendarCardViewActivity extends BaseActivity {
 
     private static final String TAG = "CalendarCardViewActivity";
     public static final String EXTRA_CALENDAR_KEY = "calendar_key";

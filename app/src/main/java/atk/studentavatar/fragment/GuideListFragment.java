@@ -81,16 +81,12 @@ public abstract class GuideListFragment extends Fragment {
 
                 // Set click listener for the whole guide view
                 final String guideKey = generalRef.getKey();
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Launch GuideActivity
-                        Intent intent = new Intent(getActivity(), GuideActivity.class);
-                        intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, guideKey);
-                        startActivity(intent);
-                    }
+                viewHolder.itemView.setOnClickListener(v -> {
+                    // Launch GuideActivity
+                    Intent intent = new Intent(getActivity(), GuideActivity.class);
+                    intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, guideKey);
+                    startActivity(intent);
                 });
-
                 // Bind General to ViewHolder
                 viewHolder.bindToGeneral(model);
             }
