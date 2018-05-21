@@ -53,6 +53,8 @@ public class CalendarCardViewActivity extends BaseActivity{
         checkBundle();
 
         Log.d("lolo", "before test event");
+
+        //dont forget to uncomment this if using function below
         testevent();
 
         //if u want to try to pull from mysql uncomment function below
