@@ -1059,11 +1059,11 @@ button:focus {
 .pin--3-31 { top: 29vmin; left: -7.5vmin; } 
 
 /* Pins for floor 4 */
-.pin--4-1 { top: 1vmin; left: 44vmin; }
-.pin--4-2 { top: 1vmin; left: 20vmin; }
-.pin--4-3 { top: 1vmin; left: 88vmin; }
-.pin--4-4 { top: 1vmin; left: 74vmin; }
-.pin--4-5 { top: 1vmin; left: 38vmin; }
+.pin--4-1 { top: 1vmin; left: 52vmin; }
+.pin--4-2 { top: 4.5vmin; left: 63.8vmin; }
+.pin--4-3 { top: 4.5vmin; left: 72vmin; }
+.pin--4-4 { top: 2.5vmin; left: 79vmin; }
+.pin--4-5 { top: 2.5vmin; left: 85vmin; }
 .pin--4-6 { top: 1vmin; left: 56vmin; }
 .pin--4-8 { top: 58vmin; left: 10vmin; }
 .pin--4-9 { top: 58vmin; left: 10vmin; }
