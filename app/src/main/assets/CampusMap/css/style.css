@@ -1059,13 +1059,15 @@ button:focus {
 .pin--3-31 { top: 29vmin; left: -7.5vmin; } 
 
 /* Pins for floor 4 */
-.pin--4-1 { top: 55vmin; left: 21vmin; }
-.pin--4-2 { top: 18vmin; left: 20vmin; }
-.pin--4-3 { top: 21vmin; left: 88vmin; }
-.pin--4-4 { top: 52vmin; left: 74vmin; }
-.pin--4-5 { top: 33vmin; left: 38vmin; }
-.pin--4-6 { top: 39vmin; left: 56vmin; }
-.pin--4-7 { top: 58vmin; left: 10vmin; }
+.pin--4-1 { top: 1vmin; left: 44vmin; }
+.pin--4-2 { top: 1vmin; left: 20vmin; }
+.pin--4-3 { top: 1vmin; left: 88vmin; }
+.pin--4-4 { top: 1vmin; left: 74vmin; }
+.pin--4-5 { top: 1vmin; left: 38vmin; }
+.pin--4-6 { top: 1vmin; left: 56vmin; }
+.pin--4-8 { top: 58vmin; left: 10vmin; }
+.pin--4-9 { top: 58vmin; left: 10vmin; }
+.pin--4-10 { top: 58vmin; left: 10vmin; }
 
 /* Mobile compatability */
 .open-search,
