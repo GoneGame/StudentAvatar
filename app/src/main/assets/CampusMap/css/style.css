@@ -1059,15 +1059,6 @@ button:focus {
 .pin--3-31 { top: 29vmin; left: -7.5vmin; } 
 
 /* Pins for floor 4 */
-<<<<<<< HEAD
-.pin--4-1 { top: 18vmin; left: 60vmin; }
-.pin--4-2 { top: 18vmin; left: 20vmin; }
-.pin--4-3 { top: 21vmin; left: 88vmin; }
-.pin--4-4 { top: 52vmin; left: 74vmin; }
-.pin--4-5 { top: 33vmin; left: 38vmin; }
-.pin--4-6 { top: 39vmin; left: 56vmin; }
-.pin--4-7 { top: 58vmin; left: 10vmin; }
-=======
 .pin--4-1 { top: 1vmin; left: 52vmin; }
 .pin--4-2 { top: 4.5vmin; left: 63.8vmin; }
 .pin--4-3 { top: 4.5vmin; left: 72vmin; }
@@ -1077,7 +1068,18 @@ button:focus {
 .pin--4-8 { top: 58vmin; left: 10vmin; }
 .pin--4-9 { top: 58vmin; left: 10vmin; }
 .pin--4-10 { top: 58vmin; left: 10vmin; }
->>>>>>> 78b068dad4c40ceef3562ede378d403f97d10712
+
+/* Pins for Floor 5 */
+.pin--5-1 { top: 25.5vmin; left: 60vmin; }
+.pin--5-2 { top: 4.5vmin; left: 63.8vmin; }
+.pin--5-3 { top: 4.5vmin; left: 72vmin; }
+.pin--5-4 { top: 2.5vmin; left: 79vmin; }
+.pin--5-5 { top: 2.5vmin; left: 85vmin; }
+.pin--5-6 { top: 1vmin; left: 56vmin; }
+.pin--5-8 { top: 58vmin; left: 10vmin; }
+.pin--5-9 { top: 58vmin; left: 10vmin; }
+.pin--5-10 { top: 58vmin; left: 10vmin; }
+
 
 /* Mobile compatability */
 .open-search,
