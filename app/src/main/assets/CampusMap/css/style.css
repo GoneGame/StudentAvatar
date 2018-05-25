@@ -942,7 +942,7 @@ button:focus {
 }
 
 .pin--active .icon--pin {
-	stroke: #515158;
+	stroke: #ffd100;
 	stroke-width: 4px;
 }
 
@@ -1071,14 +1071,15 @@ button:focus {
 
 /* Pins for Floor 5 */
 .pin--5-1 { top: 25.5vmin; left: 60vmin; }
-.pin--5-2 { top: 4.5vmin; left: 63.8vmin; }
-.pin--5-3 { top: 4.5vmin; left: 72vmin; }
-.pin--5-4 { top: 2.5vmin; left: 79vmin; }
-.pin--5-5 { top: 2.5vmin; left: 85vmin; }
-.pin--5-6 { top: 1vmin; left: 56vmin; }
-.pin--5-8 { top: 58vmin; left: 10vmin; }
-.pin--5-9 { top: 58vmin; left: 10vmin; }
-.pin--5-10 { top: 58vmin; left: 10vmin; }
+.pin--5-2 { top: 22.3vmin; left: 33.8vmin; }
+.pin--5-3 { top: 29.5vmin; left: 33.75vmin; }
+.pin--5-4 { top: 37vmin; left: 33.7vmin; }
+.pin--5-5 { top: 44.5vmin; left: 33.65vmin; }
+.pin--5-6 { top: 51.5vmin; left: 33.6vmin; }
+.pin--5-7 { top: 27vmin; left: 57.5vmin; }
+.pin--5-8 { top: 32vmin; left: 57.5vmin; }
+.pin--5-9 { top: 37vmin; left: 57.5vmin; }
+.pin--5-10 { top: 45vmin; left: 36.5vmin; }
 
 
 /* Mobile compatability */
