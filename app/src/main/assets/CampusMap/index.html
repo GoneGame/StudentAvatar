@@ -1742,6 +1742,24 @@
 			<!-- /spaces-list -->
 		</div>
 		<!-- /container -->
+		<script>
+		var angle = 0;
+
+interact('#level level--8').gesturable({
+  onmove: function (event) {
+    var arrow = document.getElementById('map map--8');
+
+    angle += event.da;
+
+    arrow.style.webkitTransform =
+    arrow.style.transform =
+      'rotate(' + angle + 'deg)';
+
+    document.getElementById('angle-info').textContent =
+      angle.toFixed(2) + '&Acirc;&deg;';
+  }
+});
+		</script>
 		<script src="js/classie.js"></script>
 		<script src="js/list.min.js"></script>
 		<script src="js/main.js"></script>
