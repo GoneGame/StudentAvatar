@@ -14,12 +14,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/drawer_layout" >
 
-        <include
-            android:id="@+id/nav_actionbar"
-            layout="@layout/navigation_actionbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             style="@style/MyCustomTabLayout"
