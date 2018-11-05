@@ -1,11 +1,13 @@
 package atk.studentavatar.models;
 
+import java.util.Map;
+
 public class Eventt {
 
     public String uid;
     public String title;
     public String relateTo;
-    public String date;
+    public Map<String, Boolean> date;
     public String time;
     public String description;
     public boolean note;
@@ -13,7 +15,7 @@ public class Eventt {
     public Eventt() {
     }
 
-    public Eventt(String title, String relateTo, String date, String time, String description, boolean note) {
+    public Eventt(String title, String relateTo, Map<String, Boolean> date, String time, String description, boolean note) {
         this.title = title;
         this.relateTo = relateTo;
         this.date = date;
