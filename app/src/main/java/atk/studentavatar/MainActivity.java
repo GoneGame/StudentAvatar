@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 
 import atk.studentavatar.fragment.CalendarFragment;
-import atk.studentavatar.fragment.CalendarFragment2;
 import atk.studentavatar.fragment.GuideFragment;
 import atk.studentavatar.fragment.MapFragment;
 import atk.studentavatar.fragment.OtherServicesFragment;
@@ -51,7 +50,7 @@ public class  MainActivity extends BaseActivity {
             private final Fragment[] mFragments = new Fragment[] {
                     new GuideFragment(),
                     new RecentPostsFragment(),
-                    new CalendarFragment2(),
+                    new CalendarFragment(),
                     new MapFragment(),
                     new OtherServicesFragment()
             };

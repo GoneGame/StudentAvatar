@@ -1,69 +1,28 @@
 package atk.studentavatar.models;
 
-public abstract class Event {
+import java.util.Map;
 
-    private String title;
-    private String date;
-    private String time;
-    private String description;
+public class Event {
 
-    private String location;
-    private String name;
+    public String uid;
+    public String title;
+    public String relateTo;
+    public Map<String, Boolean> date;
+    public String time;
+    public String desc;
+    public String location;
+    public boolean note;
 
     public Event() {
-        this.title = "";
-        this.name = "";
     }
 
-    public void clearValues() {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
+    public Event(String title, String relateTo, Map<String, Boolean> date, String time, String desc, String location,boolean note) {
         this.title = title;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
+        this.relateTo = relateTo;
         this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
+        this.desc = desc;
         this.location = location;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.note = note;
     }
 }
-

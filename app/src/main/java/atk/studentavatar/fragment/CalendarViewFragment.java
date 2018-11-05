@@ -4,19 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,30 +21,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Random;
 
 import atk.studentavatar.CalendarCardViewActivity;
-import atk.studentavatar.GuideActivity;
 import atk.studentavatar.R;
-import atk.studentavatar.models.Eventt;
-import atk.studentavatar.models.General;
-import atk.studentavatar.models.User;
-import atk.studentavatar.viewholder.GeneralViewHolder;
+import atk.studentavatar.models.Event;
 
 public abstract class CalendarViewFragment extends Fragment {
-
-    private static final String TAG = "GuideListFragment";
 
     // [START define_database_reference]
     private DatabaseReference mDatabase;
     // [END define_database_reference]
 
-    private FirebaseRecyclerAdapter<General, GeneralViewHolder> mAdapter;
-    private RecyclerView mRecycler;
-    private LinearLayoutManager mManager;
-
     private TextView hello;
     private CalendarView calendarView;
     //private Query query;
 
-    private String usernameE;
     private int y, m, d;
 
     public CalendarViewFragment() {}
@@ -61,16 +44,6 @@ public abstract class CalendarViewFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        /*
-        View rootView = inflater.inflate(R.layout.fragment_all_guides, container, false);
-
-        // [START create_database_reference]
-        // [END create_database_reference]
-
-        mRecycler = rootView.findViewById(R.id.guides_list);
-        mRecycler.setHasFixedSize(true);
-
-        return rootView;*/
 
         View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
 
@@ -99,9 +72,9 @@ public abstract class CalendarViewFragment extends Fragment {
         bundle.putInt("Year", year);
         bundle.putInt("Month", month + 1);
         bundle.putInt("Day", day);
-        bundle.putString("Username", usernameE);
+        //bundle.putString("Username", usernameE);
 
-        Log.d("calenFrag", "2 from keep data Username: " + usernameE);
+        //Log.d("calenFrag", "2 from keep data Username: " + usernameE);
         return bundle;
     }
 
@@ -122,7 +95,7 @@ public abstract class CalendarViewFragment extends Fragment {
         eventsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Eventt eventt = dataSnapshot.getValue(Eventt.class);
+                Event eventt = dataSnapshot.getValue(Event.class);
                 //String s = user.username;
 
                 String title = eventt.title;
@@ -145,45 +118,6 @@ public abstract class CalendarViewFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*
-        // Set up Layout Manager, reverse layout
-        mManager = new LinearLayoutManager(getActivity());
-        mManager.setReverseLayout(true);
-        mManager.setStackFromEnd(true);
-        mRecycler.setLayoutManager(mManager);
-        */
-        // Set up FirebaseRecyclerAdapter with the Query
-        //Query eventsQuery = getQuery(mDatabase);
-        /*
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<General>()
-                .setQuery(recentGuidesQuery, General.class)
-                .build();
-
-        mAdapter = new FirebaseRecyclerAdapter<General, GeneralViewHolder>(options) {
-
-            @Override
-            public GeneralViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                return new GeneralViewHolder(inflater.inflate(R.layout.item_guide, viewGroup, false));
-            }
-
-            @Override
-            protected void onBindViewHolder(GeneralViewHolder viewHolder, int position, final General model) {
-                final DatabaseReference generalRef = getRef(position);
-
-                // Set click listener for the whole guide view
-                final String guideKey = generalRef.getKey();
-                viewHolder.itemView.setOnClickListener(v -> {
-                    // Launch GuideActivity
-                    Intent intent = new Intent(getActivity(), GuideActivity.class);
-                    intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, guideKey);
-                    startActivity(intent);
-                });
-                // Bind General to ViewHolder
-                viewHolder.bindToGeneral(model);
-            }
-        };
-        mRecycler.setAdapter(mAdapter);*/
 
         Query eventsQuery = getQuery(mDatabase);
 
@@ -195,19 +129,19 @@ public abstract class CalendarViewFragment extends Fragment {
                 y = i;
                 m = i1 + 1;
                 d = i2;
-                //getUserName();
+
                 String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
-
-
 
                 eventsQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot cc : dataSnapshot.getChildren())
                         {
-                            Eventt eventt = cc.getValue(Eventt.class);
+                            Event event = cc.getValue(Event.class);
 
-                            Log.d("lel", eventt.title);
+                            Log.d("key", cc.getKey());
+                            //Log.d("key", cc.getRef().toString());
+                            Log.d("title", event.title);
                         }
                     }
 
@@ -222,23 +156,16 @@ public abstract class CalendarViewFragment extends Fragment {
                 //goToCardView(keepData(i, i1, i2, getUserName()));
             }
         });
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (mAdapter != null) {
-            mAdapter.startListening();
-        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null) {
-            mAdapter.stopListening();
-        }
     }
 
     public abstract Query getQuery(DatabaseReference databaseReference);

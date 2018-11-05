@@ -1,34 +1,8 @@
 package atk.studentavatar;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import atk.studentavatar.models.Event;
-import atk.studentavatar.models.EventClub;
-import atk.studentavatar.models.EventGeneral;
-import atk.studentavatar.models.EventNotifi;
-import atk.studentavatar.models.EventUnit;
-import atk.studentavatar.viewholder.CalendarHolderAdapter;
 
 
 public class CalendarCardViewActivity extends BaseActivity {
@@ -37,8 +11,8 @@ public class CalendarCardViewActivity extends BaseActivity {
     public static final String EXTRA_CALENDAR_KEY = "calendar_key";
 
     private RecyclerView recyclerView;
-    private CalendarHolderAdapter calendarHolderAdapter;
-    private List<Event> events;
+    //private CalendarHolderAdapter calendarHolderAdapter;
+    //private List<Event> events;
 
     private TextView date_on_view, status;
 
@@ -50,12 +24,12 @@ public class CalendarCardViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_card_view_holder);
 
-        checkBundle();
+        //checkBundle();
 
         Log.d("lolo", "before test event");
 
         //dont forget to uncomment this if using function below
-        testevent();
+        //testevent();
 
         //if u want to try to pull from mysql uncomment function below
         //provided that ip address is correct, database exists, user exists in database
@@ -63,6 +37,7 @@ public class CalendarCardViewActivity extends BaseActivity {
 
     }
 
+    /*
     private void checkBundle()
     {
         Log.d("lolo", "IN new activity");
@@ -82,8 +57,9 @@ public class CalendarCardViewActivity extends BaseActivity {
             Log.d("lolo", "day: " + Integer.toString(day));
             //bundle.clear();
         }
-    }
+    }*/
 
+    /*
     private void setAdapter()
     {
         Log.d("lolo", "2 set adapter");
@@ -95,8 +71,9 @@ public class CalendarCardViewActivity extends BaseActivity {
         calendarHolderAdapter = new CalendarHolderAdapter(this, events);
         Log.d("lolo", "before rec set");
         recyclerView.setAdapter(calendarHolderAdapter);
-    }
+    }*/
 
+    /*
     private void testevent()
     {
         Log.d("lolo", "in test event");
@@ -117,9 +94,9 @@ public class CalendarCardViewActivity extends BaseActivity {
 
         setAdapter();
         dateSet();
-    }
+    }*/
 
-
+    /*
     private void dateSet()
     {
         Log.d("lolo", "3 set date");
@@ -132,10 +109,10 @@ public class CalendarCardViewActivity extends BaseActivity {
         {
             status = findViewById(R.id.TextView_eeeeS);
             status.setVisibility(View.VISIBLE);
-
         }
-    }
+    }*/
 
+    /*
     private void queryToMySQLserver()
     {
         final String date = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
@@ -173,8 +150,9 @@ public class CalendarCardViewActivity extends BaseActivity {
 
         MySingletonVolley.getInstance(this).addToRequestQueue(stringRequest);
 
-    }
+    }*/
 
+    /*
     private void formatEvents(JSONObject jsonObject)
     {
 
@@ -254,6 +232,6 @@ public class CalendarCardViewActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 }
