@@ -82,7 +82,7 @@ public class GeneralViewFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get General object and use the values to update the UI
-                General general = dataSnapshot.child("general").getValue(General.class);
+                General general = dataSnapshot.child("general").child("0").getValue(General.class);
                 Picasso.get().load(general.header).into(mImageView);
                 mTitleView.setText(general.title);
                 mLocationView.setText(general.location);
