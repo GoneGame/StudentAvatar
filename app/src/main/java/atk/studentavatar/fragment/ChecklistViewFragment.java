@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,7 +104,7 @@ public class ChecklistViewFragment extends Fragment {
                         } else {
                             mTaskView.setText(checklist.task);
                             mDescriptionView.setText(checklist.description);
-                            mBodyView.setText(checklist.body);
+                            mBodyView.setText(Html.fromHtml(checklist.body));
                             mLinkView.setText(checklist.link);
                         }
                     }
