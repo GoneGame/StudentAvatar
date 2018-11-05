@@ -23,7 +23,7 @@ import atk.studentavatar.fragment.OtherServicesFragment;
 import atk.studentavatar.fragment.RecentPostsFragment;
 
 public class  MainActivity extends BaseActivity {
-// New android studio
+// "New" android studio
     private static final String TAG = "MainActivity";
 
     private FragmentPagerAdapter mPagerAdapter;
