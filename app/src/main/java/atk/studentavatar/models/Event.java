@@ -1,8 +1,9 @@
 package atk.studentavatar.models;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Event {
+public class Event implements Serializable {
 
     public String uid;
     public String title;

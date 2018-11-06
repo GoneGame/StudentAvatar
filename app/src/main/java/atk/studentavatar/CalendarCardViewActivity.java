@@ -1,8 +1,14 @@
 package atk.studentavatar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import atk.studentavatar.models.Event;
 
 
 public class CalendarCardViewActivity extends BaseActivity {
@@ -12,12 +18,10 @@ public class CalendarCardViewActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     //private CalendarHolderAdapter calendarHolderAdapter;
-    //private List<Event> events;
+    private ArrayList<Event> eventList;
 
     private TextView date_on_view, status;
 
-    private int year, month, day;
-    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +38,26 @@ public class CalendarCardViewActivity extends BaseActivity {
         //if u want to try to pull from mysql uncomment function below
         //provided that ip address is correct, database exists, user exists in database
         //queryToMySQLserver();
+        unpackBundle();
+        Log.d("lolo", "unpack successful");
 
     }
 
-    /*
-    private void checkBundle()
+
+    private void unpackBundle()
     {
         Log.d("lolo", "IN new activity");
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        //Bundle bundle = intent.getExtras();
+        Bundle bundle = intent.getBundleExtra("EVENTLIST");
 
         if(!bundle.isEmpty())
         {
             Log.d("lolo", "IN bundle");
-            year = bundle.getInt("Year");
-            month = bundle.getInt("Month");
-            day = bundle.getInt("Day");
-            username = bundle.getString("Username");
-
-            Log.d("lolo", "year: " + Integer.toString(year));
-            Log.d("lolo", "month: " + Integer.toString(month));
-            Log.d("lolo", "day: " + Integer.toString(day));
+            eventList = (ArrayList<Event>) bundle.getSerializable("EventList");
             //bundle.clear();
         }
-    }*/
+    }
 
     /*
     private void setAdapter()

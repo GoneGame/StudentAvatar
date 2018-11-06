@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -36,6 +40,8 @@ public abstract class CalendarViewFragment extends Fragment {
     //private Query query;
 
     private int y, m, d;
+
+    private ArrayList<Event> eventList = new ArrayList<>();
 
     public CalendarViewFragment() {}
 
@@ -67,12 +73,16 @@ public abstract class CalendarViewFragment extends Fragment {
 
     //pass values and open new fragment to view card view of events
 
-    private Bundle keepData(int year, int month, int day)
+    private Bundle packBundle()
     {
+        //https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an/24630640
         Bundle bundle = new Bundle();
-        bundle.putInt("Year", year);
-        bundle.putInt("Month", month + 1);
-        bundle.putInt("Day", day);
+        //bundle.putInt("Year", year);
+        //bundle.putInt("Month", month + 1);
+        //bundle.putInt("Day", day);
+
+        bundle.putSerializable("EventList", (Serializable) eventList);
+
         //bundle.putString("Username", usernameE);
 
         //Log.d("calenFrag", "2 from keep data Username: " + usernameE);
@@ -82,7 +92,7 @@ public abstract class CalendarViewFragment extends Fragment {
     private void goToCardView(Bundle bundle)
     {
         Intent intent = new Intent(getActivity(), CalendarCardViewActivity.class);
-        intent.putExtras(bundle);
+        intent.putExtra("EVENTLIST", bundle);
         Log.d("calenFrag", "3 bundle put in");
         startActivity(intent);
     }
@@ -120,8 +130,6 @@ public abstract class CalendarViewFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //Query eventsQuery = getQuery(mDatabase)
-
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -142,25 +150,37 @@ public abstract class CalendarViewFragment extends Fragment {
                         {
                             Event event = cc.getValue(Event.class);
 
-                            Log.d("key", cc.getKey());
+                            //Log.d("key", cc.getKey());
                             //Log.d("key", cc.getRef().toString());
-                            Log.d("title", event.title);
+                            //Log.d("title", event.title);
 
-                            Map.Entry<String, Boolean> entry = event.date.entrySet().iterator().next();
+                            //Map.Entry<String, Boolean> entry = event.date.entrySet().iterator().next();
+                            //Log.d("first date", entry.getKey());
 
-                            Log.d("first date", entry.getKey());
+
+
+                            for(String d : event.date.keySet())
+                            {
+                                if(d.matches(t))
+                                {
+                                    Log.d("key", cc.getKey());
+                                    //Log.d("key", cc.getRef().toString());
+                                    Log.d("title", event.title);
+                                    eventList.add(event);
+                                }
+                            }
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        Toast.makeText(getContext(), "connection problem?", Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 //Toast.makeText(getContext(), ss[0], Toast.LENGTH_SHORT).show();
 
-                //goToCardView(keepData(i, i1, i2, getUserName()));
+                goToCardView(packBundle());
             }
         });
     }
