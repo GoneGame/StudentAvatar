@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
 import java.util.Random;
 
 import atk.studentavatar.CalendarCardViewActivity;
@@ -119,7 +120,7 @@ public abstract class CalendarViewFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Query eventsQuery = getQuery(mDatabase);
+        //Query eventsQuery = getQuery(mDatabase)
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -132,6 +133,8 @@ public abstract class CalendarViewFragment extends Fragment {
 
                 String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
 
+                Query eventsQuery = getQuery(mDatabase);
+
                 eventsQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -142,6 +145,10 @@ public abstract class CalendarViewFragment extends Fragment {
                             Log.d("key", cc.getKey());
                             //Log.d("key", cc.getRef().toString());
                             Log.d("title", event.title);
+
+                            Map.Entry<String, Boolean> entry = event.date.entrySet().iterator().next();
+
+                            Log.d("first date", entry.getKey());
                         }
                     }
 
