@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +47,7 @@ public abstract class CalendarViewFragment extends Fragment {
     private ArrayList<Event> eventList = new ArrayList<>();
 
     //some copy
-    private Event ll;
+    private Event ll = new Event();
 
     public CalendarViewFragment() {}
 
@@ -96,7 +98,7 @@ public abstract class CalendarViewFragment extends Fragment {
     private void goToCardView(Bundle bundle)
     {
         Intent intent = new Intent(getActivity(), CalendarCardViewActivity.class);
-        intent.putExtra("EVENTLIST", bundle);
+        intent.putExtra("EVENTLIST", ll);
         Log.d("calenFrag", "3 bundle put in");
         startActivity(intent);
     }
@@ -146,41 +148,56 @@ public abstract class CalendarViewFragment extends Fragment {
                 String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
 
                 Query eventsQuery = getQuery(mDatabase);
+                Log.d("DateClick", t);
 
                 eventsQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot cc : dataSnapshot.getChildren())
                         {
-                            Event event = cc.getValue(Event.class);
+                            Event eventt = cc.getValue(Event.class);
 
                             //Log.d("key", cc.getKey());
                             //Log.d("key", cc.getRef().toString());
-                            //Log.d("title", event.title);
+                            //Log.d("title", eventt.title);
 
                             //Map.Entry<String, Boolean> entry = event.date.entrySet().iterator().next();
                             //Log.d("first date", entry.getKey());
 
 
-                            for(String d : event.date.keySet())
+                            //https://stackoverflow.com/questions/11296490/assigning-hashmap-to-hashmap
+                            /*
+                            for(String d : eventt.date.keySet())
                             {
                                 if(d.matches(t))
                                 {
-                                    eventList.add(event);
+                                    ll.title = eventt.title;
+                                    ll.relateTo = eventt.relateTo;
+                                    ll.date = new HashMap<String, Boolean>(eventt.date);
+                                    ll.time = eventt.time;
+                                    ll.location = eventt.location;
+                                    ll.desc = eventt.desc;
+                                    ll.note = eventt.note;
+
+                                    eventList.add(ll);
+
+                                    Log.d("titleEx", ll.title);
+
+                                    ll.reset();
                                 }
-                            }
+                            }*/
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(getContext(), "connection problem?", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 //Toast.makeText(getContext(), ss[0], Toast.LENGTH_SHORT).show();
 
-                goToCardView(packBundle());
+                //goToCardView(packBundle());
             }
         });
     }
