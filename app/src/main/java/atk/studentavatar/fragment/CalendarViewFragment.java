@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -42,6 +43,9 @@ public abstract class CalendarViewFragment extends Fragment {
     private int y, m, d;
 
     private ArrayList<Event> eventList = new ArrayList<>();
+
+    //some copy
+    private Event ll;
 
     public CalendarViewFragment() {}
 
@@ -81,7 +85,7 @@ public abstract class CalendarViewFragment extends Fragment {
         //bundle.putInt("Month", month + 1);
         //bundle.putInt("Day", day);
 
-        bundle.putSerializable("EventList", (Serializable) eventList);
+        bundle.putSerializable("EventList", eventList);
 
         //bundle.putString("Username", usernameE);
 
@@ -158,14 +162,10 @@ public abstract class CalendarViewFragment extends Fragment {
                             //Log.d("first date", entry.getKey());
 
 
-
                             for(String d : event.date.keySet())
                             {
                                 if(d.matches(t))
                                 {
-                                    Log.d("key", cc.getKey());
-                                    //Log.d("key", cc.getRef().toString());
-                                    Log.d("title", event.title);
                                     eventList.add(event);
                                 }
                             }

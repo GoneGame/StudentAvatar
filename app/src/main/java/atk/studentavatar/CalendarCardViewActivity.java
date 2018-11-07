@@ -57,6 +57,12 @@ public class CalendarCardViewActivity extends BaseActivity {
             eventList = (ArrayList<Event>) bundle.getSerializable("EventList");
             //bundle.clear();
         }
+
+        for(Event e : eventList)
+        {
+            Log.d("theInEvent", e.title);
+        }
+
     }
 
     /*
