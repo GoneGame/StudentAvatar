@@ -18,14 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import atk.studentavatar.CalendarCardViewActivity;
@@ -38,6 +32,8 @@ public abstract class CalendarViewFragment extends Fragment {
     private DatabaseReference mDatabase;
     // [END define_database_reference]
 
+    private static final String EVENT_INTENT_KEY = "EVENT_LIST";
+
     private TextView hello;
     private CalendarView calendarView;
     //private Query query;
@@ -45,6 +41,8 @@ public abstract class CalendarViewFragment extends Fragment {
     private int y, m, d;
 
     private ArrayList<Event> eventList = new ArrayList<>();
+
+    private ArrayList<String> EventToCard = new ArrayList<>();
 
     //some copy
     private Event ll = new Event();
@@ -79,26 +77,28 @@ public abstract class CalendarViewFragment extends Fragment {
 
     //pass values and open new fragment to view card view of events
 
+    /*
     private Bundle packBundle()
     {
         //https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an/24630640
-        Bundle bundle = new Bundle();
+        //Bundle bundle = new Bundle();
         //bundle.putInt("Year", year);
         //bundle.putInt("Month", month + 1);
         //bundle.putInt("Day", day);
 
-        bundle.putSerializable("EventList", eventList);
+        //bundle.putSerializable("EventList", eventList);
 
         //bundle.putString("Username", usernameE);
 
         //Log.d("calenFrag", "2 from keep data Username: " + usernameE);
-        return bundle;
-    }
+        //return bundle;
+    }*/
 
-    private void goToCardView(Bundle bundle)
+    private void goToCardView()
     {
+        //https://stackoverflow.com/questions/17453297/passing-arraylist-of-string-arrays-from-one-activity-to-another-in-android
         Intent intent = new Intent(getActivity(), CalendarCardViewActivity.class);
-        intent.putExtra("EVENTLIST", ll);
+        intent.putStringArrayListExtra(EVENT_INTENT_KEY, EventToCard);
         Log.d("calenFrag", "3 bundle put in");
         startActivity(intent);
     }
@@ -145,48 +145,45 @@ public abstract class CalendarViewFragment extends Fragment {
                 m = i1 + 1;
                 d = i2;
 
-                String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
+                final String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
 
                 Query eventsQuery = getQuery(mDatabase);
-                Log.d("DateClick", t);
 
-                eventsQuery.addValueEventListener(new ValueEventListener() {
+                eventsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        Log.d("all", dataSnapshot.toString());
+
+
                         for(DataSnapshot cc : dataSnapshot.getChildren())
                         {
-                            Event eventt = cc.getValue(Event.class);
+                            Event event = cc.getValue(Event.class);
 
-                            //Log.d("key", cc.getKey());
-                            //Log.d("key", cc.getRef().toString());
-                            //Log.d("title", eventt.title);
+                            Log.d("key", cc.getKey());
 
-                            //Map.Entry<String, Boolean> entry = event.date.entrySet().iterator().next();
+                            Log.d("title", event.title);
                             //Log.d("first date", entry.getKey());
 
-
-                            //https://stackoverflow.com/questions/11296490/assigning-hashmap-to-hashmap
-                            /*
-                            for(String d : eventt.date.keySet())
+                            for(String i : event.date)
                             {
-                                if(d.matches(t))
+                                if(i.matches(t))
                                 {
-                                    ll.title = eventt.title;
-                                    ll.relateTo = eventt.relateTo;
-                                    ll.date = new HashMap<String, Boolean>(eventt.date);
-                                    ll.time = eventt.time;
-                                    ll.location = eventt.location;
-                                    ll.desc = eventt.desc;
-                                    ll.note = eventt.note;
-
-                                    eventList.add(ll);
-
-                                    Log.d("titleEx", ll.title);
-
-                                    ll.reset();
+                                    Log.d("date", cc.getKey());
+                                    Log.d("date", i);
+                                    EventToCard.add(cc.getKey());
                                 }
-                            }*/
+                            }
+                            Log.d("date", "------");
                         }
+
+                        /*
+                        * this function must be here to transfer the keys properly
+                        * probably due to a delay in the addition to Array List
+                        * */
+
+                        goToCardView();
+                        EventToCard.clear();
                     }
 
                     @Override
@@ -195,9 +192,18 @@ public abstract class CalendarViewFragment extends Fragment {
                     }
                 });
 
-                //Toast.makeText(getContext(), ss[0], Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), t, Toast.LENGTH_SHORT).show();
 
-                //goToCardView(packBundle());
+
+                /*
+                Log.d("inList", "here");
+
+                for(String s : EventToCard)
+                {
+                    Log.d("inList", s);
+                }*/
+
+
             }
         });
     }

@@ -16,12 +16,19 @@ public class CalendarCardViewActivity extends BaseActivity {
     private static final String TAG = "CalendarCardViewActivity";
     public static final String EXTRA_CALENDAR_KEY = "calendar_key";
 
+    private static final String EVENT_INTENT_KEY = "EVENT_LIST";
+
     private RecyclerView recyclerView;
     //private CalendarHolderAdapter calendarHolderAdapter;
-    private ArrayList<Event> eventList = new ArrayList<>();
+    private ArrayList<String> selEventList = new ArrayList<>();
 
     private TextView date_on_view, status;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        selEventList.clear();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,30 +46,14 @@ public class CalendarCardViewActivity extends BaseActivity {
         //provided that ip address is correct, database exists, user exists in database
         //queryToMySQLserver();
         //unpackBundle();
-        Log.d("lolo", "unpack successful");
-
-    }
 
 
-    private void unpackBundle()
-    {
-        Log.d("lolo", "IN new activity");
-        Intent intent = getIntent();
-        //Bundle bundle = intent.getExtras();
-        //Bundle bundle = intent.getBundleExtra("EVENTLIST");
+        Intent i = getIntent();
+        selEventList = i.getStringArrayListExtra(EVENT_INTENT_KEY);
 
-        eventList = (ArrayList<Event>) intent.getExtras().getSerializable("EventList");
-        /*
-        if(!bundle.isEmpty())
+        for(String seleve : selEventList)
         {
-            Log.d("lolo", "IN bundle");
-            eventList = bundle.getSerializable("EventList");
-            //bundle.clear();
-        }*/
-
-        for(Event e : eventList)
-        {
-            Log.d("theInEvent", e.title);
+            Log.d("lolo", seleve);
         }
 
     }
