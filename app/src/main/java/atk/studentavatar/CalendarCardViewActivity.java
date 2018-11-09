@@ -6,9 +6,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import atk.studentavatar.models.Event;
 
 
 public class CalendarCardViewActivity extends BaseActivity {
@@ -16,18 +13,22 @@ public class CalendarCardViewActivity extends BaseActivity {
     private static final String TAG = "CalendarCardViewActivity";
     public static final String EXTRA_CALENDAR_KEY = "calendar_key";
 
+    private String selDate;
     private static final String EVENT_INTENT_KEY = "EVENT_LIST";
 
     private RecyclerView recyclerView;
     //private CalendarHolderAdapter calendarHolderAdapter;
-    private ArrayList<String> selEventList = new ArrayList<>();
+
+
+    //probably going to be useless
+    private ArrayList<String> selEventListAndSelDate = new ArrayList<>();
 
     private TextView date_on_view, status;
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        selEventList.clear();
+        selEventListAndSelDate.clear();
     }
 
     @Override
@@ -35,27 +36,21 @@ public class CalendarCardViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_card_view_holder);
 
-        //checkBundle();
 
         Log.d("lolo", "before test event");
 
-        //dont forget to uncomment this if using function below
-        //testevent();
-
-        //if u want to try to pull from mysql uncomment function below
-        //provided that ip address is correct, database exists, user exists in database
-        //queryToMySQLserver();
-        //unpackBundle();
-
 
         Intent i = getIntent();
-        selEventList = i.getStringArrayListExtra(EVENT_INTENT_KEY);
+        selEventListAndSelDate = i.getStringArrayListExtra(EVENT_INTENT_KEY);
 
-        for(String seleve : selEventList)
+        for(String selEve : selEventListAndSelDate)
         {
-            Log.d("lolo", seleve);
+            Log.d("lolo", selEve);
         }
 
+        selDate = selEventListAndSelDate.get(selEventListAndSelDate.size() - 1);
+
+        Log.d("lolo", selDate);
     }
 
     /*
@@ -71,166 +66,4 @@ public class CalendarCardViewActivity extends BaseActivity {
         Log.d("lolo", "before rec set");
         recyclerView.setAdapter(calendarHolderAdapter);
     }*/
-
-    /*
-    private void testevent()
-    {
-        Log.d("lolo", "in test event");
-        events = new ArrayList<Event>();
-
-        events.add(new EventGeneral("title 1 test", "2018-5-15", "15:00", "Hello, put more text here", "GG33"));
-        events.add(new EventClub());
-        events.add(new EventGeneral("title 2 test", "2018-5-15", "16:00", "Hello, put more text here", "GG33"));
-        events.add(new EventUnit("testing title", "2018-5-15", "15:00", "Hello, put more text here", "GG33", "the linked unit"));
-        events.add(new EventClub("title 1 test"));
-        //scroll testing
-        events.add(new EventClub("title 1 test"));
-        events.add(new EventClub("title 1 test"));
-        events.add(new EventClub("title 1 test"));
-        events.add(new EventClub("title 1 test"));
-        events.add(new EventClub("title 1 test"));
-
-
-        setAdapter();
-        dateSet();
-    }*/
-
-    /*
-    private void dateSet()
-    {
-        Log.d("lolo", "3 set date");
-        String date = getString(R.string.dateText, Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day));
-        date_on_view = findViewById(R.id.TextView_date);
-        date_on_view.setText(date);
-
-
-        if(events.isEmpty())
-        {
-            status = findViewById(R.id.TextView_eeeeS);
-            status.setVisibility(View.VISIBLE);
-        }
-    }*/
-
-    /*
-    private void queryToMySQLserver()
-    {
-        final String date = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ConstantURL.URL_GET_EVENTS, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-
-                    Log.d("lolo", response);
-                    formatEvents(jsonObject);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CalendarCardViewActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<>();
-                Log.d("lolo", "Username: " + username);
-                Log.d("lolo", "Date: " + date);
-                map.put("user_name", username);
-                map.put("date", date);
-                return map;
-            }
-        };
-
-        MySingletonVolley.getInstance(this).addToRequestQueue(stringRequest);
-
-    }*/
-
-    /*
-    private void formatEvents(JSONObject jsonObject)
-    {
-
-        try {
-            Log.d("lolo", "1 in format events try");
-            events = new ArrayList<Event>();
-            Event tempEvent;
-
-            String[] eventType = {"event", "notifi", "club", "unit"};
-
-            JSONArray jsonArray1 = jsonObject.getJSONArray("event");
-
-            //for general event...title, date, location, time, description
-
-            for(int i = 0; i < jsonArray1.length(); i++)
-            {
-                tempEvent = new EventGeneral();
-                JSONObject object = jsonArray1.getJSONObject(i);
-                tempEvent.setTitle(object.getString("title"));
-                tempEvent.setDate(object.getString("date"));
-                tempEvent.setLocation(object.getString("location"));
-                tempEvent.setTime(object.getString("time"));
-                tempEvent.setDescription(object.getString("description"));
-                events.add(tempEvent);
-            }
-
-            JSONArray jsonArray2 = jsonObject.getJSONArray(eventType[1]);
-            //for notifications...title, date, time, description
-
-            for(int j = 0; j < jsonArray2.length(); j++)
-            {
-                tempEvent = new EventNotifi();
-                JSONObject object = jsonArray2.getJSONObject(j);
-                tempEvent.setTitle(object.getString("title"));
-                tempEvent.setDate(object.getString("date"));
-                tempEvent.setTime(object.getString("time"));
-                tempEvent.setDescription(object.getString("description"));
-                events.add(tempEvent);
-                tempEvent.clearValues();
-            }
-
-            JSONArray jsonArray3 = jsonObject.getJSONArray(eventType[2]);
-            //for club and unit...name, title, date, location, time, description
-
-            for(int j = 0; j < jsonArray3.length(); j++)
-            {
-                tempEvent = new EventClub();
-                JSONObject object = jsonArray3.getJSONObject(j);
-                tempEvent.setTitle(object.getString("title"));
-                tempEvent.setDate(object.getString("date"));
-                tempEvent.setTime(object.getString("time"));
-                tempEvent.setDescription(object.getString("description"));
-                tempEvent.setLocation(object.getString("location"));
-                tempEvent.setName(object.getString("name"));
-                events.add(tempEvent);
-            }
-
-            JSONArray jsonArray4 = jsonObject.getJSONArray(eventType[3]);
-
-            for(int j = 0; j < jsonArray4.length(); j++)
-            {
-                tempEvent = new EventClub();
-                JSONObject object = jsonArray4.getJSONObject(j);
-                tempEvent.setTitle(object.getString("title"));
-                tempEvent.setDate(object.getString("date"));
-                tempEvent.setTime(object.getString("time"));
-                tempEvent.setDescription(object.getString("description"));
-                tempEvent.setLocation(object.getString("location"));
-                tempEvent.setName(object.getString("name"));
-                events.add(tempEvent);
-            }
-
-            Log.d("lolo", "1.5 in format events try");
-            setAdapter();
-            dateSet();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
-
 }

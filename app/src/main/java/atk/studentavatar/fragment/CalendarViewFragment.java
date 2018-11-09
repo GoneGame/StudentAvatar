@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import atk.studentavatar.CalendarCardViewActivity;
@@ -39,8 +38,6 @@ public abstract class CalendarViewFragment extends Fragment {
     //private Query query;
 
     private int y, m, d;
-
-    private ArrayList<Event> eventList = new ArrayList<>();
 
     private ArrayList<String> EventToCard = new ArrayList<>();
 
@@ -75,25 +72,6 @@ public abstract class CalendarViewFragment extends Fragment {
 
     }
 
-    //pass values and open new fragment to view card view of events
-
-    /*
-    private Bundle packBundle()
-    {
-        //https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an/24630640
-        //Bundle bundle = new Bundle();
-        //bundle.putInt("Year", year);
-        //bundle.putInt("Month", month + 1);
-        //bundle.putInt("Day", day);
-
-        //bundle.putSerializable("EventList", eventList);
-
-        //bundle.putString("Username", usernameE);
-
-        //Log.d("calenFrag", "2 from keep data Username: " + usernameE);
-        //return bundle;
-    }*/
-
     private void goToCardView()
     {
         //https://stackoverflow.com/questions/17453297/passing-arraylist-of-string-arrays-from-one-activity-to-another-in-android
@@ -103,12 +81,13 @@ public abstract class CalendarViewFragment extends Fragment {
         startActivity(intent);
     }
 
+    /*
     private void getUserName()
     {
         //Query eventsQuery = getQuery(mDatabase);
 
         //query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
-        /*
+
         eventsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -127,10 +106,10 @@ public abstract class CalendarViewFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
+        });
 
         //Log.d("calenFrag", "2 return Username: " + usernameE);
-    }
+    }*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -182,6 +161,7 @@ public abstract class CalendarViewFragment extends Fragment {
                         * probably due to a delay in the addition to Array List
                         * */
 
+                        EventToCard.add(t);
                         goToCardView();
                         EventToCard.clear();
                     }
