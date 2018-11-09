@@ -40,7 +40,7 @@ public class MapFragment extends Fragment{
 
         webView = rootView.findViewById(R.id.webView);
 
-        String url = "file:///android_asset/CampusMap2/index.html";
+        String url = "https://my-awesome-project-6dd85.firebaseapp.com/CampusMap2/";
         WebView view = (WebView)rootView.findViewById(R.id.webView);
 
 
