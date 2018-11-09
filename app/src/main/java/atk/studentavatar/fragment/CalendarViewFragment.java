@@ -28,7 +28,7 @@ import atk.studentavatar.models.Event;
 public abstract class CalendarViewFragment extends Fragment {
 
     // [START define_database_reference]
-    private DatabaseReference mDatabase;
+    private DatabaseReference reference;
     // [END define_database_reference]
 
     private static final String EVENT_INTENT_KEY = "EVENT_LIST";
@@ -51,7 +51,7 @@ public abstract class CalendarViewFragment extends Fragment {
                               Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
 
@@ -84,7 +84,7 @@ public abstract class CalendarViewFragment extends Fragment {
     /*
     private void getUserName()
     {
-        //Query eventsQuery = getQuery(mDatabase);
+        //Query eventsQuery = getQuery(reference);
 
         //query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
 
@@ -126,7 +126,7 @@ public abstract class CalendarViewFragment extends Fragment {
 
                 final String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
 
-                Query eventsQuery = getQuery(mDatabase);
+                Query eventsQuery = getQuery(reference);
 
                 eventsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
