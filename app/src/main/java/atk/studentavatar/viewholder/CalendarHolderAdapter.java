@@ -1,27 +1,9 @@
 package atk.studentavatar.viewholder;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import java.util.List;
-
-import atk.studentavatar.R;
-import atk.studentavatar.models.Event;
-import atk.studentavatar.models.EventClub;
-
 //this adapter is for calendarCardViewActivity, after a date is selected
-
+/*
 public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAdapter.CalendarViewHolder> {
+
 
     private Context context;
     private List<Event> events;
@@ -135,4 +117,4 @@ public class CalendarHolderAdapter extends RecyclerView.Adapter<CalendarHolderAd
             cardView = itemView.findViewById(R.id.card_item);
         }
     }
-}
+}*/

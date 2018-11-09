@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,11 +84,11 @@ public class GeneralViewFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get General object and use the values to update the UI
-                General general = dataSnapshot.child("general").getValue(General.class);
+                General general = dataSnapshot.child("general").child("0").getValue(General.class);
                 Picasso.get().load(general.header).into(mImageView);
                 mTitleView.setText(general.title);
                 mLocationView.setText(general.location);
-                mDescriptionView.setText(general.description);
+                mDescriptionView.setText(Html.fromHtml(general.description));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

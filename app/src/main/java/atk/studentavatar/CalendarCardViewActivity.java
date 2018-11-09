@@ -1,34 +1,14 @@
 package atk.studentavatar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import atk.studentavatar.models.Event;
-import atk.studentavatar.models.EventClub;
-import atk.studentavatar.models.EventGeneral;
-import atk.studentavatar.models.EventNotifi;
-import atk.studentavatar.models.EventUnit;
-import atk.studentavatar.viewholder.CalendarHolderAdapter;
 
 
 public class CalendarCardViewActivity extends BaseActivity {
@@ -36,54 +16,49 @@ public class CalendarCardViewActivity extends BaseActivity {
     private static final String TAG = "CalendarCardViewActivity";
     public static final String EXTRA_CALENDAR_KEY = "calendar_key";
 
+    private static final String EVENT_INTENT_KEY = "EVENT_LIST";
+
     private RecyclerView recyclerView;
-    private CalendarHolderAdapter calendarHolderAdapter;
-    private List<Event> events;
+    //private CalendarHolderAdapter calendarHolderAdapter;
+    private ArrayList<String> selEventList = new ArrayList<>();
 
     private TextView date_on_view, status;
 
-    private int year, month, day;
-    private String username;
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        selEventList.clear();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_card_view_holder);
 
-        checkBundle();
+        //checkBundle();
 
         Log.d("lolo", "before test event");
 
         //dont forget to uncomment this if using function below
-        testevent();
+        //testevent();
 
         //if u want to try to pull from mysql uncomment function below
         //provided that ip address is correct, database exists, user exists in database
         //queryToMySQLserver();
+        //unpackBundle();
 
-    }
 
-    private void checkBundle()
-    {
-        Log.d("lolo", "IN new activity");
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        Intent i = getIntent();
+        selEventList = i.getStringArrayListExtra(EVENT_INTENT_KEY);
 
-        if(!bundle.isEmpty())
+        for(String seleve : selEventList)
         {
-            Log.d("lolo", "IN bundle");
-            year = bundle.getInt("Year");
-            month = bundle.getInt("Month");
-            day = bundle.getInt("Day");
-            username = bundle.getString("Username");
-
-            Log.d("lolo", "year: " + Integer.toString(year));
-            Log.d("lolo", "month: " + Integer.toString(month));
-            Log.d("lolo", "day: " + Integer.toString(day));
-            //bundle.clear();
+            Log.d("lolo", seleve);
         }
+
     }
 
+    /*
     private void setAdapter()
     {
         Log.d("lolo", "2 set adapter");
@@ -95,8 +70,9 @@ public class CalendarCardViewActivity extends BaseActivity {
         calendarHolderAdapter = new CalendarHolderAdapter(this, events);
         Log.d("lolo", "before rec set");
         recyclerView.setAdapter(calendarHolderAdapter);
-    }
+    }*/
 
+    /*
     private void testevent()
     {
         Log.d("lolo", "in test event");
@@ -117,9 +93,9 @@ public class CalendarCardViewActivity extends BaseActivity {
 
         setAdapter();
         dateSet();
-    }
+    }*/
 
-
+    /*
     private void dateSet()
     {
         Log.d("lolo", "3 set date");
@@ -132,10 +108,10 @@ public class CalendarCardViewActivity extends BaseActivity {
         {
             status = findViewById(R.id.TextView_eeeeS);
             status.setVisibility(View.VISIBLE);
-
         }
-    }
+    }*/
 
+    /*
     private void queryToMySQLserver()
     {
         final String date = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
@@ -173,8 +149,9 @@ public class CalendarCardViewActivity extends BaseActivity {
 
         MySingletonVolley.getInstance(this).addToRequestQueue(stringRequest);
 
-    }
+    }*/
 
+    /*
     private void formatEvents(JSONObject jsonObject)
     {
 
@@ -254,6 +231,6 @@ public class CalendarCardViewActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 }

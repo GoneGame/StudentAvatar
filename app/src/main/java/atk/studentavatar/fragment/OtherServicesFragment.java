@@ -14,7 +14,7 @@ import atk.studentavatar.R;
 
 public class OtherServicesFragment extends Fragment{
 
-    private TextView canteen, library, gym, calc;
+    private TextView canteen, library, mph, calc;
 
     public OtherServicesFragment() {}
 
@@ -26,7 +26,7 @@ public class OtherServicesFragment extends Fragment{
 
         canteen = rootView.findViewById(R.id.TextView_LinkCanteen);
         library = rootView.findViewById(R.id.TextView_LinkLibrary);
-        gym = rootView.findViewById(R.id.TextView_LinkGym);
+        mph = rootView.findViewById(R.id.TextView_LinkMph);
         calc = rootView.findViewById(R.id.TextView_Calculator);
 
         canteen.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +47,7 @@ public class OtherServicesFragment extends Fragment{
             }
         });
 
-        gym.setOnClickListener(new View.OnClickListener() {
+        mph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Uri uri = Uri.parse("http://google.com");

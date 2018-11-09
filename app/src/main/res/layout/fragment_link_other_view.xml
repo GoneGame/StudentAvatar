@@ -39,10 +39,10 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/TextView_LinkGym"
+        android:id="@+id/TextView_LinkMph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/gymLinkText"
+        android:text="@string/mphLinkText"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:textColor="#005fff"
