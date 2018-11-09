@@ -43,6 +43,10 @@ a {
 	outline: none;
 }
 
+.labels{
+	color: white;
+}
+
 a:hover,
 button:hover {
 	color: #515158;
