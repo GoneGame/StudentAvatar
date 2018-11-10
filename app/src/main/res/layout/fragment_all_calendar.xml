@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/TextView_date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="17sp"
-        android:layout_marginTop="45dp"
-        android:layout_marginStart="50dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/dateText"/>
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/dateText"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/calendarListRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:clipToPadding="false"
         android:padding="5dp"
         android:scrollbars="vertical"
         tools:listitem="@layout/item_calendar" />
 
-</FrameLayout>
+</LinearLayout>

@@ -7,32 +7,23 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
-import atk.studentavatar.models.General;
 import atk.studentavatar.viewholder.CalendarViewHolder;
 
 public class CalendarCardViewFragment extends Fragment {
-
-    //private static final String TAG = "GVFragment";
 
     private static final String EVENT_INTENT_KEY2 = "EVENT_ARRAY";
 
@@ -58,8 +49,6 @@ public class CalendarCardViewFragment extends Fragment {
         return fragment;
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +70,8 @@ public class CalendarCardViewFragment extends Fragment {
         date_on_view = view.findViewById(R.id.TextView_date);
 
         recyclerView = view.findViewById(R.id.calendarListRecycler);
-        setAdapter();
 
+        setAdapter();
         return view;
     }
 
