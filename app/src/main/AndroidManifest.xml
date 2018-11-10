@@ -46,6 +46,7 @@
         </activity>
         <activity android:name=".CalendarCardViewActivity" />
         <activity android:name=".CalculatorActivity" />
+        <activity android:name=".CalendarActivity" />
     </application>
 
 </manifest>

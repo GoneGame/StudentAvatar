@@ -136,10 +136,4 @@ public class CalendarCardViewActivity extends BaseActivity {
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
-
-    private void getEvents()
-    {
-
-    }
-
 }

@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import atk.studentavatar.CalendarActivity;
 import atk.studentavatar.CalendarCardViewActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
@@ -72,10 +73,10 @@ public abstract class CalendarViewFragment extends Fragment {
 
     }
 
-    private void goToCardView()
+    private void goToCalendarActivity()
     {
         //https://stackoverflow.com/questions/17453297/passing-arraylist-of-string-arrays-from-one-activity-to-another-in-android
-        Intent intent = new Intent(getActivity(), CalendarCardViewActivity.class);
+        Intent intent = new Intent(getActivity(), CalendarActivity.class);
         intent.putStringArrayListExtra(EVENT_INTENT_KEY, EventToCard);
         Log.d("calenFrag", "3 bundle put in");
         startActivity(intent);
@@ -99,7 +100,7 @@ public abstract class CalendarViewFragment extends Fragment {
                 //usernameE = s;
                 Toast.makeText(getContext(), title, Toast.LENGTH_SHORT).show();
                 //Log.d("calenFrag", "1 get Username: " + usernameE);
-                //goToCardView(keepData(y, m ,d));
+                //goToCalendarActivity(keepData(y, m ,d));
             }
 
             @Override
@@ -162,7 +163,7 @@ public abstract class CalendarViewFragment extends Fragment {
                         * */
 
                         EventToCard.add(t);
-                        goToCardView();
+                        goToCalendarActivity();
                         EventToCard.clear();
                     }
 
