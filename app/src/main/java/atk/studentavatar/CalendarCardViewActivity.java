@@ -1,11 +1,12 @@
 package atk.studentavatar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -51,14 +52,11 @@ public class CalendarCardViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calendar_card_view_holder);
+        setContentView(R.layout.fragment_all_calendar);
 
         Log.d("lolo", "before test event");
 
         reference = FirebaseDatabase.getInstance().getReference();
-
-        //setAdapter();
-
 
         Intent i = getIntent();
         selEventListAndSelDate = i.getStringArrayListExtra(EVENT_INTENT_KEY);
@@ -71,6 +69,11 @@ public class CalendarCardViewActivity extends BaseActivity {
         selDate = selEventListAndSelDate.get(selEventListAndSelDate.size() - 1);
 
         Log.d("lolo", selDate);
+
+        date_on_view = findViewById(R.id.TextView_date);
+        date_on_view.setText(selDate);
+        setAdapter();
+
     }
 
     @Override
@@ -81,35 +84,62 @@ public class CalendarCardViewActivity extends BaseActivity {
     private void setAdapter()
     {
         Log.d("lolo", "2 set adapter");
-        recyclerView = findViewById(R.id.calenListRec);
+        recyclerView = findViewById(R.id.calendarListRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Query query = reference.child("event");
+        Query queryEvent = reference.child("event");
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Event>().setQuery(query, Event.class).build();
+        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Event>().setQuery(queryEvent, Event.class).build();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, CalendarViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull CalendarViewHolder holder, int position, @NonNull Event model) {
 
+                /*
+                * the important part is holder.bindToCalendar(model)
+                * so if the eventkey received at that point is not included is the
+                * keys received from previous calendarViewFragment
+                * there will be no binding, thus
+                * the unrelated events will not be displayed
+                * */
+                /*
+                final DatabaseReference EventRef = getRef(position);
+
+                boolean binding = false;
+
+                String eventKey = EventRef.getKey();
+
+                for(String s : selEventListAndSelDate)
+                {
+                    if(s.matches(eventKey))
+                    {
+                        binding = true;
+                    }
+                }
+
+                if(binding)
+                {
+
+                }*/
+
+                holder.bindToCalendar(model);
             }
 
             @NonNull
             @Override
             public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return null;
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_calendar, parent, false);
+                return new CalendarViewHolder(view);
             }
         };
-        /*
-        Log.d("lolo", "before adapter");
-        calendarHolderAdapter = new CalendarHolderAdapter(this, events);
-        Log.d("lolo", "before rec set");
-        recyclerView.setAdapter(calendarHolderAdapter);
-        */
 
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
+    private void getEvents()
+    {
 
+    }
 
 }

@@ -32,7 +32,7 @@
         android:text="@string/NoEventText"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/calenListRec"
+        android:id="@+id/calendarListRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/TextView_eeeeS">
