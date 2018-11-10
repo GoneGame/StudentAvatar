@@ -41,7 +41,7 @@
     <string name="NoEventText">No Activity Detected</string>
     <string name="titleText">Title: %1$s</string>
     <string name="subTitleText">Sub Title: %1$s</string>
-    <string name="dateText">Date: %1$s</string>
+    <string name="dateText">%1$s</string>
     <string name="timeText">Time: %1$s</string>
     <string name="locationText">Location: %1$s</string>
     <string name="descText">Description: %1$s</string>

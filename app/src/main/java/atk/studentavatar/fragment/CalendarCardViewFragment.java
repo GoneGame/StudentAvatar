@@ -66,8 +66,8 @@ public class CalendarCardViewFragment extends Fragment {
         Log.d("lolo", "before test event");
 
         selDate = eventKeyDateSelected[eventKeyDateSelected.length - 1];
-
         date_on_view = view.findViewById(R.id.TextView_date);
+        date_on_view.setText(selDate);
 
         recyclerView = view.findViewById(R.id.calendarListRecycler);
 
@@ -97,27 +97,19 @@ public class CalendarCardViewFragment extends Fragment {
                  * there will be no binding, thus
                  * the unrelated events will not be displayed
                  * */
-                /*
-                final DatabaseReference EventRef = getRef(position);
 
-                boolean binding = false;
+                final DatabaseReference EventRef = getRef(position);
 
                 String eventKey = EventRef.getKey();
 
-                for(String s : selEventListAndSelDate)
+                for(String s : eventKeyDateSelected)
                 {
                     if(s.matches(eventKey))
                     {
-                        binding = true;
+                        holder.bindToCalendar(model);
+                        holder.toggleGone();
                     }
                 }
-
-                if(binding)
-                {
-
-                }*/
-
-                holder.bindToCalendar(model);
             }
 
             @NonNull
