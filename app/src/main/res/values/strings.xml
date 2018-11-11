@@ -36,7 +36,7 @@
     <string name="helloText1">Hello</string>
     <string name="helloText2">Welcome</string>
     <string name="helloText3">Hi</string>
-    <string name="helloText4">Remember to check the dates</string>
+    <string name="helloText4">1/4 chance</string>
 
     <string name="NoEventText">No Activity Detected</string>
     <string name="titleText">Title: %1$s</string>

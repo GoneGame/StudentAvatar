@@ -19,6 +19,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
 import atk.studentavatar.viewholder.CalendarViewHolder;
@@ -34,17 +39,17 @@ public class CalendarCardViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private FirebaseRecyclerAdapter<Event, CalendarViewHolder> firebaseRecyclerAdapter;
 
-    private String[]eventKeyDateSelected;
     private String selDate;
+    private String miliDate;
 
     private TextView date_on_view;
 
     public CalendarCardViewFragment() {}
 
-    public static CalendarCardViewFragment newInstance(String[] calendarKey) {
+    public static CalendarCardViewFragment newInstance(String date) {
         CalendarCardViewFragment fragment = new CalendarCardViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putStringArray(EVENT_INTENT_KEY2, calendarKey);
+        bundle.putString(EVENT_INTENT_KEY2, date);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -53,9 +58,22 @@ public class CalendarCardViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            eventKeyDateSelected = getArguments().getStringArray(EVENT_INTENT_KEY2);
+            selDate = getArguments().getString(EVENT_INTENT_KEY2);
         }
         reference = FirebaseDatabase.getInstance().getReference();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
+
+        try {
+            Date date = dateFormat.parse(selDate);
+            Log.d("newDate", Long.toString(date.getTime()));
+            miliDate = Long.toString(date.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
     @Override
@@ -65,7 +83,6 @@ public class CalendarCardViewFragment extends Fragment {
 
         Log.d("lolo", "before test event");
 
-        selDate = eventKeyDateSelected[eventKeyDateSelected.length - 1];
         date_on_view = view.findViewById(R.id.TextView_date);
         date_on_view.setText(selDate);
 
@@ -82,7 +99,7 @@ public class CalendarCardViewFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Query queryEvent = reference.child("event");
+        Query queryEvent = reference.child("event").orderByChild("date/" + miliDate).equalTo(true);
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Event>().setQuery(queryEvent, Event.class).build();
 
@@ -90,26 +107,8 @@ public class CalendarCardViewFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull CalendarViewHolder holder, int position, @NonNull Event model) {
 
-                /*
-                 * the important part is holder.bindToCalendar(model)
-                 * so if the eventkey received at that point is not included is the
-                 * keys received from previous calendarViewFragment
-                 * there will be no binding, thus
-                 * the unrelated events will not be displayed
-                 * */
-
                 final DatabaseReference EventRef = getRef(position);
-
-                String eventKey = EventRef.getKey();
-
-                for(String s : eventKeyDateSelected)
-                {
-                    if(s.matches(eventKey))
-                    {
-                        holder.bindToCalendar(model);
-                        holder.toggleGone();
-                    }
-                }
+                holder.bindToCalendar(model);
             }
 
             @NonNull

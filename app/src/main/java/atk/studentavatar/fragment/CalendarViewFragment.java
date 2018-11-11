@@ -40,7 +40,10 @@ public abstract class CalendarViewFragment extends Fragment {
 
     private int y, m, d;
 
-    private ArrayList<String> EventToCard = new ArrayList<>();
+    private String date;
+
+
+    //private ArrayList<String> EventToCard = new ArrayList<>();
 
     //some copy
     private Event ll = new Event();
@@ -77,40 +80,14 @@ public abstract class CalendarViewFragment extends Fragment {
     {
         //https://stackoverflow.com/questions/17453297/passing-arraylist-of-string-arrays-from-one-activity-to-another-in-android
         Intent intent = new Intent(getActivity(), CalendarActivity.class);
-        intent.putStringArrayListExtra(EVENT_INTENT_KEY, EventToCard);
+        intent.putExtra(EVENT_INTENT_KEY, date);
+        //intent.putStringArrayListExtra(EVENT_INTENT_KEY, EventToCard);
         Log.d("calenFrag", "3 bundle put in");
         startActivity(intent);
     }
 
-    /*
-    private void getUserName()
-    {
-        //Query eventsQuery = getQuery(reference);
-
-        //query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
-
-        eventsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Event eventt = dataSnapshot.getValue(Event.class);
-                //String s = user.username;
-
-                String title = eventt.title;
-
-                //usernameE = s;
-                Toast.makeText(getContext(), title, Toast.LENGTH_SHORT).show();
-                //Log.d("calenFrag", "1 get Username: " + usernameE);
-                //goToCalendarActivity(keepData(y, m ,d));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        //Log.d("calenFrag", "2 return Username: " + usernameE);
-    }*/
+    //code for username, here if needed
+    //query = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -127,8 +104,9 @@ public abstract class CalendarViewFragment extends Fragment {
 
                 final String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
 
+                date = t;
+                /*
                 Query eventsQuery = getQuery(reference);
-
                 eventsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -157,10 +135,10 @@ public abstract class CalendarViewFragment extends Fragment {
                             Log.d("date", "------");
                         }
 
-                        /*
-                        * this function must be here to transfer the keys properly
-                        * probably due to a delay in the addition to Array List
-                        * */
+
+                        //this function must be here to transfer the keys properly
+                        //probably due to a delay in the addition to Array List
+
 
                         EventToCard.add(t);
                         goToCalendarActivity();
@@ -171,10 +149,10 @@ public abstract class CalendarViewFragment extends Fragment {
                     public void onCancelled(DatabaseError databaseError) {
                         Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
 
                 Toast.makeText(getContext(), t, Toast.LENGTH_SHORT).show();
-
+                goToCalendarActivity();
 
                 /*
                 Log.d("inList", "here");
