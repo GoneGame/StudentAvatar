@@ -5,19 +5,23 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationManagerCompat;
 
 public class NotificationPublisher extends BroadcastReceiver {
 
     public static final String NOTE_ID = "note_id_1";
-    public static final String NOTE = "notification";
+    public static final String NOTE_INTENT_KEY = "notification";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Notification notification = intent.getParcelableExtra(NOTE);
+        Notification notification = intent.getParcelableExtra(NOTE_INTENT_KEY);
         int id = intent.getIntExtra(NOTE_ID, 0);
-        notificationManager.notify(id, notification);
+
+        if (notificationManager != null) {
+            notificationManager.notify(id, notification);
+        }
     }
 }
