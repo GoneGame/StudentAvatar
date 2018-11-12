@@ -1,8 +1,5 @@
 package atk.studentavatar;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
@@ -18,8 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Calendar;
 
 import atk.studentavatar.fragment.CalendarFragment;
 import atk.studentavatar.fragment.GuideFragment;
@@ -150,15 +145,6 @@ public class  MainActivity extends BaseActivity {
         // Floating button launches NewPostActivity
         findViewById(R.id.fab_new_post).setOnClickListener(
                 v -> startActivity(new Intent(MainActivity.this, NewPostActivity.class)));
-
-
-        //alarmManager
-        /*
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        alarmManager.set(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis() + 30000, pendingIntent);
-        */
     }
 
     @Override
