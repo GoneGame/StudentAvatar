@@ -1,17 +1,10 @@
 package atk.studentavatar;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -155,10 +148,9 @@ public class  MainActivity extends BaseActivity {
         findViewById(R.id.fab_new_post).setOnClickListener(
                 v -> startActivity(new Intent(MainActivity.this, NewPostActivity.class)));
 
-        //schedule notification here
 
-        scheduleNotification(getNotification("the first 1"), 3000);
-        scheduleNotification(getNotification("the second 2"), 6000);
+        MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
+        MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG2, 6000);
     }
 
     @Override
@@ -178,36 +170,6 @@ public class  MainActivity extends BaseActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void scheduleNotification(Notification notification, int delay) {
-        Intent intent = new Intent(this, NotificationPublisher.class);
-        intent.putExtra(NotificationPublisher.NOTE_ID, 1);
-        intent.putExtra(NotificationPublisher.NOTE_INTENT_KEY, notification);
-
-        int ticks = (int) System.currentTimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, ticks, intent, PendingIntent.FLAG_ONE_SHOT);
-
-        long tempTime = SystemClock.elapsedRealtime() + delay;
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        if (alarmManager != null) {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, tempTime, pendingIntent);
-        }
-    }
-
-    private Notification getNotification(String title)
-    {
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle(title);
-        builder.setContentText("test notifications");
-        builder.setSmallIcon(R.drawable.ic_calendar_text_black_18dp);
-
-        //Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        //builder.setSound(alarmSound);
-
-        return builder.build();
     }
 }
 
