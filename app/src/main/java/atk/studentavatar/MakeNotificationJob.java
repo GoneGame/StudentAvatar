@@ -41,7 +41,6 @@ public class MakeNotificationJob extends Job {
         builder.setExact(time);
         //builder.startNow();
         builder.build().schedule();
-        //scheduleJob(NOTIFICATION_JOB_CREATOR_TAG1, );
     }
 
     private Notification getNotification(String title)

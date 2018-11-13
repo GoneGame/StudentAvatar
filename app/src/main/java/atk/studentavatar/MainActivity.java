@@ -147,10 +147,6 @@ public class  MainActivity extends BaseActivity {
         // Floating button launches NewPostActivity
         findViewById(R.id.fab_new_post).setOnClickListener(
                 v -> startActivity(new Intent(MainActivity.this, NewPostActivity.class)));
-
-
-        MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
-        MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG2, 6000);
     }
 
     @Override

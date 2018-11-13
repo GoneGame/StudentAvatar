@@ -27,6 +27,7 @@ import java.util.Random;
 
 import atk.studentavatar.CalendarActivity;
 import atk.studentavatar.CalendarCardViewActivity;
+import atk.studentavatar.MakeNotificationJob;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
 
@@ -125,24 +126,26 @@ public abstract class CalendarViewFragment extends Fragment {
 
     private void chgBtnLgc()
     {
+        //switch, so if true turn off, if false turn on
         if(onNotifications)
         {
             onNotifications = false;
             button.setText(getString(R.string.note_on_btn));
-            //become true
-            editor = preferences.edit();
-            editor.putBoolean(NOTIFICATION_STAT, onNotifications);
-            editor.apply();
+            //turn off notifications
         }
         else
         {
             onNotifications = true;
             button.setText(getString(R.string.note_off_btn));
-            //become false
-            editor = preferences.edit();
-            editor.putBoolean(NOTIFICATION_STAT, onNotifications);
-            editor.apply();
+            //turn on notifications
+            MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
+            MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG2, 6000);
         }
+
+        editor = preferences.edit();
+        editor.putBoolean(NOTIFICATION_STAT, onNotifications);
+        editor.apply();
+
     }
 
     private void goToCalendarActivity()
