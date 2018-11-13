@@ -47,8 +47,6 @@
         <activity android:name=".CalculatorActivity" />
         <activity android:name=".CalendarActivity" />
 
-        <receiver android:name=".NotificationPublisher" />
-
 
         <!--android job other stuff start-->
         <service
