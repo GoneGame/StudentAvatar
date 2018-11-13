@@ -7,14 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import atk.studentavatar.CalculatorActivity;
 import atk.studentavatar.R;
+import atk.studentavatar.SignInActivity;
 
 public class OtherServicesFragment extends Fragment{
 
-    private TextView canteen, library, mph, calc;
+    private Button canteen, library, mph, calc, logout;
 
     public OtherServicesFragment() {}
 
@@ -24,10 +28,11 @@ public class OtherServicesFragment extends Fragment{
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_link_other_view, container, false);
 
-        canteen = rootView.findViewById(R.id.TextView_LinkCanteen);
-        library = rootView.findViewById(R.id.TextView_LinkLibrary);
-        mph = rootView.findViewById(R.id.TextView_LinkMph);
-        calc = rootView.findViewById(R.id.TextView_Calculator);
+        canteen = rootView.findViewById(R.id.buttonCanteen);
+        library = rootView.findViewById(R.id.buttonLibrary);
+        mph = rootView.findViewById(R.id.buttonMPH);
+        calc = rootView.findViewById(R.id.buttonCalculator);
+        logout = rootView.findViewById(R.id.buttonLogout);
 
         canteen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +65,15 @@ public class OtherServicesFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CalculatorActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), SignInActivity.class);
                 startActivity(intent);
             }
         });

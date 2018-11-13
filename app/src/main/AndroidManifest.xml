@@ -8,7 +8,7 @@
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_iconstudentavatar"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -33,16 +33,9 @@
         <activity android:name=".GuideActivity"
             android:label="@string/guide_details"
             android:theme="@style/AppTheme">
-            <!-- [START link_intent_filter] -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data
-                    android:host="studentavatar.com"
-                    android:scheme="https"/>
             </intent-filter>
-            <!-- [END link_intent_filter] -->
         </activity>
         <activity android:name=".CalendarCardViewActivity" />
         <activity android:name=".CalculatorActivity" />
