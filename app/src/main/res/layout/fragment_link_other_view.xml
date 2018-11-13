@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="@string/otherServicesText"
-        android:textSize="18sp"/>
+        style="@style/TextAppearance.AppCompat.Large"/>
 
     <Button
         android:id="@+id/buttonCanteen"

@@ -8,10 +8,17 @@
     android:orientation="vertical"
     android:gravity="bottom">
 
-    <TextView
+    <ImageView
+        android:id="@+id/nav_header_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="My header title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:layout_height="142dp"
+        android:src="@drawable/ic_logo_swinburne_horizontal" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/nav_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="My header title"-->
+        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>-->
 
 </LinearLayout>

@@ -24,6 +24,7 @@ import atk.studentavatar.fragment.FaqFragment;
 import atk.studentavatar.fragment.FaqListFragment;
 import atk.studentavatar.fragment.FaqViewFragment;
 import atk.studentavatar.fragment.GeneralViewFragment;
+import atk.studentavatar.fragment.TwitterViewFragment;
 
 public class GuideActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
@@ -40,6 +41,7 @@ public class GuideActivity extends BaseActivity implements
     public static final String EXTRA_FAQ_KEY = "faq_key";
     public static final String EXTRA_CL_KEY = "cl_key";
     public static final String EXTRA_CLL_KEY = "cll_key";
+    public static final String EXTRA_TV_KEY = "tv_key";
 
     private String mGuideKey;
     private String mFaqKey;
@@ -80,7 +82,14 @@ public class GuideActivity extends BaseActivity implements
             mBundle.putString("gkey", mGuideKey);
             mBundle.putString("ckey", mChecklistKey);
             fragment.setArguments(mBundle);
-        }
+            }
+            else if (getIntent().getStringExtra(EXTRA_TV_KEY) != null) {
+                mGuideKey = getIntent().getStringExtra(EXTRA_TV_KEY);
+                fragment = new TwitterViewFragment();
+                Bundle mBundle = new Bundle();
+                mBundle.putString("gkey", mGuideKey);
+                fragment.setArguments(mBundle);
+            }
             // Add the fragment to the 'content_frame' FrameLayout
             if (fragment != null) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -147,6 +156,11 @@ public class GuideActivity extends BaseActivity implements
             fragment.setArguments(mBundle);
         } else if (id == R.id.nav_third_fragment) {
             fragment = new ChecklistFragment();
+            Bundle mBundle = new Bundle();
+            mBundle.putString("key", mGuideKey);
+            fragment.setArguments(mBundle);
+        } else if (id == R.id.nav_fourth_fragment) {
+            fragment = new TwitterViewFragment();
             Bundle mBundle = new Bundle();
             mBundle.putString("key", mGuideKey);
             fragment.setArguments(mBundle);
