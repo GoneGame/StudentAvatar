@@ -1,6 +1,8 @@
 package atk.studentavatar.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 import atk.studentavatar.CalendarActivity;
@@ -36,12 +40,20 @@ public abstract class CalendarViewFragment extends Fragment {
 
     private TextView hello;
     private CalendarView calendarView;
-    //private Query query;
+    private Button button;
+
+    private boolean onNotifications;
 
     private int y, m, d;
 
     private String date;
 
+    private static final String SHAREDKEY = "pref";
+    private static final String NOTIFICATION_STAT = "notification_status";
+
+
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     //private ArrayList<String> EventToCard = new ArrayList<>();
 
@@ -61,6 +73,7 @@ public abstract class CalendarViewFragment extends Fragment {
 
         calendarView = rootView.findViewById(R.id.calendarView);
         hello = rootView.findViewById(R.id.helloTextView);
+        button = rootView.findViewById(R.id.notificationButton);
 
         Random random = new Random();
 
@@ -72,8 +85,64 @@ public abstract class CalendarViewFragment extends Fragment {
                 getString(R.string.helloText4)};
 
         hello.setText(strings[g]);
-        return rootView;
 
+        //button interaction
+
+        button = rootView.findViewById(R.id.notificationButton);
+
+        preferences = this.getActivity().getSharedPreferences(SHAREDKEY, Context.MODE_PRIVATE);
+
+        if(preferences.contains(NOTIFICATION_STAT))
+        {
+            Log.d("pref", "into contains");
+            onNotifications = preferences.getBoolean(NOTIFICATION_STAT, false);
+            if(onNotifications)
+            {
+                Log.d("pref", "into contains true");
+                button.setText(getString(R.string.note_off_btn));
+            }
+            else
+            {
+                Log.d("pref", "into contains false");
+                button.setText(getString(R.string.note_on_btn));
+            }
+        }
+        else
+        {
+            Log.d("pref", "out contains");
+            button.setText(getString(R.string.note_on_btn));
+        }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chgBtnLgc();
+            }
+        });
+
+        return rootView;
+    }
+
+    private void chgBtnLgc()
+    {
+        if(onNotifications)
+        {
+            onNotifications = false;
+            button.setText(getString(R.string.note_on_btn));
+            //become true
+            editor = preferences.edit();
+            editor.putBoolean(NOTIFICATION_STAT, onNotifications);
+            editor.apply();
+        }
+        else
+        {
+            onNotifications = true;
+            button.setText(getString(R.string.note_off_btn));
+            //become false
+            editor = preferences.edit();
+            editor.putBoolean(NOTIFICATION_STAT, onNotifications);
+            editor.apply();
+        }
     }
 
     private void goToCalendarActivity()
