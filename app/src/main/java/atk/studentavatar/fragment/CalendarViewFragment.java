@@ -20,13 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 import atk.studentavatar.CalendarActivity;
-import atk.studentavatar.CalendarCardViewActivity;
 import atk.studentavatar.MakeNotificationJob;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
@@ -87,65 +84,9 @@ public abstract class CalendarViewFragment extends Fragment {
 
         hello.setText(strings[g]);
 
-        //button interaction
-
         button = rootView.findViewById(R.id.notificationButton);
 
-        preferences = this.getActivity().getSharedPreferences(SHAREDKEY, Context.MODE_PRIVATE);
-
-        if(preferences.contains(NOTIFICATION_STAT))
-        {
-            Log.d("pref", "into contains");
-            onNotifications = preferences.getBoolean(NOTIFICATION_STAT, false);
-            if(onNotifications)
-            {
-                Log.d("pref", "into contains true");
-                button.setText(getString(R.string.note_off_btn));
-            }
-            else
-            {
-                Log.d("pref", "into contains false");
-                button.setText(getString(R.string.note_on_btn));
-            }
-        }
-        else
-        {
-            Log.d("pref", "out contains");
-            button.setText(getString(R.string.note_on_btn));
-        }
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chgBtnLgc();
-            }
-        });
-
         return rootView;
-    }
-
-    private void chgBtnLgc()
-    {
-        //switch, so if true turn off, if false turn on
-        if(onNotifications)
-        {
-            onNotifications = false;
-            button.setText(getString(R.string.note_on_btn));
-            //turn off notifications
-        }
-        else
-        {
-            onNotifications = true;
-            button.setText(getString(R.string.note_off_btn));
-            //turn on notifications
-            MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
-            MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG2, 6000);
-        }
-
-        editor = preferences.edit();
-        editor.putBoolean(NOTIFICATION_STAT, onNotifications);
-        editor.apply();
-
     }
 
     private void goToCalendarActivity()
@@ -233,11 +174,68 @@ public abstract class CalendarViewFragment extends Fragment {
                 {
                     Log.d("inList", s);
                 }*/
+            }
+        });
 
+        preferences = this.getActivity().getSharedPreferences(SHAREDKEY, Context.MODE_PRIVATE);
 
+        if(preferences.contains(NOTIFICATION_STAT))
+        {
+            Log.d("pref", "into contains");
+            onNotifications = preferences.getBoolean(NOTIFICATION_STAT, false);
+            if(onNotifications)
+            {
+                Log.d("pref", "into contains true");
+                button.setText(getString(R.string.note_off_btn));
+            }
+            else
+            {
+                Log.d("pref", "into contains false");
+                button.setText(getString(R.string.note_on_btn));
+            }
+        }
+        else
+        {
+            Log.d("pref", "out contains");
+            button.setText(getString(R.string.note_on_btn));
+        }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chgBtnLgc();
             }
         });
     }
+
+    private void chgBtnLgc()
+    {
+        //switch, so if true turn off, if false turn on
+        if(onNotifications)
+        {
+            onNotifications = false;
+            button.setText(getString(R.string.note_on_btn));
+            //turn off notifications
+        }
+        else
+        {
+            onNotifications = true;
+            button.setText(getString(R.string.note_off_btn));
+            //turn on notifications
+            //MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
+            //MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG2, 6000);
+        }
+
+        editor = preferences.edit();
+        editor.putBoolean(NOTIFICATION_STAT, onNotifications);
+        editor.apply();
+    }
+
+    /*
+    private void makeJob()
+    {
+
+    }*/
 
     @Override
     public void onStart() {

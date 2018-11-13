@@ -12,6 +12,9 @@ public class NotificationJobCreator implements JobCreator {
     @Override
     public Job create(@NonNull String tag) {
 
+        int tagCount = 0;
+        String tags = "tag";
+
         Log.d("job","in Job create");
         if(tag.equals(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1))
         {
@@ -28,4 +31,5 @@ public class NotificationJobCreator implements JobCreator {
             return null;
         }
     }
+
 }

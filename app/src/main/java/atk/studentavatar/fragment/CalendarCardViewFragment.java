@@ -72,8 +72,6 @@ public class CalendarCardViewFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
     }
 
     @Override
