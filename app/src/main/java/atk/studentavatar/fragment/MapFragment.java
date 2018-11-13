@@ -18,7 +18,6 @@ public class MapFragment extends Fragment{
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
 
-
         String url = "https://my-awesome-project-6dd85.firebaseapp.com/CampusMap2/";
         WebView view = rootView.findViewById(R.id.webView);
         view.getSettings().setBuiltInZoomControls(true);
