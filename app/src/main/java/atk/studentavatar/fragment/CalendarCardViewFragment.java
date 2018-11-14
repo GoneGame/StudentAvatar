@@ -71,7 +71,6 @@ public class CalendarCardViewFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -107,6 +106,20 @@ public class CalendarCardViewFragment extends Fragment {
 
                 final DatabaseReference EventRef = getRef(position);
                 holder.bindToCalendar(model);
+
+                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(holder.txt_desc.getVisibility() == View.GONE)
+                        {
+                            holder.txt_desc.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            holder.txt_desc.setVisibility(View.GONE);
+                        }
+                    }
+                });
             }
 
             @NonNull

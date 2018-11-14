@@ -23,7 +23,7 @@
             android:text="@string/titleText"/>
 
         <TextView
-            android:id="@+id/TextView_subtitle"
+            android:id="@+id/TextView_relateTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
