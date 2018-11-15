@@ -15,16 +15,13 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import java.util.ArrayList;
+
 import java.util.Random;
 
 import atk.studentavatar.CalendarActivity;
-import atk.studentavatar.MakeNotificationJob;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
 
@@ -222,8 +219,7 @@ public abstract class CalendarViewFragment extends Fragment {
             onNotifications = true;
             button.setText(getString(R.string.note_off_btn));
             //turn on notifications
-            //MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
-            //MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG2, 6000);
+            // **MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
         }
 
         editor = preferences.edit();
