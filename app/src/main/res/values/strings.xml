@@ -40,8 +40,8 @@
     <string name="helloText3">Hi</string>
     <string name="helloText4">Calendar</string>
 
-    <string name="note_on_btn">does not</string>
-    <string name="note_off_btn">work yet</string>
+    <string name="note_on_btn">On Notifications</string>
+    <string name="note_off_btn">Off Notifications</string>
 
     <string name="NoEventText">No Activity Detected</string>
     <string name="titleText">Title: %1$s</string>

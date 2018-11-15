@@ -1,9 +1,13 @@
 package atk.studentavatar.fragment;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,6 +26,7 @@ import com.google.firebase.database.Query;
 import java.util.Random;
 
 import atk.studentavatar.CalendarActivity;
+import atk.studentavatar.NotificationPubCycle;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
 
@@ -218,8 +223,12 @@ public abstract class CalendarViewFragment extends Fragment {
         {
             onNotifications = true;
             button.setText(getString(R.string.note_off_btn));
+            //do not get confused, button is set to turn off
+            //because the notification in on
+
             //turn on notifications
-            // **MakeNotificationJob.scheduleJob(MakeNotificationJob.NOTIFICATION_JOB_CREATOR_TAG1, 3000);
+
+            scheduleNotification(getNotification("test"), 5000);
         }
 
         editor = preferences.edit();
@@ -227,11 +236,32 @@ public abstract class CalendarViewFragment extends Fragment {
         editor.apply();
     }
 
-    /*
-    private void makeJob()
-    {
+    private void scheduleNotification(Notification notification, int delay) {
 
-    }*/
+        Intent intent = new Intent(getActivity(), NotificationPubCycle.class);
+        intent.putExtra(NotificationPubCycle.NOTE_ID, 1);
+        intent.putExtra(NotificationPubCycle.NOTE_INTENT_KEY, notification);
+
+        int ticks = (int) System.currentTimeMillis();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), ticks, intent, PendingIntent.FLAG_ONE_SHOT);
+        long tempTime = SystemClock.elapsedRealtime() + delay;
+
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, tempTime, pendingIntent);
+        }
+    }
+
+    private Notification getNotification(String title)
+    {
+        Notification.Builder builder = new Notification.Builder(getActivity());
+        builder.setContentTitle(title);
+        builder.setContentText("test notifications");
+        builder.setSmallIcon(R.drawable.ic_calendar_text_black_18dp);
+        //Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        //builder.setSound(alarmSound);
+        return builder.build();
+    }
 
     @Override
     public void onStart() {
