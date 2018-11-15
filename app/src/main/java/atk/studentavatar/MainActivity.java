@@ -111,12 +111,10 @@ public class  MainActivity extends BaseActivity {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
                 switch (position) {
+                    default:
+                        fab.hide();
+                        break;
                     case 0:
                         fab.hide();
                         break;
@@ -132,10 +130,12 @@ public class  MainActivity extends BaseActivity {
                     case 4:
                         fab.hide();
                         break;
-                    default:
-                        fab.hide();
-                        break;
                 }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
             }
 
             @Override
