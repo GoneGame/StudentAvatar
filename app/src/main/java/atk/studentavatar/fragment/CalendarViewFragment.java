@@ -1,13 +1,9 @@
 package atk.studentavatar.fragment;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -27,8 +23,9 @@ import java.util.Random;
 
 import atk.studentavatar.CalendarActivity;
 import atk.studentavatar.NotificationPubCycle;
+import atk.studentavatar.NotificationRecycler;
 import atk.studentavatar.R;
-import atk.studentavatar.models.Event;
+
 
 public abstract class CalendarViewFragment extends Fragment {
 
@@ -55,10 +52,7 @@ public abstract class CalendarViewFragment extends Fragment {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
-    //private ArrayList<String> EventToCard = new ArrayList<>();
-
-    //some copy
-    private Event ll = new Event();
+    //private NotificationRecycler notificationRecycler = new NotificationRecycler(getActivity());//call this after onAttach()
 
     public CalendarViewFragment() {}
 
@@ -120,62 +114,9 @@ public abstract class CalendarViewFragment extends Fragment {
                 final String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
 
                 date = t;
-                /*
-                Query eventsQuery = getQuery(reference);
-                eventsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        Log.d("all", dataSnapshot.toString());
-
-
-                        for(DataSnapshot cc : dataSnapshot.getChildren())
-                        {
-                            Event event = cc.getValue(Event.class);
-
-                            Log.d("key", cc.getKey());
-
-                            Log.d("title", event.title);
-                            //Log.d("first date", entry.getKey());
-
-                            for(String i : event.date)
-                            {
-                                if(i.matches(t))
-                                {
-                                    Log.d("date", cc.getKey());
-                                    Log.d("date", i);
-                                    EventToCard.add(cc.getKey());
-                                }
-                            }
-                            Log.d("date", "------");
-                        }
-
-
-                        //this function must be here to transfer the keys properly
-                        //probably due to a delay in the addition to Array List
-
-
-                        EventToCard.add(t);
-                        goToCalendarActivity();
-                        EventToCard.clear();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });*/
 
                 Toast.makeText(getContext(), t, Toast.LENGTH_SHORT).show();
                 goToCalendarActivity();
-
-                /*
-                Log.d("inList", "here");
-
-                for(String s : EventToCard)
-                {
-                    Log.d("inList", s);
-                }*/
             }
         });
 
@@ -189,11 +130,16 @@ public abstract class CalendarViewFragment extends Fragment {
             {
                 Log.d("pref", "into contains true");
                 button.setText(getString(R.string.note_off_btn));
+                //put the trigger here
+
+                //notificationRecycler.allSteps(onNotifications);
             }
             else
             {
                 Log.d("pref", "into contains false");
                 button.setText(getString(R.string.note_on_btn));
+
+                //notificationRecycler.allSteps(onNotifications);
             }
         }
         else
@@ -201,6 +147,8 @@ public abstract class CalendarViewFragment extends Fragment {
             Log.d("pref", "out contains");
             button.setText(getString(R.string.note_on_btn));
         }
+
+        //scheduleNotification(getNotification("test"), 0);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +166,8 @@ public abstract class CalendarViewFragment extends Fragment {
             onNotifications = false;
             button.setText(getString(R.string.note_on_btn));
             //turn off notifications
+
+            //notificationRecycler.allSteps(onNotifications);
         }
         else
         {
@@ -226,9 +176,11 @@ public abstract class CalendarViewFragment extends Fragment {
             //do not get confused, button is set to turn off
             //because the notification in on
 
+            //getNextTimeToTrigger();
             //turn on notifications
 
-            scheduleNotification(getNotification("test"), 5000);
+
+            //notificationRecycler.allSteps(onNotifications);
         }
 
         editor = preferences.edit();
@@ -236,32 +188,7 @@ public abstract class CalendarViewFragment extends Fragment {
         editor.apply();
     }
 
-    private void scheduleNotification(Notification notification, int delay) {
 
-        Intent intent = new Intent(getActivity(), NotificationPubCycle.class);
-        intent.putExtra(NotificationPubCycle.NOTE_ID, 1);
-        intent.putExtra(NotificationPubCycle.NOTE_INTENT_KEY, notification);
-
-        int ticks = (int) System.currentTimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), ticks, intent, PendingIntent.FLAG_ONE_SHOT);
-        long tempTime = SystemClock.elapsedRealtime() + delay;
-
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, tempTime, pendingIntent);
-        }
-    }
-
-    private Notification getNotification(String title)
-    {
-        Notification.Builder builder = new Notification.Builder(getActivity());
-        builder.setContentTitle(title);
-        builder.setContentText("test notifications");
-        builder.setSmallIcon(R.drawable.ic_calendar_text_black_18dp);
-        //Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        //builder.setSound(alarmSound);
-        return builder.build();
-    }
 
     @Override
     public void onStart() {
