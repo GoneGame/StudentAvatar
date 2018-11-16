@@ -130,22 +130,27 @@ public class NotificationRecycler {
 
                         long miliTodayTimePrecise = (hr * 60 + min) * 60000 + Long.parseLong(getDateMiliToday());
 
-                        Log.d("timeSet", Long.toString(miliTodayTimePrecise));
-                        //scheduleNotification(getNotification(event.title, context), miliTodayTimePrecise, context);
-                        if(miliTodayTimePrecise > System.currentTimeMillis())
+                        if(event.note)
                         {
-                            _title = event.title;
-                            _exactTimeMili = miliTodayTimePrecise;
+                            if(miliTodayTimePrecise > System.currentTimeMillis())
+                            {
+                                _title = event.title;
+                                _exactTimeMili = miliTodayTimePrecise;
 
-                            Log.d("timecomp", Long.toString(System.currentTimeMillis()));
-                            Log.d("timesche", Long.toString(_exactTimeMili));
+                                Log.d("timecomp", Long.toString(System.currentTimeMillis()));
+                                Log.d("timesche", Long.toString(_exactTimeMili));
 
-                            scheduleNotification(b);
-                            break;
+                                scheduleNotification(b);
+                                break;
+                            }
+                            else
+                            {
+                                Log.d("end", "no more notifications today");
+                            }
                         }
                         else
                         {
-                            Log.d("end", "no more notifications today");
+                            Log.d("end", "notification is false");
                         }
                     }
                 }
