@@ -1,8 +1,10 @@
 package atk.studentavatar.fragment;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -16,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.Random;
@@ -28,10 +29,6 @@ import atk.studentavatar.R;
 
 
 public abstract class CalendarViewFragment extends Fragment {
-
-    // [START define_database_reference]
-    private DatabaseReference reference;
-    // [END define_database_reference]
 
     private static final String EVENT_INTENT_KEY = "EVENT_LIST";
 
@@ -48,20 +45,30 @@ public abstract class CalendarViewFragment extends Fragment {
     private static final String SHAREDKEY = "pref";
     private static final String NOTIFICATION_STAT = "notification_status";
 
-
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
-    //private NotificationRecycler notificationRecycler = new NotificationRecycler(getActivity());//call this after onAttach()
+
+    private NotificationRecycler notificationRecycler;
+
+    private PackageManager packageManager;
+    private ComponentName componentName;
 
     public CalendarViewFragment() {}
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        notificationRecycler = new NotificationRecycler(context);
+
+        packageManager = context.getPackageManager();
+        componentName = new ComponentName(context, NotificationPubCycle.class);
+    }
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
-        reference = FirebaseDatabase.getInstance().getReference();
 
         View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
 
@@ -125,22 +132,26 @@ public abstract class CalendarViewFragment extends Fragment {
         if(preferences.contains(NOTIFICATION_STAT))
         {
             Log.d("pref", "into contains");
+
             onNotifications = preferences.getBoolean(NOTIFICATION_STAT, false);
+
             if(onNotifications)
             {
                 Log.d("pref", "into contains true");
                 button.setText(getString(R.string.note_off_btn));
                 //put the trigger here
 
-                //notificationRecycler.allSteps(onNotifications);
+                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
             }
             else
             {
                 Log.d("pref", "into contains false");
                 button.setText(getString(R.string.note_on_btn));
-
-                //notificationRecycler.allSteps(onNotifications);
+                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             }
+
+            notificationRecycler.getNextTimeToTrigger(onNotifications);
         }
         else
         {
@@ -167,7 +178,7 @@ public abstract class CalendarViewFragment extends Fragment {
             button.setText(getString(R.string.note_on_btn));
             //turn off notifications
 
-            //notificationRecycler.allSteps(onNotifications);
+            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         }
         else
         {
@@ -179,16 +190,15 @@ public abstract class CalendarViewFragment extends Fragment {
             //getNextTimeToTrigger();
             //turn on notifications
 
-
-            //notificationRecycler.allSteps(onNotifications);
+            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
         }
+
+        notificationRecycler.getNextTimeToTrigger(onNotifications);
 
         editor = preferences.edit();
         editor.putBoolean(NOTIFICATION_STAT, onNotifications);
         editor.apply();
     }
-
-
 
     @Override
     public void onStart() {

@@ -11,8 +11,6 @@ public class NotificationPubCycle extends BroadcastReceiver{
     public static final String NOTE_ID = "note_id_1";
     public static final String NOTE_INTENT_KEY = "notification";
 
-    public static final String NOTE_BOOL_STAT = "bool";
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -21,12 +19,10 @@ public class NotificationPubCycle extends BroadcastReceiver{
 
         int id = intent.getIntExtra(NOTE_ID, 0);
 
-        boolean b = intent.getBooleanExtra(NOTE_BOOL_STAT, true);
-
         if (notificationManager != null) {
             notificationManager.notify(id, notification);
-            //NotificationRecycler notificationRecycler = new NotificationRecycler(context);
-            //notificationRecycler.allSteps(b);
+            NotificationRecycler notificationRecycler = new NotificationRecycler(context);
+            notificationRecycler.getNextTimeToTrigger(true);
         }
     }
 }

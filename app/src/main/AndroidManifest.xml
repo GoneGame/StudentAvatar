@@ -42,7 +42,9 @@
         <activity android:name=".CalendarActivity" />
         <activity android:name=".BaseActivity" />
 
-        <receiver android:name=".NotificationPubCycle" />
+        <receiver
+            android:name=".NotificationPubCycle"
+            android:enabled="false"/>
     </application>
 
 </manifest>
