@@ -85,7 +85,6 @@ public class CalendarActivity extends BaseActivity implements
         }
     }
 
-
     @Override
     public void onFragmentInteraction(Uri uri) {
 

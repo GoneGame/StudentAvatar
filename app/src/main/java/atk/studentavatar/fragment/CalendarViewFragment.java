@@ -34,7 +34,7 @@ public abstract class CalendarViewFragment extends Fragment {
 
     private TextView hello;
     private CalendarView calendarView;
-    private Button button;
+    private Button noteBtn, filterBtn;
 
     private boolean onNotifications;
 
@@ -74,7 +74,8 @@ public abstract class CalendarViewFragment extends Fragment {
 
         calendarView = rootView.findViewById(R.id.calendarView);
         hello = rootView.findViewById(R.id.helloTextView);
-        button = rootView.findViewById(R.id.notificationButton);
+        noteBtn = rootView.findViewById(R.id.notificationButton);
+        filterBtn = rootView.findViewById(R.id.filtersButton);
 
         Random random = new Random();
 
@@ -86,8 +87,6 @@ public abstract class CalendarViewFragment extends Fragment {
                 getString(R.string.helloText4)};
 
         hello.setText(strings[g]);
-
-        button = rootView.findViewById(R.id.notificationButton);
 
         return rootView;
     }
@@ -138,7 +137,7 @@ public abstract class CalendarViewFragment extends Fragment {
             if(onNotifications)
             {
                 Log.d("pref", "into contains true");
-                button.setText(getString(R.string.note_off_btn));
+                noteBtn.setText(getString(R.string.note_off_btn));
                 //put the trigger here
 
                 packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
@@ -147,7 +146,7 @@ public abstract class CalendarViewFragment extends Fragment {
             else
             {
                 Log.d("pref", "into contains false");
-                button.setText(getString(R.string.note_on_btn));
+                noteBtn.setText(getString(R.string.note_on_btn));
                 packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             }
 
@@ -156,15 +155,23 @@ public abstract class CalendarViewFragment extends Fragment {
         else
         {
             Log.d("pref", "out contains");
-            button.setText(getString(R.string.note_on_btn));
+            noteBtn.setText(getString(R.string.note_on_btn));
         }
 
         //scheduleNotification(getNotification("test"), 0);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        noteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chgBtnLgc();
+            }
+        });
+
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //open fragment, use calendar activity
+                //keep an array of strings as words or maybe ids
             }
         });
     }
@@ -175,7 +182,7 @@ public abstract class CalendarViewFragment extends Fragment {
         if(onNotifications)
         {
             onNotifications = false;
-            button.setText(getString(R.string.note_on_btn));
+            noteBtn.setText(getString(R.string.note_on_btn));
             //turn off notifications
 
             packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
@@ -183,8 +190,8 @@ public abstract class CalendarViewFragment extends Fragment {
         else
         {
             onNotifications = true;
-            button.setText(getString(R.string.note_off_btn));
-            //do not get confused, button is set to turn off
+            noteBtn.setText(getString(R.string.note_off_btn));
+            //do not get confused, noteBtn is set to turn off
             //because the notification in on
 
             //getNextTimeToTrigger();
