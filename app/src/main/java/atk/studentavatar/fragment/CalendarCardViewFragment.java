@@ -95,6 +95,7 @@ public class CalendarCardViewFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        Log.d("tag", miliDate);
         Query queryEvent = reference.child("event").orderByChild("date/" + miliDate).equalTo(true);
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Event>().setQuery(queryEvent, Event.class).build();
