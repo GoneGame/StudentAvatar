@@ -30,7 +30,7 @@ import atk.studentavatar.R;
 
 public abstract class CalendarViewFragment extends Fragment {
 
-    private static final String EVENT_INTENT_KEY = "EVENT_LIST";
+    public static final String EVENT_INTENT_KEY = "event_date";
 
     private TextView hello;
     private CalendarView calendarView;

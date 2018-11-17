@@ -14,14 +14,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 import atk.studentavatar.fragment.CalendarCardViewFragment;
+import atk.studentavatar.fragment.CalendarViewFragment;
 
 
 public class CalendarActivity extends BaseActivity implements
         CalendarCardViewFragment.OnFragmentInteractionListener {
 
 
-    private static final String EVENT_INTENT_KEY = "EVENT_LIST";
-    private static final String EVENT_INTENT_KEY2 = "EVENT_ARRAY";
+    //private static final String EVENT_INTENT_KEY = "EVENT_LIST";
+    //private static final String EVENT_INTENT_KEY2 = "EVENT_ARRAY";
 
     private String date;
 
@@ -43,12 +44,12 @@ public class CalendarActivity extends BaseActivity implements
         {
             Fragment fragment = null;
 
-            if(i.getStringExtra(EVENT_INTENT_KEY) != null)
+            if(i.getStringExtra(CalendarViewFragment.EVENT_INTENT_KEY) != null)
             {
-                date = i.getStringExtra(EVENT_INTENT_KEY);
+                date = i.getStringExtra(CalendarViewFragment.EVENT_INTENT_KEY);
                 fragment = new CalendarCardViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(EVENT_INTENT_KEY2, date);
+                bundle.putString(CalendarViewFragment.EVENT_INTENT_KEY, date);
                 fragment.setArguments(bundle);
             }
             if (fragment != null) {

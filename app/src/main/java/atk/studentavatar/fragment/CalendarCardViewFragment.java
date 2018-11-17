@@ -29,8 +29,6 @@ import atk.studentavatar.viewholder.CalendarViewHolder;
 
 public class CalendarCardViewFragment extends Fragment {
 
-    private static final String EVENT_INTENT_KEY2 = "EVENT_ARRAY";
-
     private OnFragmentInteractionListener mListener;
 
     private DatabaseReference reference;
@@ -48,7 +46,7 @@ public class CalendarCardViewFragment extends Fragment {
     public static CalendarCardViewFragment newInstance(String date) {
         CalendarCardViewFragment fragment = new CalendarCardViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(EVENT_INTENT_KEY2, date);
+        bundle.putString(CalendarViewFragment.EVENT_INTENT_KEY, date);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -57,19 +55,22 @@ public class CalendarCardViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            selDate = getArguments().getString(EVENT_INTENT_KEY2);
+            selDate = getArguments().getString(CalendarViewFragment.EVENT_INTENT_KEY);
         }
+
         reference = FirebaseDatabase.getInstance().getReference();
-        Log.d("tag", selDate);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
 
         try {
             Date date = dateFormat.parse(selDate);
-            Log.d("newDate", Long.toString(date.getTime()));
             miliDate = Long.toString(date.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        Log.d("dateToday", selDate);
+        Log.d("dateToday", miliDate);
     }
 
     @Override
@@ -90,12 +91,9 @@ public class CalendarCardViewFragment extends Fragment {
 
     private void setAdapter()
     {
-        Log.d("lolo", "2 set adapter");
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Log.d("tag", miliDate);
         Query queryEvent = reference.child("event").orderByChild("date/" + miliDate).equalTo(true);
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Event>().setQuery(queryEvent, Event.class).build();
