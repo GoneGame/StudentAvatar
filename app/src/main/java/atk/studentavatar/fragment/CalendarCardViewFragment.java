@@ -1,6 +1,7 @@
 package atk.studentavatar.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import atk.studentavatar.GuideActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
 import atk.studentavatar.viewholder.CalendarViewHolder;
@@ -111,13 +113,32 @@ public class CalendarCardViewFragment extends Fragment {
                         if(holder.txt_desc.getVisibility() == View.GONE)
                         {
                             holder.txt_desc.setVisibility(View.VISIBLE);
+
+                            Log.d("holder", model.title);
+
+                            if(!model.guiderel.equals("none"))
+                            {
+                                holder.btn_guiderel.setVisibility(View.VISIBLE);
+                            }
                         }
                         else
                         {
                             holder.txt_desc.setVisibility(View.GONE);
+                            holder.btn_guiderel.setVisibility(View.GONE);
                         }
                     }
                 });
+
+                holder.btn_guiderel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("holder", model.guiderel);
+                        Intent intent = new Intent(getActivity(), GuideActivity.class);
+                        intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, model.guiderel);
+                        startActivity(intent);
+                    }
+                });
+
             }
 
             @NonNull

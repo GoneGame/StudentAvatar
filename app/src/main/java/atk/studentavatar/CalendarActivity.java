@@ -17,16 +17,7 @@ import atk.studentavatar.fragment.CalendarCardViewFragment;
 import atk.studentavatar.fragment.CalendarViewFragment;
 
 
-public class CalendarActivity extends BaseActivity implements
-        CalendarCardViewFragment.OnFragmentInteractionListener {
-
-
-    //private static final String EVENT_INTENT_KEY = "EVENT_LIST";
-    //private static final String EVENT_INTENT_KEY2 = "EVENT_ARRAY";
-
-    private String date;
-
-    //private ArrayList<String> selEventListAndSelDate = new ArrayList<>();
+public class CalendarActivity extends BaseActivity implements CalendarCardViewFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +28,8 @@ public class CalendarActivity extends BaseActivity implements
 
         // This activity was started with special instructions from an
         // Intent, so we pass the Intent's extras to the fragment as arguments
+
+        String date;
 
         Intent i = getIntent();
 
