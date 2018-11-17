@@ -60,7 +60,7 @@ public class CalendarCardViewFragment extends Fragment {
             selDate = getArguments().getString(EVENT_INTENT_KEY2);
         }
         reference = FirebaseDatabase.getInstance().getReference();
-
+        Log.d("tag", selDate);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
 
         try {
