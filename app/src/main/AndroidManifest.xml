@@ -37,7 +37,6 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
-        <activity android:name=".CalendarCardViewActivity" />
         <activity android:name=".CalculatorActivity" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".BaseActivity" />
