@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,7 @@ public class GeneralViewFragment extends Fragment {
         mTitleView = view.findViewById(R.id.general_title);
         mLocationView = view.findViewById(R.id.general_location);
         mDescriptionView = view.findViewById(R.id.general_description);
+        mDescriptionView.setMovementMethod(LinkMovementMethod.getInstance());
 
         return view;
     }

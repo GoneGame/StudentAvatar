@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,7 @@ public class ChecklistViewFragment extends Fragment {
 
         mTaskView = view.findViewById(R.id.checklist_task);
         mDescriptionView = view.findViewById(R.id.checklist_description);
+        mDescriptionView.setMovementMethod(LinkMovementMethod.getInstance());
         mBodyView = view.findViewById(R.id.checklist_body);
         mLinkView = view.findViewById(R.id.checklist_link);
 
