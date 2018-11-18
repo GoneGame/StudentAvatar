@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -21,6 +23,7 @@ import com.google.firebase.database.Query;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import atk.studentavatar.R;
@@ -101,6 +104,7 @@ public class CalendarCardViewFragment extends Fragment {
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Event>().setQuery(queryEvent, Event.class).build();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, CalendarViewHolder>(options) {
+
             @Override
             protected void onBindViewHolder(@NonNull CalendarViewHolder holder, int position, @NonNull Event model) {
 
@@ -120,6 +124,13 @@ public class CalendarCardViewFragment extends Fragment {
                         }
                     }
                 });
+
+                if(model.note)
+                {
+                    holder.cardView.setVisibility(View.GONE);
+                    holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                }
+
             }
 
             @NonNull
