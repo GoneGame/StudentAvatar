@@ -13,12 +13,13 @@ public class Event {
     public String timestart;
     public String desc;
     public String location;
+    public String guiderel;
     public boolean note;
 
     public Event() {
     }
 
-    public Event(String title, String relateTo, Map<String, Boolean> date, String datealt, String time, String timestart, String desc, String location, boolean note) {
+    public Event(String title, String relateTo, Map<String, Boolean> date, String datealt, String time, String timestart, String desc, String location, String guiderel, boolean note) {
         this.title = title;
         this.relateTo = relateTo;
         this.date = date;
@@ -27,6 +28,7 @@ public class Event {
         this.timestart = timestart;
         this.desc = desc;
         this.location = location;
+        this.guiderel = guiderel;
         this.note = note;
     }
 }

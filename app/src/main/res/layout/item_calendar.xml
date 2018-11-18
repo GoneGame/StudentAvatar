@@ -60,9 +60,18 @@
             android:textSize="15sp"
             android:layout_marginStart="25dp"
             android:textColor="#000000"
-            android:visibility="gone"
             android:layout_below="@+id/TextView_location"
+            android:visibility="gone"
             android:text="@string/descText"/>
+
+        <Button
+            android:id="@+id/Button_gotoGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/TextView_desc"
+            android:visibility="gone"
+            android:text="@string/guideButton"/>
 
     </RelativeLayout>
 

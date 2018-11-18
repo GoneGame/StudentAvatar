@@ -52,6 +52,7 @@
     <string name="timeText">Time: %1$s</string>
     <string name="locationText">Location: %1$s</string>
     <string name="descText">Description: %1$s</string>
+    <string name="guideButton">Goto guide</string>
     <!--Calendar strings end-->
 
 

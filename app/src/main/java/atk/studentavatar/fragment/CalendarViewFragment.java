@@ -30,16 +30,14 @@ import atk.studentavatar.R;
 
 public abstract class CalendarViewFragment extends Fragment {
 
-    private static final String EVENT_INTENT_KEY = "EVENT_LIST";
+    public static final String EVENT_INTENT_KEY = "event_date";
 
-    private TextView hello;
     private CalendarView calendarView;
     private Button noteBtn, filterBtn;
 
     private boolean onNotifications;
 
     private int y, m, d;
-
     private String date;
 
     private static final String SHAREDKEY = "pref";
@@ -71,6 +69,8 @@ public abstract class CalendarViewFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
+
+        TextView hello;
 
         calendarView = rootView.findViewById(R.id.calendarView);
         hello = rootView.findViewById(R.id.helloTextView);
@@ -157,8 +157,6 @@ public abstract class CalendarViewFragment extends Fragment {
             Log.d("pref", "out contains");
             noteBtn.setText(getString(R.string.note_on_btn));
         }
-
-        //scheduleNotification(getNotification("test"), 0);
 
         noteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
