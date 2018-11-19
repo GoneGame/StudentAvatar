@@ -72,8 +72,8 @@ public class ChecklistViewFragment extends Fragment {
 
         mTaskView = view.findViewById(R.id.checklist_task);
         mDescriptionView = view.findViewById(R.id.checklist_description);
-        mDescriptionView.setMovementMethod(LinkMovementMethod.getInstance());
         mBodyView = view.findViewById(R.id.checklist_body);
+        mBodyView.setMovementMethod(LinkMovementMethod.getInstance());
         mLinkView = view.findViewById(R.id.checklist_link);
 
         return view;
