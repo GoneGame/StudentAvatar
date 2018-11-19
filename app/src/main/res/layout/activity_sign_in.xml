@@ -10,15 +10,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <ImageView
             android:id="@+id/icon"
             android:padding="20dp"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
+            android:layout_width="264dp"
+            android:layout_height="264dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_swinburne_university_of_technology" />
+            android:src="@drawable/ic_iconstudentavatar" />
 
     <LinearLayout
         android:id="@+id/layout_email_password"
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
             android:textColor="@color/button_text"
-            android:background="@color/button_background"/>
+            android:background="@color/button_info"/>
 
         <Space
             android:layout_width="10dp"
@@ -77,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
             android:textColor="@color/button_text"
-            android:background="@color/button_background"/>
+            android:background="@color/button_success"/>
 
     </LinearLayout>
 
@@ -96,7 +97,7 @@
             android:layout_height="wrap_content"
             android:text="@string/forgot_password"
             android:textColor="@color/button_text"
-            android:background="@color/button_background"/>
+            android:background="@color/button_warning"/>
 
     </LinearLayout>
 

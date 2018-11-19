@@ -75,6 +75,7 @@ public class OtherServicesFragment extends Fragment{
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), SignInActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -95,6 +96,11 @@ public class OtherServicesFragment extends Fragment{
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }

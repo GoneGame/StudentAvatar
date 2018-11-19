@@ -9,6 +9,9 @@
     <color name="secondary_text">#727272</color>
     <color name="button_text">#ffffff</color>
     <color name="button_background">#474442</color>
+    <color name="button_success">#449d44</color>
+    <color name="button_info">#31b0d5</color>
+    <color name="button_warning">#ec971f</color>
     <color name="button_logout"></color>
     <color name="icons">#212121</color>
     <color name="divider">#B6B6B6</color>
