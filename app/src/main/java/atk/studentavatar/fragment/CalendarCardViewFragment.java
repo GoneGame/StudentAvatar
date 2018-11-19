@@ -1,6 +1,7 @@
 package atk.studentavatar.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,16 +23,14 @@ import com.google.firebase.database.Query;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
+import atk.studentavatar.GuideActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
 import atk.studentavatar.viewholder.CalendarViewHolder;
 
 public class CalendarCardViewFragment extends Fragment {
-
-    private static final String EVENT_INTENT_KEY2 = "EVENT_ARRAY";
 
     private OnFragmentInteractionListener mListener;
 
@@ -51,7 +49,7 @@ public class CalendarCardViewFragment extends Fragment {
     public static CalendarCardViewFragment newInstance(String date) {
         CalendarCardViewFragment fragment = new CalendarCardViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(EVENT_INTENT_KEY2, date);
+        bundle.putString(CalendarViewFragment.EVENT_INTENT_KEY, date);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -60,7 +58,7 @@ public class CalendarCardViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            selDate = getArguments().getString(EVENT_INTENT_KEY2);
+            selDate = getArguments().getString(CalendarViewFragment.EVENT_INTENT_KEY);
         }
         reference = FirebaseDatabase.getInstance().getReference();
         Log.d("tag", selDate);
@@ -111,25 +109,45 @@ public class CalendarCardViewFragment extends Fragment {
                 final DatabaseReference EventRef = getRef(position);
                 holder.bindToCalendar(model);
 
+                Log.d("try", model.title);
+
                 holder.cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(holder.txt_desc.getVisibility() == View.GONE)
                         {
                             holder.txt_desc.setVisibility(View.VISIBLE);
+
+                            if(!model.guiderel.equals("none"))
+                            {
+                                holder.btn_guiderel.setVisibility(View.VISIBLE);
+                            }
+
                         }
                         else
                         {
                             holder.txt_desc.setVisibility(View.GONE);
+                            holder.btn_guiderel.setVisibility(View.GONE);
                         }
                     }
                 });
 
+                holder.btn_guiderel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("holder", model.guiderel);
+                        Intent intent = new Intent(getActivity(), GuideActivity.class);
+                        intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, model.guiderel);
+                        startActivity(intent);
+                    }
+                });
+
+                /*
                 if(model.note)
                 {
                     holder.cardView.setVisibility(View.GONE);
                     holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                }
+                }*/
 
             }
 
