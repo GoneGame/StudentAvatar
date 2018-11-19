@@ -28,12 +28,12 @@ public class FacebookViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_twitter_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_facebook_view, container, false);
 
-        WebView wv = (WebView)rootView.findViewById(R.id.TwitterWebView);
+        WebView wv = (WebView)rootView.findViewById(R.id.FacebookWebView);
 
         wv.getSettings().setJavaScriptEnabled(true);
-        String url = "https://twitter.com/Swinburne_Swk";
+        String url = "https://www.facebook.com/swinburnesarawak/";
         wv.loadUrl(url);
         wv.setWebViewClient(new WebViewClient() {
             @Override

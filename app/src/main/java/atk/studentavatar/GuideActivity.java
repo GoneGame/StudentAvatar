@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import atk.studentavatar.fragment.ChecklistFragment;
 import atk.studentavatar.fragment.ChecklistListFragment;
 import atk.studentavatar.fragment.ChecklistViewFragment;
+import atk.studentavatar.fragment.FacebookViewFragment;
 import atk.studentavatar.fragment.FaqFragment;
 import atk.studentavatar.fragment.FaqListFragment;
 import atk.studentavatar.fragment.FaqViewFragment;
@@ -161,6 +162,11 @@ public class GuideActivity extends BaseActivity implements
             fragment.setArguments(mBundle);
         } else if (id == R.id.nav_fourth_fragment) {
             fragment = new TwitterViewFragment();
+            Bundle mBundle = new Bundle();
+            mBundle.putString("key", mGuideKey);
+            fragment.setArguments(mBundle);
+        } else if (id == R.id.nav_fifth_fragment) {
+            fragment = new FacebookViewFragment();
             Bundle mBundle = new Bundle();
             mBundle.putString("key", mGuideKey);
             fragment.setArguments(mBundle);

@@ -14,8 +14,12 @@
         android:title="Your Checklist"
         android:icon="@drawable/clipboard_check_outline"/>
     <item
-        android:id="@+id/nav_fourth_fragment"
-        android:title="Twitter"
-        android:icon="@drawable/twitter"/>
+    android:id="@+id/nav_fourth_fragment"
+    android:title="Twitter"
+    android:icon="@drawable/twitter"/>
+    <item
+        android:id="@+id/nav_fifth_fragment"
+        android:title="Facebook"
+        android:icon="@drawable/facebook_box"/>
 </group>
 </menu>
