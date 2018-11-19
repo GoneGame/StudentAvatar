@@ -19,6 +19,7 @@
     <string name="sign_in">Sign In</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="email_sent">An email to reset your password has been sent. If you don\'t find it in your inbox, please check your Junk folder.</string>
+    <string name="disclaimer">Information displayed within this app are for testing purposes only.</string>
     <string name="heading_recent">Posts</string>
     <string name="heading_my_posts">My Posts</string>
     <string name="heading_my_top_posts">My Top Posts</string>
@@ -67,8 +68,8 @@
     <string name="canteenLinkText"><u>Student Canteen</u></string>
     <string name="libraryLinkText"><u>Student Library</u></string>
     <string name="mphLinkText"><u>Student MPH</u></string>
-
     <string name="intallmentCalculatorText"><u>Installment Calculator</u></string>
+    <string name="feedbackText">Feedback</string>
     <!--Link strings start-->
 
     <!--Calculator strings start-->

@@ -46,25 +46,13 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected Toolbar activateMainToolbar() {
+    protected Toolbar activateToolbar() {
         if(toolbar == null) {
             // Set a Toolbar to replace the ActionBar.
             toolbar = findViewById(R.id.nav_actionbar);
             setSupportActionBar(toolbar);
         }
         return toolbar;
-    }
-
-    protected Toolbar activateToolbar() {
-        if(toolbar2 == null) {
-            // Set a Toolbar to replace the ActionBar.
-            toolbar2 = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar2);
-            ActionBar actionbar = getSupportActionBar();
-            actionbar.setDisplayHomeAsUpEnabled(true);
-            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
-        return toolbar2;
     }
 
     @Override

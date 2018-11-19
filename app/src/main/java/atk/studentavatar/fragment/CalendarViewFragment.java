@@ -71,7 +71,7 @@ public abstract class CalendarViewFragment extends Fragment {
 
         calendarView = rootView.findViewById(R.id.calendarView);
         noteBtn = rootView.findViewById(R.id.notificationButton);
-        filterBtn = rootView.findViewById(R.id.filtersButton);
+//        filterBtn = rootView.findViewById(R.id.filtersButton);
 
         return rootView;
     }
@@ -149,16 +149,16 @@ public abstract class CalendarViewFragment extends Fragment {
             }
         });
 
-        filterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //open fragment, use calendar activity
-                //keep an array of strings as words or maybe ids
-                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                intent.putExtra(EVENT_INTENT_FILTER_KEY, "1");
-                startActivity(intent);
-            }
-        });
+//        filterBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //open fragment, use calendar activity
+//                //keep an array of strings as words or maybe ids
+//                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+//                intent.putExtra(EVENT_INTENT_FILTER_KEY, "1");
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void chgBtnLgc()

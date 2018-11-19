@@ -18,7 +18,7 @@ import atk.studentavatar.SignInActivity;
 
 public class OtherServicesFragment extends Fragment{
 
-    private Button canteen, library, mph, calc, logout;
+    private Button canteen, library, mph, calc, feedback, logout;
 
     public OtherServicesFragment() {}
 
@@ -32,6 +32,7 @@ public class OtherServicesFragment extends Fragment{
         library = rootView.findViewById(R.id.buttonLibrary);
         mph = rootView.findViewById(R.id.buttonMPH);
         calc = rootView.findViewById(R.id.buttonCalculator);
+        feedback = rootView.findViewById(R.id.buttonFeedback);
         logout = rootView.findViewById(R.id.buttonLogout);
 
         canteen.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +66,15 @@ public class OtherServicesFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CalculatorActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLSe_jZbL0zBqk3ls4dpIJyE0ND_HQLHGg0dGzA0YoMtcsMrIlg/viewform?usp=sf_link");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });
