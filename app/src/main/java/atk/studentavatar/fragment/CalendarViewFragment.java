@@ -14,13 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
-import java.util.Random;
 
 import atk.studentavatar.CalendarActivity;
 import atk.studentavatar.NotificationPubCycle;
@@ -31,6 +29,7 @@ import atk.studentavatar.R;
 public abstract class CalendarViewFragment extends Fragment {
 
     public static final String EVENT_INTENT_KEY = "event_date";
+    public static final String EVENT_INTENT_FILTER_KEY = "event_filter";
 
     private CalendarView calendarView;
     private Button noteBtn, filterBtn;
@@ -70,23 +69,9 @@ public abstract class CalendarViewFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
 
-        TextView hello;
-
         calendarView = rootView.findViewById(R.id.calendarView);
-        hello = rootView.findViewById(R.id.helloTextView);
         noteBtn = rootView.findViewById(R.id.notificationButton);
         filterBtn = rootView.findViewById(R.id.filtersButton);
-
-        Random random = new Random();
-
-        //number 0 - 3
-        int g = random.nextInt(4);
-        String[] strings = {getString(R.string.helloText1),
-                getString(R.string.helloText2),
-                getString(R.string.helloText3),
-                getString(R.string.helloText4)};
-
-        hello.setText(strings[g]);
 
         return rootView;
     }
@@ -97,7 +82,6 @@ public abstract class CalendarViewFragment extends Fragment {
         Intent intent = new Intent(getActivity(), CalendarActivity.class);
         intent.putExtra(EVENT_INTENT_KEY, date);
         //intent.putStringArrayListExtra(EVENT_INTENT_KEY, EventToCard);
-        Log.d("calenFrag", "3 bundle put in");
         startActivity(intent);
     }
 
@@ -170,6 +154,9 @@ public abstract class CalendarViewFragment extends Fragment {
             public void onClick(View view) {
                 //open fragment, use calendar activity
                 //keep an array of strings as words or maybe ids
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                intent.putExtra(EVENT_INTENT_FILTER_KEY, "1");
+                startActivity(intent);
             }
         });
     }

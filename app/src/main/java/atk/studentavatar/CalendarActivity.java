@@ -14,10 +14,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 import atk.studentavatar.fragment.CalendarCardViewFragment;
+import atk.studentavatar.fragment.CalendarFilterFragment;
 import atk.studentavatar.fragment.CalendarViewFragment;
 
 
-public class CalendarActivity extends BaseActivity implements CalendarCardViewFragment.OnFragmentInteractionListener {
+public class CalendarActivity extends BaseActivity implements
+        CalendarCardViewFragment.OnFragmentInteractionListener,
+        CalendarFilterFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +32,6 @@ public class CalendarActivity extends BaseActivity implements CalendarCardViewFr
         // This activity was started with special instructions from an
         // Intent, so we pass the Intent's extras to the fragment as arguments
 
-        String date;
-
         Intent i = getIntent();
 
         if(savedInstanceState == null)
@@ -39,17 +40,30 @@ public class CalendarActivity extends BaseActivity implements CalendarCardViewFr
 
             if(i.getStringExtra(CalendarViewFragment.EVENT_INTENT_KEY) != null)
             {
+                String date;
                 date = i.getStringExtra(CalendarViewFragment.EVENT_INTENT_KEY);
+
                 fragment = new CalendarCardViewFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString(CalendarViewFragment.EVENT_INTENT_KEY, date);
                 fragment.setArguments(bundle);
             }
+            else if(i.getStringExtra(CalendarViewFragment.EVENT_INTENT_FILTER_KEY) != null)
+            {
+                String temp;
+                temp =  i.getStringExtra(CalendarViewFragment.EVENT_INTENT_FILTER_KEY);
+
+                fragment = new CalendarFilterFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(CalendarViewFragment.EVENT_INTENT_FILTER_KEY, temp);
+                fragment.setArguments(bundle);
+            }
+
             if (fragment != null) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame2, fragment).commit();
             } else {
-                Log.e("GuideActivity", "Error creating fragment");
+                Log.e("CalendarActivity", "Error creating fragment");
             }
         }
     }

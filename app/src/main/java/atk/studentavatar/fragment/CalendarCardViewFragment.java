@@ -2,6 +2,7 @@ package atk.studentavatar.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,11 +21,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import atk.studentavatar.CalendarFilter;
 import atk.studentavatar.GuideActivity;
 import atk.studentavatar.R;
 import atk.studentavatar.models.Event;
@@ -32,6 +35,10 @@ import atk.studentavatar.viewholder.CalendarViewHolder;
 
 public class CalendarCardViewFragment extends Fragment {
 
+    private SharedPreferences preferences;
+
+
+    private CalendarFilter calendarFilter;
     private OnFragmentInteractionListener mListener;
 
     private DatabaseReference reference;
@@ -84,6 +91,24 @@ public class CalendarCardViewFragment extends Fragment {
         date_on_view.setText(selDate);
 
         recyclerView = view.findViewById(R.id.calendarListRecycler);
+
+        preferences = this.getActivity().getSharedPreferences(CalendarFilterFragment.SHAREDFILTERKEY, Context.MODE_PRIVATE);
+
+
+
+        if(preferences.contains(CalendarFilterFragment.FILTERSTAT))
+        {
+            Gson gson = new Gson();
+            String json = preferences.getString(CalendarFilterFragment.FILTERSTAT, "");
+            if(!json.isEmpty())
+            {
+                calendarFilter = gson.fromJson(json, CalendarFilter.class);
+            }
+            else
+            {
+                calendarFilter = new CalendarFilter();
+            }
+        }
 
         setAdapter();
         return view;
@@ -141,6 +166,57 @@ public class CalendarCardViewFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+
+                String temp = model.relateTo.substring(0, 4);
+
+                if(calendarFilter.event && !calendarFilter.unit && !calendarFilter.club)
+                {
+                    if(temp.equals("unit") || temp.equals("club"))
+                    {
+                        holder.cardView.setVisibility(View.GONE);
+                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+                }
+                else if(!calendarFilter.event && calendarFilter.unit && !calendarFilter.club)
+                {
+                    if(temp.equals("gene") || temp.equals("club"))
+                    {
+                        holder.cardView.setVisibility(View.GONE);
+                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+                }
+                else if(!calendarFilter.event && !calendarFilter.unit && calendarFilter.club)
+                {
+                    if(temp.equals("gene") || temp.equals("unit"))
+                    {
+                        holder.cardView.setVisibility(View.GONE);
+                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+                }
+                else if(calendarFilter.event && calendarFilter.unit && !calendarFilter.club)
+                {
+                    if(temp.equals("club"))
+                    {
+                        holder.cardView.setVisibility(View.GONE);
+                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+                }
+                else if(!calendarFilter.event && calendarFilter.unit && calendarFilter.club)
+                {
+                    if(temp.equals("gene"))
+                    {
+                        holder.cardView.setVisibility(View.GONE);
+                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+                }
+                else if(calendarFilter.event && !calendarFilter.unit && calendarFilter.club)
+                {
+                    if(temp.equals("unit"))
+                    {
+                        holder.cardView.setVisibility(View.GONE);
+                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+                }
 
                 /*
                 if(model.note)
