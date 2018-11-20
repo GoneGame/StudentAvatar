@@ -52,23 +52,15 @@ public class CalendarFilterFragment extends Fragment {
 
         Log.d("tag", tempp);
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_filter_calendar, container, false);
-
         preferences = this.getActivity().getSharedPreferences(SHAREDFILTERKEY, Context.MODE_PRIVATE);
-
-        event = view.findViewById(R.id.switchGeneral);
-        unit = view.findViewById(R.id.switchUnit);
-        club = view.findViewById(R.id.switchClub);
 
         if(preferences.contains(FILTERSTAT))
         {
             Gson gson = new Gson();
             String json = preferences.getString(CalendarFilterFragment.FILTERSTAT, "");
+
+            Log.d("start", json);
+
             if(!json.isEmpty())
             {
                 calendarFilter = gson.fromJson(json, CalendarFilter.class);
@@ -82,6 +74,17 @@ public class CalendarFilterFragment extends Fragment {
         {
             calendarFilter = new CalendarFilter();
         }
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_filter_calendar, container, false);
+
+        event = view.findViewById(R.id.switchGeneral);
+        unit = view.findViewById(R.id.switchUnit);
+        club = view.findViewById(R.id.switchClub);
 
         event.setChecked(calendarFilter.event);
         unit.setChecked(calendarFilter.unit);
@@ -101,7 +104,7 @@ public class CalendarFilterFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("start", "see test");
+
     }
 
     private void OnOff()
@@ -116,14 +119,14 @@ public class CalendarFilterFragment extends Fragment {
         unit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                calendarFilter.unit = event.isChecked();
+                calendarFilter.unit = unit.isChecked();
             }
         });
 
         club.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                calendarFilter.club = event.isChecked();
+                calendarFilter.club = club.isChecked();
             }
         });
     }
@@ -159,10 +162,10 @@ public class CalendarFilterFragment extends Fragment {
     public void onStop() {
         super.onStop();
         Log.d("stop", "see test");
-
         editor = preferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(calendarFilter);
+        Log.d("stop", json);
         editor.putString(FILTERSTAT, json);
         editor.apply();
 

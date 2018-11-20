@@ -36,9 +36,8 @@ import atk.studentavatar.viewholder.CalendarViewHolder;
 public class CalendarCardViewFragment extends Fragment {
 
     private SharedPreferences preferences;
-
-
     private CalendarFilter calendarFilter;
+
     private OnFragmentInteractionListener mListener;
 
     private DatabaseReference reference;
@@ -78,23 +77,8 @@ public class CalendarCardViewFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_all_calendar, container, false);
-
-        Log.d("lolo", "before test event");
-
-        date_on_view = view.findViewById(R.id.TextView_date);
-        date_on_view.setText(selDate);
-
-        recyclerView = view.findViewById(R.id.calendarListRecycler);
 
         preferences = this.getActivity().getSharedPreferences(CalendarFilterFragment.SHAREDFILTERKEY, Context.MODE_PRIVATE);
-
-
 
         if(preferences.contains(CalendarFilterFragment.FILTERSTAT))
         {
@@ -109,6 +93,29 @@ public class CalendarCardViewFragment extends Fragment {
                 calendarFilter = new CalendarFilter();
             }
         }
+
+        if(calendarFilter.event)
+            Log.d("fil", "event");
+
+        if(calendarFilter.unit)
+            Log.d("fil", "unit");
+
+        if(calendarFilter.club)
+            Log.d("fil", "club");
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_all_calendar, container, false);
+
+        Log.d("lolo", "before test event");
+
+        date_on_view = view.findViewById(R.id.TextView_date);
+        date_on_view.setText(selDate);
+
+        recyclerView = view.findViewById(R.id.calendarListRecycler);
 
         setAdapter();
         return view;
