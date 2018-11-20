@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +34,9 @@ public abstract class CalendarViewFragment extends Fragment {
     public static final String EVENT_INTENT_FILTER_KEY = "event_filter";
 
     private CalendarView calendarView;
-    private Button noteBtn, filterBtn;
+    private Button filterBtn;
+
+    private Switch noteSwitch;
 
     private boolean onNotifications;
 
@@ -70,8 +74,9 @@ public abstract class CalendarViewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_calendar_view, container, false);
 
         calendarView = rootView.findViewById(R.id.calendarView);
-        noteBtn = rootView.findViewById(R.id.notificationButton);
         filterBtn = rootView.findViewById(R.id.filtersButton);
+
+        noteSwitch = rootView.findViewById(R.id.notiSwitch);
 
         return rootView;
     }
@@ -119,30 +124,27 @@ public abstract class CalendarViewFragment extends Fragment {
             if(onNotifications)
             {
                 Log.d("pref", "into contains true");
-                noteBtn.setText(getString(R.string.note_off_btn));
                 //put the trigger here
-
                 packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
             }
             else
             {
                 Log.d("pref", "into contains false");
-                noteBtn.setText(getString(R.string.note_on_btn));
                 packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             }
 
+            noteSwitch.setChecked(onNotifications);
             notificationRecycler.getNextTimeToTrigger(onNotifications);
         }
         else
         {
             Log.d("pref", "out contains");
-            noteBtn.setText(getString(R.string.note_on_btn));
         }
 
-        noteBtn.setOnClickListener(new View.OnClickListener() {
+        noteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chgBtnLgc();
             }
         });
@@ -165,21 +167,11 @@ public abstract class CalendarViewFragment extends Fragment {
         if(onNotifications)
         {
             onNotifications = false;
-            noteBtn.setText(getString(R.string.note_on_btn));
-            //turn off notifications
-
             packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         }
         else
         {
             onNotifications = true;
-            noteBtn.setText(getString(R.string.note_off_btn));
-            //do not get confused, noteBtn is set to turn off
-            //because the notification in on
-
-            //getNextTimeToTrigger();
-            //turn on notifications
-
             packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
         }
 
