@@ -24,13 +24,13 @@
         android:layout_marginBottom="10dp"
         />
 
-    <!--<Button-->
-        <!--android:id="@+id/filtersButton"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/filter_btn"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--/>-->
+    <Button
+        android:id="@+id/filtersButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_btn"
+        android:layout_marginBottom="10dp"
+        />
 
     <LinearLayout
         android:id="@+id/calenLinear"

@@ -10,7 +10,7 @@ public class Event {
     public Map<String, Boolean> date;
     public String datealt;
     public String time;
-    public String timestart;
+    public String timenote;
     public String desc;
     public String location;
     public String guiderel;
@@ -19,13 +19,13 @@ public class Event {
     public Event() {
     }
 
-    public Event(String title, String relateTo, Map<String, Boolean> date, String datealt, String time, String timestart, String desc, String location, String guiderel, boolean note) {
+    public Event(String title, String relateTo, Map<String, Boolean> date, String datealt, String time, String timenote, String desc, String location, String guiderel, boolean note) {
         this.title = title;
         this.relateTo = relateTo;
         this.date = date;
         this.datealt = datealt;
         this.time = time;
-        this.timestart = timestart;
+        this.timenote = timenote;
         this.desc = desc;
         this.location = location;
         this.guiderel = guiderel;

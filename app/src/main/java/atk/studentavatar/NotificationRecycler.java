@@ -119,9 +119,9 @@ public class NotificationRecycler {
                         Log.d("title", event.title);
                         //Log.d("first date", entry.getKey());
 
-                        Log.d("timeStart", event.timestart);
+                        Log.d("timeStart", event.timenote);
 
-                        String startTime = event.timestart;
+                        String startTime = event.timenote;
 
                         String[] half = startTime.split(":");
 

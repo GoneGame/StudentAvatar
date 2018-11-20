@@ -167,8 +167,9 @@ public class CalendarCardViewFragment extends Fragment {
                     }
                 });
 
-                String temp = model.relateTo.substring(0, 4);
+                //String temp = model.relateTo.substring(0, 4);
 
+                /*
                 if(calendarFilter.event && !calendarFilter.unit && !calendarFilter.club)
                 {
                     if(temp.equals("unit") || temp.equals("club"))
@@ -216,7 +217,7 @@ public class CalendarCardViewFragment extends Fragment {
                         holder.cardView.setVisibility(View.GONE);
                         holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
                     }
-                }
+                }*/
 
                 /*
                 if(model.note)
