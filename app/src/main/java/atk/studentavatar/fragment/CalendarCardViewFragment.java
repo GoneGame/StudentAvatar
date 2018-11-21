@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -97,8 +98,8 @@ public class CalendarCardViewFragment extends Fragment {
             calendarFilter = new CalendarFilter();
         }
 
-        if(calendarFilter.event)
-            Log.d("fil", "event");
+        if(calendarFilter.general)
+            Log.d("fil", "general");
 
         if(calendarFilter.unit)
             Log.d("fil", "unit");
@@ -113,7 +114,7 @@ public class CalendarCardViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_calendar, container, false);
 
-        Log.d("lolo", "before test event");
+        Log.d("lolo", "before test general");
 
         date_on_view = view.findViewById(R.id.TextView_date);
         date_on_view.setText(selDate);
@@ -177,64 +178,14 @@ public class CalendarCardViewFragment extends Fragment {
                     }
                 });
 
-                //String temp = model.relateTo.substring(0, 4);
-
-                /*
-                if(calendarFilter.event && !calendarFilter.unit && !calendarFilter.club)
-                {
-                    if(temp.equals("unit") || temp.equals("club"))
-                    {
-                        holder.cardView.setVisibility(View.GONE);
-                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                    }
-                }
-                else if(!calendarFilter.event && calendarFilter.unit && !calendarFilter.club)
-                {
-                    if(temp.equals("gene") || temp.equals("club"))
-                    {
-                        holder.cardView.setVisibility(View.GONE);
-                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                    }
-                }
-                else if(!calendarFilter.event && !calendarFilter.unit && calendarFilter.club)
-                {
-                    if(temp.equals("gene") || temp.equals("unit"))
-                    {
-                        holder.cardView.setVisibility(View.GONE);
-                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                    }
-                }
-                else if(calendarFilter.event && calendarFilter.unit && !calendarFilter.club)
-                {
-                    if(temp.equals("club"))
-                    {
-                        holder.cardView.setVisibility(View.GONE);
-                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                    }
-                }
-                else if(!calendarFilter.event && calendarFilter.unit && calendarFilter.club)
-                {
-                    if(temp.equals("gene"))
-                    {
-                        holder.cardView.setVisibility(View.GONE);
-                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                    }
-                }
-                else if(calendarFilter.event && !calendarFilter.unit && calendarFilter.club)
-                {
-                    if(temp.equals("unit"))
-                    {
-                        holder.cardView.setVisibility(View.GONE);
-                        holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                    }
-                }*/
-
-                /*
-                if(model.note)
+                //get gene or unit or club
+                //returns true if match
+                //we hide if does not match
+                if(!calendarFilter.eventTypeFil(model.relateTo.substring(0, 4)))
                 {
                     holder.cardView.setVisibility(View.GONE);
                     holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                }*/
+                }
 
             }
 

@@ -97,7 +97,7 @@ public class NotificationRecycler {
         return builder.build();
     }
 
-    //first log the next event time
+    //first log the next general time
     public void getNextTimeToTrigger(boolean b)
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();

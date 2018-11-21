@@ -86,7 +86,7 @@ public class CalendarFilterFragment extends Fragment {
         unit = view.findViewById(R.id.switchUnit);
         club = view.findViewById(R.id.switchClub);
 
-        event.setChecked(calendarFilter.event);
+        event.setChecked(calendarFilter.general);
         unit.setChecked(calendarFilter.unit);
         club.setChecked(calendarFilter.club);
 
@@ -112,7 +112,7 @@ public class CalendarFilterFragment extends Fragment {
         event.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                calendarFilter.event = event.isChecked();
+                calendarFilter.general = event.isChecked();
             }
         });
 

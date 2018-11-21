@@ -37,7 +37,7 @@
 
     <!--Calendar strings start I need to find a way to use these properly or they'll just be placeholders-->
     <string name="helloText">Calendar</string>
-    <string name="note_switch">Notifications</string>
+    <string name="note_switch">Notifications (only certain events)</string>
 
     <string name="filter_btn">Event Filters</string>
 

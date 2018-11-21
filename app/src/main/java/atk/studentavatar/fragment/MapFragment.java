@@ -10,6 +10,8 @@ import android.webkit.WebView;
 import atk.studentavatar.R;
 public class MapFragment extends Fragment{
 
+    private WebView view;
+
     public MapFragment() {}
 
     @Override
@@ -19,7 +21,7 @@ public class MapFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
 
         String url = "https://my-awesome-project-6dd85.firebaseapp.com/CampusMap2/";
-        WebView view = rootView.findViewById(R.id.webView);
+        view = rootView.findViewById(R.id.webView);
         view.getSettings().setBuiltInZoomControls(true);
         view.getSettings().setJavaScriptEnabled(true);
         view.getSettings().setDisplayZoomControls(false);
@@ -43,4 +45,9 @@ public class MapFragment extends Fragment{
         super.onStop();
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        view.clearCache(true);
+    }
 }
