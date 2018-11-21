@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -92,6 +91,10 @@ public class CalendarCardViewFragment extends Fragment {
             {
                 calendarFilter = new CalendarFilter();
             }
+        }
+        else
+        {
+            calendarFilter = new CalendarFilter();
         }
 
         if(calendarFilter.event)
