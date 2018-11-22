@@ -24,6 +24,7 @@ public class MapFragment extends Fragment{
 
         String url = "https://my-awesome-project-6dd85.firebaseapp.com/CampusMap2/";
         view = rootView.findViewById(R.id.webView);
+        view.setWebViewClient(new WebViewClient());
         view.getSettings().setBuiltInZoomControls(true);
         view.getSettings().setJavaScriptEnabled(true);
         view.getSettings().setDisplayZoomControls(false);
