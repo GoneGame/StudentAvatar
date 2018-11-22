@@ -7,13 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -107,6 +107,13 @@ public class CalendarCardViewFragment extends Fragment {
         if(calendarFilter.club)
             Log.d("fil", "club");
 
+        for(String i : calendarFilter.idList)
+        {
+            Log.d("fil", i);
+        }
+
+
+
     }
 
     @Override
@@ -120,7 +127,6 @@ public class CalendarCardViewFragment extends Fragment {
         date_on_view.setText(selDate);
 
         recyclerView = view.findViewById(R.id.calendarListRecycler);
-
         setAdapter();
         return view;
     }
@@ -142,7 +148,7 @@ public class CalendarCardViewFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull CalendarViewHolder holder, int position, @NonNull Event model) {
 
-                final DatabaseReference EventRef = getRef(position);
+                final DatabaseReference eventRef = getRef(position);
                 holder.bindToCalendar(model);
 
                 Log.d("try", model.title);
@@ -181,10 +187,37 @@ public class CalendarCardViewFragment extends Fragment {
                 //get gene or unit or club
                 //returns true if match
                 //we hide if does not match
-                if(!calendarFilter.eventTypeFil(model.relateTo.substring(0, 4)))
+                if(!calendarFilter.eventFilter(model.relateTo.substring(0, 4)))
                 {
                     holder.cardView.setVisibility(View.GONE);
-                    holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    holder.cardView.setLayoutParams(new CardView.LayoutParams(0, 0));
+                }
+
+                String unitClubKey;
+                boolean b = false;
+
+                if(model.relateTo.length() > 15)
+                {
+                    unitClubKey = model.relateTo.substring(5);
+
+                    Log.d("more5", unitClubKey);
+
+                    for(String t : calendarFilter.idList)
+                    {
+                        if(t.equals(unitClubKey))
+                        {
+                            b = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(b)
+                {
+                    CardView.LayoutParams params = new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, CardView.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(3, 3, 3, 3);
+                    holder.cardView.setLayoutParams(params);
+                    holder.cardView.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -194,6 +227,11 @@ public class CalendarCardViewFragment extends Fragment {
             public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_calendar, parent, false);
                 return new CalendarViewHolder(view);
+            }
+
+            @Override
+            public int getItemCount() {
+                return super.getItemCount();
             }
         };
 

@@ -95,24 +95,6 @@ public abstract class CalendarViewFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                //i2 = day, i1 = month - 1, i = year
-                //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
-                y = i;
-                m = i1 + 1;
-                d = i2;
-
-                final String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
-
-                date = t;
-
-                Toast.makeText(getContext(), t, Toast.LENGTH_SHORT).show();
-                goToCalendarActivity();
-            }
-        });
-
         preferences = this.getActivity().getSharedPreferences(SHAREDKEY, Context.MODE_PRIVATE);
 
         if(preferences.contains(NOTIFICATION_STAT))
@@ -161,6 +143,28 @@ public abstract class CalendarViewFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                //i2 = day, i1 = month - 1, i = year
+                //Toast.makeText(getContext(), i2 + "/" + Integer.toString(i1 + 1) + "/" + i, Toast.LENGTH_SHORT).show();
+                y = i;
+                m = i1 + 1;
+                d = i2;
+
+                final String t = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
+
+                date = t;
+
+                Toast.makeText(getContext(), t, Toast.LENGTH_SHORT).show();
+                goToCalendarActivity();
+            }
+        });
+    }
+
     private void chgBtnLgc()
     {
         //switch, so if true turn off, if false turn on
@@ -180,11 +184,6 @@ public abstract class CalendarViewFragment extends Fragment {
         editor = preferences.edit();
         editor.putBoolean(NOTIFICATION_STAT, onNotifications);
         editor.apply();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override

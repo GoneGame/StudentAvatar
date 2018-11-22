@@ -9,19 +9,37 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Switch;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import atk.studentavatar.CalendarFilter;
 import atk.studentavatar.R;
+import atk.studentavatar.models.Club;
+import atk.studentavatar.models.Unit;
 
 
 public class CalendarFilterFragment extends Fragment {
 
     public static final String SHAREDFILTERKEY = "filter";
     public static final String FILTERSTAT = "filter status";
+
+    private Context con;
+
+    private DatabaseReference reference;
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
@@ -30,6 +48,13 @@ public class CalendarFilterFragment extends Fragment {
 
     private String tempp;
     private Switch event, unit, club;
+
+    private MultiAutoCompleteTextView multiUnit;
+    private String selectUnit;
+
+    private HashMap<String, String> filterMap;
+    private ArrayList<String> filterName;
+
 
     private CalendarFilter calendarFilter;
 
@@ -42,6 +67,19 @@ public class CalendarFilterFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+            con = context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +113,7 @@ public class CalendarFilterFragment extends Fragment {
             calendarFilter = new CalendarFilter();
         }
 
+        reference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -85,6 +124,14 @@ public class CalendarFilterFragment extends Fragment {
         event = view.findViewById(R.id.switchGeneral);
         unit = view.findViewById(R.id.switchUnit);
         club = view.findViewById(R.id.switchClub);
+
+        multiUnit = view.findViewById(R.id.multiAutoCompleteTextView_unit);
+
+
+        multiUnit.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        multiUnit.setThreshold(0);
+
+        multiUnit.setText(calendarFilter.lel);
 
         event.setChecked(calendarFilter.general);
         unit.setChecked(calendarFilter.unit);
@@ -104,6 +151,24 @@ public class CalendarFilterFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        filterMap = new HashMap<String, String>();
+        filterName = new ArrayList<String>();
+
+        genUnit();
+        genClub();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(con, R.layout.item_array_adapt, filterName);
+
+        multiUnit.setAdapter(adapter);
+
+        multiUnit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                multiUnit.showDropDown();
+            }
+        });
+
 
     }
 
@@ -131,15 +196,54 @@ public class CalendarFilterFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    private void genUnit()
+    {
+        Query query = reference.child("unit");
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    Unit unit = snapshot.getValue(Unit.class);
+
+                    if (unit != null) {
+                        filterMap.put(snapshot.getKey(), unit.code + " " + unit.name);
+                        filterName.add(unit.code + " " + unit.name);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("unit", "error loading unit");
+            }
+        });
+    }
+
+    private void genClub() {
+        Query query = reference.child("club");
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    Club club = snapshot.getValue(Club.class);
+
+                    if (club != null) {
+                        filterMap.put(snapshot.getKey(), club.name);
+                        filterName.add(club.name);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("club", "error loading club");
+            }
+        });
     }
 
     @Override
@@ -161,7 +265,39 @@ public class CalendarFilterFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("stop", "see test");
+
+
+        selectUnit = multiUnit.getText().toString();
+
+        Log.d("stop", selectUnit.trim());
+        Log.d("stop", calendarFilter.lel.trim());
+
+        if(!selectUnit.trim().equals(calendarFilter.lel.trim()))
+        {
+            calendarFilter.idList.clear();
+            calendarFilter.lel = "";
+
+            String temp[] = selectUnit.trim().split("\\s*,\\s*");
+
+            for(String d : temp)
+            {
+                for(Map.Entry<String, String> entry : filterMap.entrySet())
+                {
+                    if(d.equals(entry.getValue()))
+                    {
+                        calendarFilter.idList.add(entry.getKey());
+                        calendarFilter.lel = calendarFilter.lel + entry.getValue() + ", ";
+                    }
+                }
+            }
+        }
+
+        for(String g : calendarFilter.idList)
+        {
+
+            Log.d("lop", g);
+        }
+
         editor = preferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(calendarFilter);

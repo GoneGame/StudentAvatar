@@ -53,5 +53,19 @@
         android:textSize="18sp"
         android:text="@string/filterClub" />
 
+    <MultiAutoCompleteTextView
+        android:id="@+id/multiAutoCompleteTextView_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/filterHint"/>
+
+    <TextView
+        android:id="@+id/textViewMoreHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:text="@string/filterHintHint" />
+
 
 </LinearLayout>

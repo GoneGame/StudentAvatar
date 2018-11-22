@@ -59,6 +59,10 @@
     <string name="filterUnit">Units</string>
     <string name="filterClub">Clubs</string>
 
+    <string name="filterHint">Tap to choose unit/club to show</string>
+
+    <string name="filterHintHint">You may keep tapping to add more items to filter. These entries will override the switch above</string>
+
     <!--calendar filter strings end-->
 
     <!--Link strings start-->
