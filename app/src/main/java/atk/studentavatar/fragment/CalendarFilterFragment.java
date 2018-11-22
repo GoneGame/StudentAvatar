@@ -168,8 +168,7 @@ public class CalendarFilterFragment extends Fragment {
                 multiUnit.showDropDown();
             }
         });
-
-
+        
     }
 
     private void OnOff()
