@@ -26,11 +26,11 @@ import atk.studentavatar.models.Event;
 public class NotificationRecycler {
 
     private String _title;
+    private String _desc;
+    private String _time;
     private long _exactTimeMili;
 
     private Context _context;
-
-    //public boolean endToday = false;
 
     public NotificationRecycler(Context context) {
         this._context = context;
@@ -62,35 +62,28 @@ public class NotificationRecycler {
         return miliToday;
     }
 
-    private void scheduleNotification(boolean btnclk) {
+    private void scheduleNotification() {
 
-        if(btnclk)
-        {
-            Intent intent = new Intent(_context, NotificationPubCycle.class);
-            intent.putExtra(NotificationPubCycle.NOTE_ID, 1);
-            intent.putExtra(NotificationPubCycle.NOTE_INTENT_KEY, getNotification(_title));
+        Intent intent = new Intent(_context, NotificationPubCycle.class);
+        intent.putExtra(NotificationPubCycle.NOTE_ID, 1);
+        intent.putExtra(NotificationPubCycle.NOTE_INTENT_KEY, getNotification());
 
-            int ticks = (int) System.currentTimeMillis();
-            //get unique number with system time in milliseconds
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, ticks, intent, PendingIntent.FLAG_ONE_SHOT);
+        int ticks = (int) System.currentTimeMillis();
+        //get unique number with system time in milliseconds
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, ticks, intent, PendingIntent.FLAG_ONE_SHOT);
 
-            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                //set exact time alarm will trigger pending Intent
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, _exactTimeMili, pendingIntent);
-            }
-        }
-        else
-        {
-            Log.d("end", "no more notifications today");
+        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            //set exact time alarm will trigger pending Intent
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, _exactTimeMili, pendingIntent);
         }
     }
 
-    private Notification getNotification(String title)
+    private Notification getNotification()
     {
         Notification.Builder builder = new Notification.Builder(_context);
-        builder.setContentTitle(title);
-        builder.setContentText("test notifications");
+        builder.setContentTitle(_title);
+        builder.setContentText(_time + "  |  " + _desc);
         builder.setSmallIcon(R.drawable.ic_calendar_text_black_18dp);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(alarmSound);
@@ -115,10 +108,7 @@ public class NotificationRecycler {
                         Event event = ss.getValue(Event.class);
 
                         Log.d("key", ss.getKey());
-
                         Log.d("title", event.title);
-                        //Log.d("first date", entry.getKey());
-
                         Log.d("timeStart", event.timenote);
 
                         String startTime = event.timenote;
@@ -135,12 +125,15 @@ public class NotificationRecycler {
                             if(miliTodayTimePrecise > System.currentTimeMillis())
                             {
                                 _title = event.title;
+                                _time = event.time;
+                                _desc = event.desc;
+
                                 _exactTimeMili = miliTodayTimePrecise;
 
                                 Log.d("timecomp", Long.toString(System.currentTimeMillis()));
                                 Log.d("timesche", Long.toString(_exactTimeMili));
 
-                                scheduleNotification(b);
+                                scheduleNotification();
                                 break;
                             }
                             else

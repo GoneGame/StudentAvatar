@@ -177,10 +177,13 @@ public class CalendarCardViewFragment extends Fragment {
                 holder.btn_guiderel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.d("holder", model.guiderel);
-                        Intent intent = new Intent(getActivity(), GuideActivity.class);
-                        intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, model.guiderel);
-                        startActivity(intent);
+                        if(!model.guiderel.equals("none"))
+                        {
+                            Log.d("holder", model.guiderel);
+                            Intent intent = new Intent(getActivity(), GuideActivity.class);
+                            intent.putExtra(GuideActivity.EXTRA_GUIDE_KEY, model.guiderel);
+                            startActivity(intent);
+                        }
                     }
                 });
 

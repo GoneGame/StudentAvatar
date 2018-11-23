@@ -16,53 +16,54 @@
 
         <TextView
             android:id="@+id/TextView_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
+            android:text="@string/titleText"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
             android:textColor="#000000"
-            android:text="@string/titleText"/>
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/TextView_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textStyle="italic"
+            android:text="@string/timeText"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/TextView_relateTo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:gravity="end"
-            android:layout_toEndOf="@+id/TextView_title"
+            android:layout_below="@+id/TextView_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="7dp"
             android:text="@string/subTitleText"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/TextView_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
-            android:textColor="#000000"
-            android:layout_below="@+id/TextView_title"
-            android:text="@string/timeText"/>
-
-        <TextView
             android:id="@+id/TextView_location"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginStart="25dp"
-            android:textColor="#000000"
+            android:gravity="end"
+            android:textStyle="italic"
             android:layout_below="@+id/TextView_time"
-            android:text="@string/locationText"/>
+            android:layout_marginTop="3dp"
+            android:text="@string/locationText"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/TextView_desc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginStart="25dp"
+            android:layout_below="@+id/TextView_relateTo"
+            android:layout_marginTop="10dp"
+            android:text="@string/descText"
             android:textColor="#000000"
-            android:layout_below="@+id/TextView_location"
             android:visibility="gone"
-            android:text="@string/descText"/>
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/Button_gotoGuide"
@@ -71,7 +72,7 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/TextView_desc"
             android:visibility="gone"
-            android:text="@string/guideButton"/>
+            android:text="@string/guideButton" />
 
     </RelativeLayout>
 
